@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Overview: app_base</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2; /* Blue */
+            --secondary-color: #50E3C2; /* Teal */
+            --text-color: #333;
+            --light-text-color: #666;
+            --background-color: #F8F9FA;
+            --card-background: #FFFFFF;
+            --border-color: #E0E0E0;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: var(--background-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.3em;
+            color: var(--text-color);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px var(--shadow-color);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        ul {
+            list-style-type: none; /* Remove default bullet */
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: var(--light-text-color);
+        }
+
+        ul li::before {
+            content: '•'; /* Custom bullet */
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        ul ul {
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+
+        ul ul li::before {
+            content: '—'; /* Custom sub-bullet */
+            color: var(--primary-color);
+            font-size: 1em;
+        }
+
+        ol {
+            padding-left: 20px;
+            color: var(--light-text-color);
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background-color: #F0F0F0;
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #C0392B;
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .note {
+            background-color: #EBF5FB;
+            border-left: 6px solid var(--primary-color);
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 8px;
+            color: var(--light-text-color);
+            font-style: italic;
+        }
+
+        .note p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Overview: app_base</h1>
+
+    <div class="section">
+        <h2>1. 프로젝트 목표</h2>
+        <p>이 프로젝트는 React Native와 Expo로 구축된 모바일 애플리케이션입니다. 백엔드 서비스에는 Firebase를 사용하며 TypeScript로 작성되었습니다. 이 프로젝트의 궁극적인 목표는 <strong>모든 새로운 모바일 앱 개발의 견고한 기본 베이스를 구축</strong>하는 것입니다. 이를 통해 앱 아이디어가 생길 때마다 이 베이스에 필요한 기능만 추가하여 빠르고 효율적으로 개발할 수 있도록 합니다. 특히, UI 및 백엔드 통합을 위해 Model Context Protocol (MCP)을 실험적으로 도입하여, 앱 개발의 초기 설정을 최소화하고 핵심 기능 구현에 집중할 수 있는 환경을 마련하는 것을 목표로 합니다.</p>
+    </div>
+
+    <div class="section">
+        <h2>2. 기술 스택</h2>
+        <ul>
+            <li><strong>프레임워크</strong>: React Native with Expo</li>
+            <li><strong>언어</strong>: TypeScript</li>
+            <li><strong>내비게이션</strong>: React Navigation</li>
+            <li><strong>백엔드</strong>: Firebase</li>
+            <li><strong>폰트</strong>: @expo-google-fonts/roboto</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>3. 프로젝트 구조</h2>
+        <ul>
+            <li><code>index.ts</code>: 애플리케이션의 진입점.</li>
+            <li><code>src/</code>: 주요 소스 코드 포함.
+                <ul>
+                    <li><code>App.tsx</code>: Firebase 및 메인 내비게이터를 초기화하는 애플리케이션의 루트 컴포넌트.</li>
+                    <li><code>components/</code>: 재사용 가능한 UI 컴포넌트 디렉토리.</li>
+                    <li><code>config/</code>: Firebase 설정(<code>firebaseConfig.ts</code>)을 포함한 설정 파일.</li>
+                    <li><code>navigation/</code>: React Navigation을 사용한 내비게이션 설정.
+                        <ul>
+                            <li><code>AppNavigator.tsx</code>: 앱의 메인 스택 내비게이터 정의.</li>
+                        </ul>
+                    </li>
+                    <li><code>screens/</code>: 애플리케이션의 다양한 화면 포함.
+                        <ul>
+                            <li><code>HomeScreen.tsx</code>: 앱 실행 후 표시되는 메인 화면.</li>
+                            <li><code>DetailScreen.tsx</code>: 상세 정보를 표시하기 위한 화면.</li>
+                            <li><code>SettingsScreen.tsx</code>: 애플리케이션 설정을 위한 화면.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><code>package.json</code>: 프로젝트 의존성 및 스크립트 목록.</li>
+            <li><code>tsconfig.json</code>: TypeScript 컴파일러 설정.</li>
+            <li><code>app.json</code>: Expo 설정 파일.</li>
+            <li><code>assets/</code>: 이미지 및 아이콘과 같은 정적 자산.</li>
+            <li><code>android/</code> 및 <code>ios/</code>: 네이티브 프로젝트 디렉토리 (Expo에서 관리).</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>4. 실행 방법</h2>
+        <ol>
+            <li>의존성 설치: <code>npm install</code></li>
+            <li>개발 서버 시작: <code>npm start</code></li>
+            <li>Android에서 실행: <code>npm run android</code></li>
+            <li>iOS에서 실행: <code>npm run ios</code></li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>5. 오늘의 작업 및 목표 (2025년 8월 5일 화요일)</h2>
+        <p>현재 기초 UI 작업을 진행 중이며, 여기에 <strong>Model Context Protocol (MCP)</strong>을 실험적으로 통합하려는 시도를 하고 있습니다.</p>
+        <ul>
+            <li><strong>MCP 연구 진행</strong>:
+                <ul>
+                    <li><a href="https://github.com/modelcontextprotocol">modelcontextprotocol</a> (MCP의 기초 서버 예시) 및 <a href="https://github.com/modelcontextprotocol/servers">servers</a> (기존 MCP 서버 모음) 두 가지 GitHub 저장소를 탐색했습니다.</li>
+                    <li><code>servers</code> 저장소에 있는 기존 MCP 서버를 활용하여 UI 관련 MCP 및 Firebase MCP를 <code>app_base</code>에 통합할 계획입니다.</li>
+                </ul>
+            </li>
+            <li><strong>Figma 관련 이슈</strong>:
+                <ul>
+                    <li>Figma Dev Mode (유료 기능)가 MCP 관련 접근에 필요하다는 것을 확인했습니다.</li>
+                    <li>현재로서는 이 부분을 <strong>보류</strong>하고 있습니다.</li>
+                </ul>
+            </li>
+            <li><strong>최종 목표</strong>:
+                <ul>
+                    <li>UI 관련 MCP와 Firebase MCP를 <code>app_base</code>에 통합하여, UI와 간단한 백엔드를 미리 구성해두는 것입니다.</li>
+                    <li>이를 통해 새로운 앱 아이디어가 생겼을 때, 이 <code>app_base</code>를 기본으로 삼아 필요한 기능만 추가하여 빠르게 개발할 수 있도록 할 예정입니다.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="note">
+        <p>이 문서는 프로젝트의 목적, 기술 스택, 구조 및 실행 방법을 명확하고 간결하게 요약하여 프로젝트를 쉽게 이해할 수 있도록 돕습니다. 또한, 오늘 진행된 작업 내용과 향후 목표를 포함하여 프로젝트의 현재 상태를 반영합니다.</p>
+    </div>
+</body>
+</html>
