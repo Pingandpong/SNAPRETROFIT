@@ -61,4 +61,9 @@ This `GEMINI.md` file provides a clear and concise overview of the project, maki
 
 ## 참고 링크 
 
-MCP git hub - https://github.com/modelcontextprotocol
+
+MCP git hub main - https://github.com/modelcontextprotocol
+
+MCP 기본 개념 git - https://github.com/modelcontextprotocol/modelcontextprotocol
+
+MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
