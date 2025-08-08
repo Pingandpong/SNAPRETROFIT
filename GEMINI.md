@@ -83,21 +83,24 @@ MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
 - (옵션) **Fetch** — 외부 문서/디자인 가이드 가져오기
 - (옵션) **Time** — 로그 시간 처리, 타임스탬프 변환
 
-"""### 초기 세팅 절차
+### 초기 세팅 절차
 1. VS Code에 MCP 클라이언트 확장 설치
 2. `servers` 레포에서 필요한 MCP 서버(Filesystem, Git, Commands) 설치
-3. Commands 서버에 화이트리스트 명령 등록:
-   ```json
-   {
-     "allowed": ["npx expo lint", "npx expo prebuild", "npx expo start"]
-   }
-   ```
-4. Gemini CLI는 VS Code 터미널에서 바로 사용 가능
+   - **Commands 서버 설치**:
+     ```bash
+     npm install -g mcp-server-commands
+     ```
+   - **Commands 서버 설정 파일 생성 (`mcp-server-commands.json`)**:
+     프로젝트 루트에 다음 내용으로 파일을 생성합니다.
+     ```json
+     {
+       "allowed": ["npx expo lint", "npx expo prebuild", "npx expo start"]
+     }
+     ```
+3. Gemini CLI는 VS Code 터미널에서 바로 사용 가능
 
 #### MCP 서버 실행 명령어
 아래 명령어들을 터미널에서 순서대로 실행하여 MCP 서버 환경을 구축합니다.
-
-
 
 1.  **MCP Filesystem 서버 실행 (백그라운드)**
     ```bash
@@ -109,7 +112,12 @@ MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
     python -m mcp_server_git --repository . &
     ```
 
-### 권장 워크플로우""
+3.  **MCP Commands 서버 실행 (백그라운드)**
+    ```bash
+    mcp-server-commands &
+    ```
+
+### 권장 워크플로우
 1. MCP Filesystem으로 코드 읽기 → Gemini CLI로 UI 리뷰
 2. Gemini의 제안 중 일부를 적용
 3. MCP Commands로 `npx expo lint` 실행 → 로그를 Gemini CLI로 전달해 재분석
@@ -125,4 +133,6 @@ MCP git hub main - https://github.com/modelcontextprotocol
 
 MCP 기본 개념 git - https://github.com/modelcontextprotocol/modelcontextprotocol
 
-MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
+MCP 서버 모음 git - https://github.com/modelcontextprotocol/servers
+
+GEMINI_CLI_MCP DOC -https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md

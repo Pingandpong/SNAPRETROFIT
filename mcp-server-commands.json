@@ -1,0 +1,7 @@
+{
+  "allowed": [
+    "npx expo lint",
+    "npx expo prebuild",
+    "npx expo start"
+  ]
+}

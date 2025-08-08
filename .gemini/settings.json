@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "filesystemServer": {
+      "command": "npx",
+      "args": ["mcp-filesystem-server"],
+      "cwd": "."
+    },
+    "gitServer": {
+      "command": "python",
+      "args": ["-m", "mcp_server_git", "--repository", "."],
+      "cwd": "."
+    },
+    "commandsServer": {
+      "command": "mcp-server-commands",
+      "args": [],
+      "cwd": "."
+    }
+  }
+}
