@@ -67,3 +67,62 @@ MCP git hub main - https://github.com/modelcontextprotocol
 MCP 기본 개념 git - https://github.com/modelcontextprotocol/modelcontextprotocol
 
 MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
+
+## 4-1. VS Code에서 Gemini CLI + MCP 서버 병행 사용
+
+이 프로젝트는 VS Code 환경에서 **Gemini CLI**와 [기성 MCP 서버](https://github.com/modelcontextprotocol/servers)를 함께 사용하여 개발 생산성을 높입니다.
+
+### 목적
+- **Gemini CLI**: UI 리뷰, 리팩터 제안, 문구 생성 등 창의적·분석 작업
+- **MCP 서버**: 파일 읽기/쓰기, Git 히스토리 확인, 명령 실행 등 로컬 액션
+
+### 추천 MCP 서버 조합
+- **Filesystem** — RN 컴포넌트/스크린 파일 읽기·쓰기
+- **Git** — 변경사항 diff/commit 로그 확인
+- **Commands** — 터미널 명령 실행 (`npx expo lint`, `prebuild`, `start` 등)
+- (옵션) **Fetch** — 외부 문서/디자인 가이드 가져오기
+- (옵션) **Time** — 로그 시간 처리, 타임스탬프 변환
+
+"""### 초기 세팅 절차
+1. VS Code에 MCP 클라이언트 확장 설치
+2. `servers` 레포에서 필요한 MCP 서버(Filesystem, Git, Commands) 설치
+3. Commands 서버에 화이트리스트 명령 등록:
+   ```json
+   {
+     "allowed": ["npx expo lint", "npx expo prebuild", "npx expo start"]
+   }
+   ```
+4. Gemini CLI는 VS Code 터미널에서 바로 사용 가능
+
+#### MCP 서버 실행 명령어
+아래 명령어들을 터미널에서 순서대로 실행하여 MCP 서버 환경을 구축합니다.
+
+
+
+1.  **MCP Filesystem 서버 실행 (백그라운드)**
+    ```bash
+    npx mcp-filesystem-server &
+    ```
+
+2.  **MCP Git 서버 실행 (백그라운드)**
+    ```bash
+    python -m mcp_server_git --repository . &
+    ```
+
+### 권장 워크플로우""
+1. MCP Filesystem으로 코드 읽기 → Gemini CLI로 UI 리뷰
+2. Gemini의 제안 중 일부를 적용
+3. MCP Commands로 `npx expo lint` 실행 → 로그를 Gemini CLI로 전달해 재분석
+4. 필요 시 MCP Git으로 diff 확인 후 커밋
+
+이 방식으로 **UI 리뷰**와 **명령 실행/파일 관리**를 VS Code 안에서 모두 처리할 수 있으며, 복사·붙여넣기 과정을 최소화할 수 있습니다.
+
+
+
+### 참고 링크
+
+MCP git hub main - https://github.com/modelcontextprotocol
+
+MCP 기본 개념 git - https://github.com/modelcontextprotocol/modelcontextprotocol
+
+MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
