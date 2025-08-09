@@ -14,6 +14,11 @@
       "command": "mcp-server-commands",
       "args": [],
       "cwd": "."
+    },
+    "screenshotServer": {
+      "command": "screenshot_mcp_server-server",
+      "args": [],
+      "cwd": "mcp_servers/screenshot_mcp_server"
     }
   }
 }
