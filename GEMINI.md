@@ -10,6 +10,7 @@
 - **Language**: TypeScript
 - **Navigation**: React Navigation
 - **Backend**: Firebase
+- **UI Framework**: Gluestack UI
 - **Fonts**: @expo-google-fonts/roboto
 
 ## 3. Project Structure
@@ -38,6 +39,7 @@ The current development is focused on integrating **Model Context Protocol (MCP)
 - **MCP Exploration**: Investigating `modelcontextprotocol` (foundational server examples) and `servers` (collection of existing MCP servers) GitHub repositories. The plan is to leverage existing MCP servers from the `servers` repository.
 - **Integration Goal**: To integrate UI-related MCP and Firebase MCP into `app_base`, pre-configuring both the UI and a basic backend. This will allow for rapid development of new app ideas by building upon this pre-established foundation.
 - **Figma Consideration**: Noted that Figma Dev Mode (paid feature) is required for full MCP-related access, and this aspect is currently on hold.
+- **UI Refactoring**: Ongoing refactoring of UI components to utilize Gluestack UI for a consistent and efficient development experience.
 
 ## 5. How to Run
 
@@ -76,46 +78,15 @@ MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
 - **Gemini CLI**: UI 리뷰, 리팩터 제안, 문구 생성 등 창의적·분석 작업
 - **MCP 서버**: 파일 읽기/쓰기, Git 히스토리 확인, 명령 실행 등 로컬 액션
 
-### 추천 MCP 서버 조합
-- **Filesystem** — RN 컴포넌트/스크린 파일 읽기·쓰기
-- **Git** — 변경사항 diff/commit 로그 확인
-- **Commands** — 터미널 명령 실행 (`npx expo lint`, `prebuild`, `start` 등)
-- (옵션) **Fetch** — 외부 문서/디자인 가이드 가져오기
-- (옵션) **Time** — 로그 시간 처리, 타임스탬프 변환
+### 활용 가능한 MCP 서버
+이 프로젝트는 `.gemini/settings.json` 파일에 다음 MCP 서버들이 미리 설정되어 있으며, Gemini CLI에서 바로 활용할 수 있습니다.
 
-### 초기 세팅 절차
-1. VS Code에 MCP 클라이언트 확장 설치
-2. `servers` 레포에서 필요한 MCP 서버(Filesystem, Git, Commands) 설치
-   - **Commands 서버 설치**:
-     ```bash
-     npm install -g mcp-server-commands
-     ```
-   - **Commands 서버 설정 파일 생성 (`mcp-server-commands.json`)**:
-     프로젝트 루트에 다음 내용으로 파일을 생성합니다.
-     ```json
-     {
-       "allowed": ["npx expo lint", "npx expo prebuild", "npx expo start"]
-     }
-     ```
-3. Gemini CLI는 VS Code 터미널에서 바로 사용 가능
+- **Filesystem**: 파일 읽기/쓰기, RN 컴포넌트/스크린 파일 관리
+- **Git**: 변경사항 diff/commit 로그 확인, Git 작업 수행
+- **Commands**: 터미널 명령 실행 (`npx expo lint`, `prebuild`, `start` 등)
+- **Screenshot**: 사용자 화면 스크린샷 촬영
 
-#### MCP 서버 실행 명령어
-아래 명령어들을 터미널에서 순서대로 실행하여 MCP 서버 환경을 구축합니다.
-
-1.  **MCP Filesystem 서버 실행 (백그라운드)**
-    ```bash
-    npx mcp-filesystem-server &
-    ```
-
-2.  **MCP Git 서버 실행 (백그라운드)**
-    ```bash
-    python -m mcp_server_git --repository . &
-    ```
-
-3.  **MCP Commands 서버 실행 (백그라운드)**
-    ```bash
-    mcp-server-commands &
-    ```
+이 서버들은 별도의 설치나 실행 명령어 없이 Gemini CLI를 통해 자동으로 연동됩니다.
 
 ### 권장 워크플로우
 1. MCP Filesystem으로 코드 읽기 → Gemini CLI로 UI 리뷰
