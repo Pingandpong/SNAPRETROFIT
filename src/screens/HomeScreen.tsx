@@ -2,6 +2,7 @@ import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Text as GluestackText, Button, ButtonText } from '@gluestack-ui/themed'; // Gluestack UI Button 추가
+import AppCard from '../components/AppCard';
 
 // 기존 react-native 및 react-native-paper 임포트 제거
 // import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
@@ -47,25 +48,19 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         </Box>
 
         {/* React Native Paper의 Card 컴포넌트 사용 예시 */}
-                <Box w="$full" mx="auto" marginVertical={10} borderRadius={12} shadowColor="$black" shadowOffset={{ width: 0, height: 2 }} shadowOpacity={0.25} shadowRadius={3.84} elevation={5} bg="$backgroundLight0">
-          <Box p="$4">
-            <GluestackText fontSize="$lg" fontWeight="$bold" color="$textLight900">첫 번째 카드</GluestackText>
-            <GluestackText fontSize="$md" color="$textLight600">이것은 React Native Paper의 카드 컴포넌트입니다.</GluestackText>
-          </Box>
-          <Box flexDirection="row" justifyContent="flex-end" p="$2">
-            <Button onPress={() => navigation.navigate('Detail')} marginHorizontal={8}><ButtonText>상세 화면으로</ButtonText></Button>
-          </Box>
-        </Box>
+                <AppCard
+          title="첫 번째 카드"
+          description="이것은 React Native Paper의 카드 컴포넌트입니다."
+          navigateTo="Detail"
+          buttonText="상세 화면으로"
+        />
 
-                <Box w="$full" mx="auto" marginVertical={10} borderRadius={12} shadowColor="$black" shadowOffset={{ width: 0, height: 2 }} shadowOpacity={0.25} shadowRadius={3.84} elevation={5} bg="$backgroundLight0">
-          <Box p="$4">
-            <GluestackText fontSize="$lg" fontWeight="$bold" color="$textLight900">두 번째 카드</GluestackText>
-            <GluestackText fontSize="$md" color="$textLight600">다양한 정보를 표시하는 데 활용할 수 있습니다.</GluestackText>
-          </Box>
-          <Box flexDirection="row" justifyContent="flex-end" p="$2">
-            <Button onPress={() => navigation.navigate('Settings')} marginHorizontal={8}><ButtonText>설정 화면으로</ButtonText></Button>
-          </Box>
-        </Box>
+                        <AppCard
+          title="두 번째 카드"
+          description="다양한 정보를 표시하는 데 활용할 수 있습니다."
+          navigateTo="Settings"
+          buttonText="설정 화면으로"
+        />
       </Box>
     </Box>
   );

@@ -1,20 +1,25 @@
 
-Logs for your project will appear below. Press Ctrl+C to exit.
-› Opening on Android...
-› Opening exp://192.168.219.101:8081 on Medium_Phone_API_35
 › Press ? │ show all commands
-› Opening on Android...
-› Opening exp://192.168.219.101:8081 on Medium_Phone_API_35
-› Press ? │ show all commands
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
-Android Bundled 3683ms index.ts (2408 modules)
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
-| [Reanimated] Seems like you are using a Babel plugin `react-native-reanimated/plugin`. It was moved to `react-native-worklets` package. Please use `react-native-worklets/plugin` instead.
- ERROR  Warning: ReferenceError: Property 'styles' doesn't exist
+Android Bundled 6073ms index.ts (2240 modules)
+ ERROR  React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s object  You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+ ERROR  React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s object  You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+ ERROR  Warning: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `App`.
 
 This error is located at:
+
+Call Stack
+  ToastProvider (node_modules\@gluestack-ui\toast\src\Toast.tsx)
+  PortalProvider (node_modules\@react-native-aria\overlays\src\Portal.tsx)
+  StyledProvider (node_modules\@gluestack-style\react\src\StyledProvider.tsx)
+  ProviderImpl (node_modules\@gluestack-ui\provider\src\Provider.tsx)
+  GluestackUIProvider (node_modules\@gluestack-ui\themed\build\components\Provider\index.js)
+  App (src\App.tsx)
+  WithDevTools (node_modules\expo\src\launch\withDevTools.tsx)
+  RCTView (<anonymous>)
+  React.forwardRef$argument_0 (node_modules\react-native\Libraries\Components\View\View.js)
+  RCTView (<anonymous>)
+  React.forwardRef$argument_0 (node_modules\react-native\Libraries\Components\View\View.js)
+  AppContainer (node_modules\react-native\Libraries\ReactNative\AppContainer-dev.js)
+  main(RootComponent) (http:\192.168.219.101:8081\index.ts.bundle)

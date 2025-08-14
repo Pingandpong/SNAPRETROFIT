@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button, Appbar } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Box, Text as GluestackText, Button, ButtonText, ButtonIcon, ArrowLeftIcon } from '@gluestack-ui/themed';
 
 type RootStackParamList = {
   Home: undefined;
@@ -13,35 +12,35 @@ type DetailScreenProps = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
 const DetailScreen = ({ navigation }: DetailScreenProps) => {
   return (
-    <View style={styles.container}>
-      <Appbar.Header style={{ backgroundColor: '#FFFBFE', elevation: 0 }}>
-        <Appbar.BackAction onPress={() => navigation.goBack()} color="#1C1B1F" />
-        <Appbar.Content title="상세 화면" color="#1C1B1F" />
-      </Appbar.Header>
-      <View style={styles.content}>
-        <Text style={styles.text}>여기는 상세 화면입니다.</Text>
-        <Button mode="contained" onPress={() => navigation.navigate('Home')}>
-          홈으로 이동
+    <Box flex={1}>
+      <Box
+        flexDirection="row"
+        alignItems="center"
+        px="$4"
+        py="$3"
+        bg="$backgroundLight0"
+        borderBottomWidth="$1"
+        borderBottomColor="$borderLight200"
+      >
+        <Button variant="link" onPress={() => navigation.goBack()} p="$0">
+          <ButtonIcon as={ArrowLeftIcon} size="xl" color="$textLight900" />
         </Button>
-      </View>
-    </View>
+        <GluestackText fontSize="$xl" fontWeight="$bold" color="$textLight900" ml="$3">
+          상세 화면
+        </GluestackText>
+      </Box>
+      <Box flex={1} justifyContent="center" alignItems="center" p="$5">
+        <GluestackText fontSize="$xl" mb="$5">
+          여기는 상세 화면입니다.
+        </GluestackText>
+        <Button onPress={() => navigation.navigate('Home')}>
+          <ButtonText>홈으로 이동</ButtonText>
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  text: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-});
+
 
 export default DetailScreen;

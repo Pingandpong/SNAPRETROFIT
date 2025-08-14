@@ -6,11 +6,12 @@ type RootStackParamList = {
   Home: undefined;
   Detail: undefined;
   Settings: undefined;
+  Profile: undefined;
 };
 
-type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
+type ProfileScreenProps = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
-const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
   return (
     <Box flex={1}>
       <Box
@@ -26,18 +27,16 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           <ButtonIcon as={ArrowLeftIcon} size="xl" color="$textLight900" />
         </Button>
         <GluestackText fontSize="$xl" fontWeight="$bold" color="$textLight900" ml="$3">
-          설정 화면
+          프로필 화면
         </GluestackText>
       </Box>
       <Box flex={1} justifyContent="center" alignItems="center" p="$5">
         <GluestackText fontSize="$xl">
-          여기는 설정 화면입니다.
+          여기는 프로필 화면입니다.
         </GluestackText>
       </Box>
     </Box>
   );
 };
 
-
-
-export default SettingsScreen;
+export default ProfileScreen;
