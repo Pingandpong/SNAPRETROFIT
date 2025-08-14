@@ -1,30 +1,28 @@
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Box, Text as GluestackText, Button, ButtonText } from '@gluestack-ui/themed'; // Gluestack UI Button 추가
+import { Box, Text as GluestackText } from '@gluestack-ui/themed';
 import AppCard from '../components/AppCard';
-
-// 기존 react-native 및 react-native-paper 임포트 제거
-// import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-// import { Card, Title, Paragraph, Button, useTheme } from 'react-native-paper';
-
-
+import { useTranslation } from 'react-i18next';
 
 type RootStackParamList = {
   Home: undefined;
   Detail: undefined;
   Settings: undefined;
+  Payment: undefined;
 };
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
+  const { t } = useTranslation();
+
   return (
     <Box flex={1} bg="$backgroundLight0">
       <Box flex={1} justifyContent="flex-start" alignItems="center" paddingTop={20}>
         <Box flexDirection="row" alignItems="center" marginBottom={20} w="$full" mx="auto" justifyContent="flex-start">
           <MaterialCommunityIcons name="home" size={28} color="$textLight900" />
-          <GluestackText fontSize="$xl" fontWeight="$bold" marginLeft={10}>Home Screen</GluestackText>
+          <GluestackText fontSize="$xl" fontWeight="$bold" marginLeft={10}>{t('home_title')}</GluestackText>
         </Box>
 
         {/* Gluestack UI Test Component */}
@@ -43,29 +41,35 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         </Box>
 
         <Box w="$full" mx="auto" marginBottom={30} padding={16} borderRadius={12} bg="$primary500">
-          <GluestackText color="$white" fontSize="$2xl" fontWeight="$bold" marginBottom={8}>환영합니다!</GluestackText>
-          <GluestackText color="$white" fontSize="$md" lineHeight={24}>이 앱은 React Native와 Expo로 만들어진 샘플 앱입니다.</GluestackText>
+          <GluestackText color="$white" fontSize="$2xl" fontWeight="$bold" marginBottom={8}>{t('welcome')}</GluestackText>
+          <GluestackText color="$white" fontSize="$md" lineHeight={24}>{t('welcome_message')}</GluestackText>
         </Box>
 
         {/* React Native Paper의 Card 컴포넌트 사용 예시 */}
-                <AppCard
-          title="첫 번째 카드"
-          description="이것은 React Native Paper의 카드 컴포넌트입니다."
+        <AppCard
+          title={t('card1_title')}
+          description={t('card1_description')}
           navigateTo="Detail"
-          buttonText="상세 화면으로"
+          buttonText={t('card1_button')}
         />
 
-                        <AppCard
-          title="두 번째 카드"
-          description="다양한 정보를 표시하는 데 활용할 수 있습니다."
+        <AppCard
+          title={t('card2_title')}
+          description={t('card2_description')}
           navigateTo="Settings"
-          buttonText="설정 화면으로"
+          buttonText={t('card2_button')}
+        />
+
+        <AppCard
+          title={t('payment_card_title')}
+          description={t('payment_card_description')}
+          navigateTo="Payment"
+          buttonText={t('payment_card_button')}
         />
       </Box>
     </Box>
   );
 };
 
-
-
 export default HomeScreen;
+

@@ -1,3 +1,4 @@
+import './services/i18n'; // Initialize i18next
 import './config/firebaseConfig'; // Initialize Firebase
 import AppNavigator from './navigation/AppNavigator';
 import { GluestackUIProvider } from '@gluestack-ui/themed';

@@ -1,0 +1,20 @@
+{
+  "welcome": "¡Bienvenido!",
+  "home_title": "Pantalla de inicio",
+  "welcome_message": "Esta es una aplicación de ejemplo creada con React Native y Expo.",
+  "card1_title": "Primera tarjeta",
+  "card1_description": "Este es un componente de tarjeta de React Native Paper.",
+  "card1_button": "A la pantalla de detalles",
+  "card2_title": "Segunda tarjeta",
+  "card2_description": "Se puede utilizar para mostrar diversa información.",
+  "card2_button": "A la pantalla de configuración",
+  "payment_card_title": "Pantalla de pago",
+  "payment_card_description": "Navegar a la pantalla para el procesamiento de pagos.",
+  "payment_card_button": "A la pantalla de pago",
+  "settings_title": "Pantalla de configuración",
+  "language_setting_title": "Configuración de idioma",
+  "change_to_korean": "Coreano",
+  "change_to_english": "Inglés",
+  "change_to_japanese": "Japonés",
+  "change_to_spanish": "Español"
+}

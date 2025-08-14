@@ -1,0 +1,20 @@
+{
+  "welcome": "Welcome!",
+  "home_title": "Home Screen",
+  "welcome_message": "This is a sample app built with React Native and Expo.",
+  "card1_title": "First Card",
+  "card1_description": "This is a card component from React Native Paper.",
+  "card1_button": "To Detail Screen",
+  "card2_title": "Second Card",
+  "card2_description": "It can be used to display various information.",
+  "card2_button": "To Settings Screen",
+  "payment_card_title": "Payment Screen",
+  "payment_card_description": "Navigate to the screen for payment processing.",
+  "payment_card_button": "To Payment Screen",
+  "settings_title": "Settings Screen",
+  "language_setting_title": "Language Settings",
+  "change_to_korean": "Korean",
+  "change_to_english": "English",
+  "change_to_japanese": "Japanese",
+  "change_to_spanish": "Spanish"
+}

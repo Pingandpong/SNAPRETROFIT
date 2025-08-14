@@ -1,0 +1,20 @@
+{
+  "welcome": "ようこそ！",
+  "home_title": "ホーム画面",
+  "welcome_message": "このアプリはReact NativeとExpoで作られたサンプルアプリです。",
+  "card1_title": "最初のカード",
+  "card1_description": "これはReact Native Paperのカードコンポーネントです。",
+  "card1_button": "詳細画面へ",
+  "card2_title": "2番目のカード",
+  "card2_description": "様々な情報を表示するために活用できます。",
+  "card2_button": "設定画面へ",
+  "payment_card_title": "決済画面",
+  "payment_card_description": "決済処理のための画面に移動します。",
+  "payment_card_button": "決済画面へ",
+  "settings_title": "設定画面",
+  "language_setting_title": "言語設定",
+  "change_to_korean": "韓国語",
+  "change_to_english": "英語",
+  "change_to_japanese": "日本語",
+  "change_to_spanish": "スペイン語"
+}
