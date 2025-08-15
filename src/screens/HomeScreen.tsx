@@ -4,25 +4,22 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Text as GluestackText } from '@gluestack-ui/themed';
 import AppCard from '../components/AppCard';
 import { useTranslation } from 'react-i18next';
-
-type RootStackParamList = {
-  Home: undefined;
-  Detail: undefined;
-  Settings: undefined;
-  Payment: undefined;
-};
+import { RootStackParamList } from '../navigation/types';
+import { useTheme } from '../context/ThemeContext';
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { t } = useTranslation();
+  const { colorMode } = useTheme(); // Call hook at the top level
 
   return (
-    <Box flex={1} bg="$backgroundLight0">
+    <Box flex={1} bg={colorMode === 'dark' ? '$backgroundDark' : '$backgroundLight'}>
       <Box flex={1} justifyContent="flex-start" alignItems="center" paddingTop={20}>
-        <Box flexDirection="row" alignItems="center" marginBottom={20} w="$full" mx="auto" justifyContent="flex-start">
-          <MaterialCommunityIcons name="home" size={28} color="$textLight900" />
-          <GluestackText fontSize="$xl" fontWeight="$bold" marginLeft={10}>{t('home_title')}</GluestackText>
+        <Box flexDirection="row" alignItems="center" marginBottom={20} w="$full" mx="auto" justifyContent="flex-start" px="$4">
+          {/* Use the variable from the hook */}
+          <MaterialCommunityIcons name="home" size={28} color={colorMode === 'dark' ? 'white' : 'black'} />
+          <GluestackText fontSize="$xl" fontWeight="$bold" marginLeft={10} color={colorMode === 'dark' ? '$textDark' : '$textLight'}>{t('home_title')}</GluestackText>
         </Box>
 
         {/* Gluestack UI Test Component */}
@@ -65,6 +62,13 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           description={t('payment_card_description')}
           navigateTo="Payment"
           buttonText={t('payment_card_button')}
+        />
+
+        <AppCard
+          title={t('list_card_title')}
+          description={t('list_card_description')}
+          navigateTo="List"
+          buttonText={t('list_card_button')}
         />
       </Box>
     </Box>

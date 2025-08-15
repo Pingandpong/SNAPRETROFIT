@@ -4,9 +4,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
+    "android": "DARK_MODE=media expo run:android",
+    "ios": "DARK_MODE=media expo run:ios",
+    "web": "DARK_MODE=media expo start --web",
     "lint": "expo lint"
   },
   "dependencies": {
@@ -14,10 +14,15 @@
     "@expo/vector-icons": "^14.1.0",
     "@gluestack-style/react": "^1.0.57",
     "@gluestack-ui/config": "^1.1.20",
+    "@gluestack-ui/icon": "^0.1.27",
+    "@gluestack-ui/nativewind-utils": "^1.0.26",
+    "@gluestack-ui/overlay": "^0.1.22",
     "@gluestack-ui/themed": "^1.1.73",
+    "@gluestack-ui/toast": "^1.0.9",
     "@react-native-aria/overlays": "^0.3.15",
     "@react-navigation/native": "^7.1.14",
     "@react-navigation/native-stack": "^7.3.21",
+    "babel-plugin-module-resolver": "^5.0.2",
     "expo": "~53.0.20",
     "expo-font": "^13.3.2",
     "expo-splash-screen": "^0.30.10",
@@ -27,14 +32,18 @@
     "i18next": "^25.3.5",
     "mcp-filesystem-server": "^1.0.3",
     "nativewind": "^4.1.23",
-    "react": "^19.0.0",
+    "react": "19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.6.1",
     "react-native": "0.79.5",
+    "react-native-css-interop": "^0.1.22",
     "react-native-paper": "^5.14.5",
-    "react-native-safe-area-context": "^5.4.0",
+    "react-native-reanimated": "^4.0.2",
+    "react-native-safe-area-context": "^5.6.0",
     "react-native-screens": "~4.11.1",
-    "tailwindcss": "^4.1.11"
+    "react-native-svg": "^15.2.0",
+    "react-native-worklets": "^0.4.1",
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -43,6 +52,7 @@
     "@types/react": "~19.0.10",
     "eslint": "^9.0.0",
     "eslint-config-expo": "~9.2.0",
+    "jscodeshift": "^0.15.2",
     "typescript": "~5.8.3"
   },
   "private": true

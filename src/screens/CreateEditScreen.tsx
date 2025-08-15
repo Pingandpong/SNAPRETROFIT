@@ -1,13 +1,7 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Text as GluestackText, Button, ButtonIcon, ArrowLeftIcon } from '@gluestack-ui/themed';
-
-type RootStackParamList = {
-  Home: undefined;
-  Detail: undefined;
-  Settings: undefined;
-  CreateEdit: undefined;
-};
+import { RootStackParamList } from '../navigation/types';
 
 type CreateEditScreenProps = NativeStackScreenProps<RootStackParamList, 'CreateEdit'>;
 

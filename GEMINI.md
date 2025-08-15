@@ -2,7 +2,9 @@
 
 ## 1. Project Goal
 
-이 프로젝트는 React Native와 Expo로 구축된 모바일 애플리케이션입니다. Firebase를 백엔드 서비스로 사용하며 TypeScript로 작성되었습니다. 이 프로젝트의 궁극적인 목표는 **모든 새로운 모바일 앱 개발의 견고한 기본 베이스를 구축**하는 것입니다. 이를 통해 앱 아이디어가 생길 때마다 이 베이스에 필요한 기능만 추가하여 빠르고 효율적으로 개발할 수 있도록 합니다. 특히, UI 및 백엔드 통합을 위해 Model Context Protocol (MCP)을 실험적으로 도입하여, 앱 개발의 초기 설정을 최소화하고 핵심 기능 구현에 집중할 수 있는 환경을 마련하는 것을 목표로 합니다.
+이 프로젝트는 React Native와 Expo로 구축된 모바일 애플리케이션입니다. Firebase를 백엔드 서비스로 사용하며 TypeScript로 작성되었습니다. 이 프로젝트의 궁극적인 목표는 **모든 새로운 모바일 앱 개발의 견고한 기본 베이스를 구축**하는 것입니다. 이를 통해 앱 아이디어가 생길 때마다 이 베이스에 필요한 기능만 추가하여 빠르고 효율적으로 개발할 수 있도록 합니다.
+
+**`app_base`의 핵심 원칙**은 특정 비즈니스 로직을 포함하지 않는 것입니다. 즉, 사용자 인증(로그인)이나 Firestore를 사용한 데이터 관리(CRUD) 등 특정 앱에서만 필요한 기능은 **의도적으로 제외**합니다. 대신, Firebase 설정, 다국어 지원, UI 프레임워크, 내비게이션 등 어떤 앱에서든 필요한 공통 기반만 제공하여, 새로운 프로젝트가 시작될 때 즉시 핵심 기능 개발에 집중할 수 있도록 돕는 것을 목표로 합니다.
 
 ## 2. Technology Stack
 
@@ -17,29 +19,38 @@
 
 - `index.ts`: The entry point of the application.
 - `src/`: Contains the main source code.
-  - `App.tsx`: The root component of the application, which initializes Firebase and the main navigator.
-  - `components/`: Directory for reusable UI components.
+  - `App.tsx`: The root component of the application, which initializes Firebase, i18n and the main navigator.
+  - `components/`: Directory for reusable UI components (e.g., `AppCard.tsx`).
   - `config/`: Configuration files, including Firebase setup (`firebaseConfig.ts`).
+  - `context/`: Contains React context providers (e.g., `ThemeContext.tsx`).
+  - `locales/`: Contains translation files for i18n (e.g., `ko.json`, `en.json`).
   - `navigation/`: Navigation setup using React Navigation.
     - `AppNavigator.tsx`: Defines the main stack navigator for the app.
+    - `types.ts`: Centralized type definitions for React Navigation.
   - `screens/`: Contains the different screens of the application.
     - `HomeScreen.tsx`: The main screen displayed after the app launches.
     - `DetailScreen.tsx`: A screen for displaying detailed information.
-    - `SettingsScreen.tsx`: A screen for application settings.
+    - `SettingsScreen.tsx`: A screen for application settings, including language selection.
+    - `ProfileScreen.tsx`: User profile screen.
+    - `ListScreen.tsx`: A generic list screen.
+    - `CreateEditScreen.tsx`: A screen for creating or editing items.
+    - `PaymentScreen.tsx`: A screen for handling payments.
+  - `services/`: Contains services like i18n setup (`i18n.ts`).
 - `package.json`: Lists project dependencies and scripts.
 - `tsconfig.json`: TypeScript compiler configuration.
 - `app.json`: Expo configuration file.
 - `assets/`: Static assets like images and icons.
 - `android/` and `ios/`: Native project directories (though managed by Expo).
 
-## 4. Current Development Focus
+## 4. Key Features & Development Status
 
-The current development is focused on integrating **Model Context Protocol (MCP)** into the `app_base` to streamline UI and backend development.
-
-- **MCP Exploration**: Investigating `modelcontextprotocol` (foundational server examples) and `servers` (collection of existing MCP servers) GitHub repositories. The plan is to leverage existing MCP servers from the `servers` repository.
-- **Integration Goal**: To integrate UI-related MCP and Firebase MCP into `app_base`, pre-configuring both the UI and a basic backend. This will allow for rapid development of new app ideas by building upon this pre-established foundation.
-- **Figma Consideration**: Noted that Figma Dev Mode (paid feature) is required for full MCP-related access, and this aspect is currently on hold.
-- **UI Refactoring**: Ongoing refactoring of UI components to utilize Gluestack UI for a consistent and efficient development experience.
+- **UI Framework**: The UI is built upon **Gluestack UI** for a consistent and efficient development experience.
+- **Internationalization (i18n)**: The app supports multiple languages (Korean, English, Japanese, Spanish) using `i18next`, ready for any project.
+- **Theme Switching (Light/Dark Mode)**: A theme context (`ThemeContext.tsx`) and a UI toggle in the settings screen have been implemented. This allows users to switch between light and dark modes across the entire app.
+- **Ready-to-Use Firebase**: Firebase is fully configured (`firebaseConfig.ts`). While `app_base` itself does not implement features like Auth or Firestore, any project using this base can immediately start using Firebase services without initial setup.
+- **Example Navigation Flow**: A mock data-driven list-to-detail flow (`ListScreen` -> `DetailScreen`) has been implemented. This provides a clear, working example of how to structure navigation and display data within the `app_base`.
+- **Robust Navigation Types**: All navigation-related types have been centralized in `src/navigation/types.ts` to improve type safety and maintainability.
+- **MCP Experimentation**: An initial experiment was conducted to integrate Model Context Protocol (MCP) servers. The conclusion was that **Gemini CLI's native capabilities are powerful and sufficient for most development tasks** like file operations, git management, and running commands. Therefore, direct MCP server integration is no longer a primary focus. The development workflow prioritizes using Gemini CLI's built-in tools.
 
 ## 5. How to Run
 
@@ -54,7 +65,7 @@ This `GEMINI.md` file provides a clear and concise overview of the project, maki
 
 ## 한국어 요약
 
-이 프로젝트는 TypeScript 기반의 React Native 모바일 앱입니다. Expo 프레임워크를 사용하여 개발되었으며, Firebase를 백엔드로 활용합니다. React Navigation을 통해 화면 전환을 관리하며, 현재는 기본적인 홈 화면, 상세 화면, 설정 화면이 구현된 초기 단계의 앱입니다. 특히, UI 및 백엔드 통합을 위해 Model Context Protocol (MCP)을 실험적으로 도입하여, 모든 앱 개발의 기본 베이스를 구축하는 데 중점을 두고 있습니다.
+이 프로젝트는 TypeScript 기반의 React Native 모바일 앱의 **재사용 가능한 베이스**입니다. Expo, Gluestack UI, 다국어(i18n), **라이트/다크 모드 테마 전환**, React Navigation, Firebase 설정 등 앱 개발에 필요한 핵심 기반이 미리 구축되어 있습니다. 또한, 목업 데이터를 활용한 **목록-상세 화면(List-Detail) 구현 예시**를 포함하여, 새로운 프로젝트에서 데이터 흐름과 내비게이션을 어떻게 구성할지에 대한 명확한 가이드를 제공합니다. **로그인이나 데이터 관리 등 특정 앱에 종속적인 기능은 의도적으로 제외**하여, 어떤 프로젝트든 이 베이스 위에서 빠르게 핵심 기능 개발을 시작할 수 있도록 하는 데 중점을 둡니다.
 
 ## Gemini 지침
 
@@ -70,31 +81,20 @@ MCP 기본 개념 git - https://github.com/modelcontextprotocol/modelcontextprot
 
 MPC 서버 모음 git - https://github.com/modelcontextprotocol/servers
 
-## 4-1. VS Code에서 Gemini CLI + MCP 서버 병행 사용
+## 4-1. Gemini CLI와 MCP 서버 활용 방안
 
-이 프로젝트는 VS Code 환경에서 **Gemini CLI**와 [기성 MCP 서버](https://github.com/modelcontextprotocol/servers)를 함께 사용하여 개발 생산성을 높입니다.
+### Gemini CLI 중심의 워크플로우
+이 프로젝트는 VS Code 환경에서 **Gemini CLI의 내장 기능**을 중심으로 개발 생산성을 높이는 것을 권장합니다. 초기 실험 결과, 파일 시스템 접근, Git 관리, 터미널 명령어 실행 등 대부분의 작업이 Gemini CLI의 자체 기능만으로 충분히 효율적이라는 결론을 내렸습니다.
 
-### 목적
-- **Gemini CLI**: UI 리뷰, 리팩터 제안, 문구 생성 등 창의적·분석 작업
-- **MCP 서버**: 파일 읽기/쓰기, Git 히스토리 확인, 명령 실행 등 로컬 액션
+- **주요 활용 도구**: Gemini CLI의 `read_file`, `write_file`, `run_shell_command`, `git` 관련 명령어
+- **권장 워크플로우**:
+    1. Gemini CLI의 파일 및 코드 분석 기능으로 UI/로직 리뷰
+    2. Gemini의 제안을 바탕으로 코드 수정 및 적용
+    3. `run_shell_command`로 `npx expo lint`, `npm test` 등 각종 스크립트 실행 및 결과 분석
+    4. `git` 관련 명령어로 변경사항 확인 및 커밋
 
-### 활용 가능한 MCP 서버
-이 프로젝트는 `.gemini/settings.json` 파일에 다음 MCP 서버들이 미리 설정되어 있으며, Gemini CLI에서 바로 활용할 수 있습니다.
-
-- **Filesystem**: 파일 읽기/쓰기, RN 컴포넌트/스크린 파일 관리
-- **Git**: 변경사항 diff/commit 로그 확인, Git 작업 수행
-- **Commands**: 터미널 명령 실행 (`npx expo lint`, `prebuild`, `start` 등)
-- **Screenshot**: 사용자 화면 스크린샷 촬영
-
-이 서버들은 별도의 설치나 실행 명령어 없이 Gemini CLI를 통해 자동으로 연동됩니다.
-
-### 권장 워크플로우
-1. MCP Filesystem으로 코드 읽기 → Gemini CLI로 UI 리뷰
-2. Gemini의 제안 중 일부를 적용
-3. MCP Commands로 `npx expo lint` 실행 → 로그를 Gemini CLI로 전달해 재분석
-4. 필요 시 MCP Git으로 diff 확인 후 커밋
-
-이 방식으로 **UI 리뷰**와 **명령 실행/파일 관리**를 VS Code 안에서 모두 처리할 수 있으며, 복사·붙여넣기 과정을 최소화할 수 있습니다.
+### MCP 서버의 역할
+`.gemini/settings.json`에 설정된 MCP 서버(Filesystem, Git, Commands 등)들은 Gemini CLI의 내장 기능으로 처리하기 어려운 특수한 경우를 위한 **보조 도구**로 활용될 수 있습니다. 예를 들어, Gemini CLI가 지원하지 않는 특정 외부 서비스 연동이나 실시간 데이터 스트리밍 같은 독점적인 기능을 가진 MCP 서버가 있다면 연동을 고려할 수 있습니다. 하지만 일반적인 개발 작업에서는 Gemini CLI의 내장 기능을 우선적으로 사용하는 것이 좋습니다.
 
 
 
@@ -107,3 +107,5 @@ MCP 기본 개념 git - https://github.com/modelcontextprotocol/modelcontextprot
 MCP 서버 모음 git - https://github.com/modelcontextprotocol/servers
 
 GEMINI_CLI_MCP DOC -https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md
+
+Gluestack UI 참고 -https://gluestack.io/ui/docs/home/overview/introduction
