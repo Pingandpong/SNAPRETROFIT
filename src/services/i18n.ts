@@ -24,7 +24,7 @@ i18next
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'ko', // 기본 언어 설정
+    
     fallbackLng: 'en', // 번역이 없을 경우 영어로 대체
     interpolation: {
       escapeValue: false, // React는 이미 XSS 방어 기능이 있으므로 false로 설정

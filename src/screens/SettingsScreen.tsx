@@ -1,9 +1,11 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Box, Text as GluestackText, Button, ButtonIcon, ArrowLeftIcon, Heading, HStack, VStack, Switch, Text } from '@gluestack-ui/themed';
+import { Box, Button, ButtonText, Heading, HStack, VStack, Switch, Text, Pressable } from '@gluestack-ui/themed';
 import { useTranslation } from 'react-i18next';
 import { RootStackParamList } from '../navigation/types';
 import { useTheme } from '../context/ThemeContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Feather } from '@expo/vector-icons';
 
 type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
@@ -11,68 +13,76 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode } = useTheme();
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+  const changeLanguage = async (lng: string) => {
+    try {
+      await i18n.changeLanguage(lng);
+      await AsyncStorage.setItem('language', lng);
+    } catch (error) {
+      console.error("Failed to save language to storage", error);
+    }
   };
 
-  const LanguageButton = ({ lang, langKey }: { lang: string, langKey: string }) => (
-    <Button 
-      onPress={() => changeLanguage(lang)}
-      flex={1}
-      variant={i18n.language === lang ? 'solid' : 'outline'}
-    >
-      <GluestackText>{t(langKey)}</GluestackText>
-    </Button>
-  );
+  const LanguageButton = ({ lang, langKey }: { lang: string; langKey: string }) => {
+    const isActive = i18n.language.startsWith(lang);
+    return (
+      <Button
+        onPress={() => changeLanguage(lang)}
+        flex={1}
+        variant={isActive ? 'solid' : 'outline'}
+        action={isActive ? 'primary' : 'secondary'}
+        size="lg"
+      >
+        <ButtonText>{t(langKey)}</ButtonText>
+      </Button>
+    );
+  };
 
   return (
-    <Box flex={1} bg={colorMode === 'dark' ? '$backgroundDark' : '$backgroundLight'}>
-      <Box
-        flexDirection="row"
-        alignItems="center"
-        px="$4"
-        py="$3"
-        borderBottomWidth="$1"
-        bg={colorMode === 'dark' ? '$backgroundDark' : '$backgroundLight'} 
-        borderBottomColor={colorMode === 'dark' ? '$borderDark' : '$borderLight'}
-      >
-        <Button variant="link" onPress={() => navigation.goBack()} p="$0">
-          <ButtonIcon as={ArrowLeftIcon} size="xl" color={colorMode === 'dark' ? '$textDark' : '$textLight'} />
-        </Button>
-        <GluestackText fontSize="$xl" fontWeight="$bold" color={colorMode === 'dark' ? '$textDark' : '$textLight'} ml="$3">
+    <Box className="flex-1 bg-backgroundLight dark:bg-backgroundDark justify-center">
+      {/* Header */}
+      <HStack className="items-center border-b p-4 pt-8 border-borderLight dark:border-borderDark justify-between">
+        <Pressable onPress={() => navigation.goBack()} className="mr-4">
+          <Feather name="arrow-left" size={24} className="text-textLight dark:text-textDark text-shadow-neumo-icon" />
+        </Pressable>
+        <Heading size="lg" className="text-textLight dark:text-textDark">
           {t('settings_title')}
-        </GluestackText>
-      </Box>
-      <Box flex={1} p="$5">
-        <VStack space="xl">
-          {/* Language Settings */}
-          <VStack space="lg">
-            <Heading color={colorMode === 'dark' ? '$textDark' : '$textLight'}>{t('language_setting_title')}</Heading>
-            <VStack space="md">
-              <HStack space="md">
-                <LanguageButton lang="ko" langKey="change_to_korean" />
-                <LanguageButton lang="en" langKey="change_to_english" />
-              </HStack>
-              <HStack space="md">
-                <LanguageButton lang="ja" langKey="change_to_japanese" />
-                <LanguageButton lang="es" langKey="change_to_spanish" />
-              </HStack>
-            </VStack>
-          </VStack>
+        </Heading>
+      </HStack>
 
-          {/* Theme Settings */}
-          <VStack space="lg">
-            <Heading color={colorMode === 'dark' ? '$textDark' : '$textLight'}>{t('theme_setting_title')}</Heading>
-            <HStack space="md" alignItems="center" justifyContent="space-between">
-              <Text size="lg" color={colorMode === 'dark' ? '$textDark' : '$textLight'}>{t('dark_mode_label')}</Text>
-              <Switch
-                value={colorMode === 'dark'}
-                onValueChange={toggleColorMode}
-              />
-            </HStack>
-          </VStack>
+      {/* Content */}
+      <VStack className="flex-1 p-6 space-y-8">
+        {/* Language Settings */}
+        <VStack className="space-y-4">
+          <Heading size="md" className="text-textLight dark:text-textDark">
+            {t('language_setting_title')}
+          </Heading>
+          <HStack className="space-x-4">
+            <LanguageButton lang="ko" langKey="change_to_korean" />
+            <LanguageButton lang="en" langKey="change_to_english" />
+          </HStack>
+          <HStack className="space-x-4">
+            <LanguageButton lang="ja" langKey="change_to_japanese" />
+            <LanguageButton lang="es" langKey="change_to_spanish" />
+          </HStack>
         </VStack>
-      </Box>
+
+        {/* Theme Settings */}
+        <VStack className="space-y-4">
+          <Heading size="md" className="text-textLight dark:text-textDark">
+            {t('theme_setting_title')}
+          </Heading>
+          <HStack className="items-center justify-between rounded-xl p-4 space-x-4 bg-cardLight dark:bg-cardDark shadow-md">
+            <Text size="lg" className="text-textLight dark:text-textDark">
+              {t('dark_mode_label')}
+            </Text>
+            <Switch
+              value={colorMode === 'dark'}
+              onValueChange={toggleColorMode}
+              size="lg"
+            />
+          </HStack>
+        </VStack>
+      </VStack>
     </Box>
   );
 };

@@ -1,64 +1,48 @@
-
-› Opening exp://192.168.219.101:8081 on Medium_Phone_API_35
-› Press ? │ show all commands
-Android Bundled 72ms index.ts (1 module)
- ERROR  Warning: Error: Incompatible React versions: The "react" and "react-native-renderer" packages must have the exact same version. Instead got:
-  - react:                  19.1.1
-  - react-native-renderer:  19.0.0
-Learn more: https://react.dev/warnings/version-mismatch, js engine: hermes
-
-Call Stack
-  RNSScreenStack (<anonymous>)
-  RNCSafeAreaProvider (<anonymous>)
- ERROR  Warning: TypeError: Cannot read property 'default' of undefined
-
-This error is located at:
-
-Call Stack
-  RNSScreenStack (<anonymous>)
-  RNCSafeAreaProvider (<anonymous>)
- ERROR  Warning: Error: Incompatible React versions: The "react" and "react-native-renderer" packages must have the exact same version. Instead got:
-  - react:                  19.1.1
-  - react-native-renderer:  19.0.0
-Learn more: https://react.dev/warnings/version-mismatch, js engine: hermes
-
-Call Stack
-  RCTImageView (<anonymous>)
-  Wrapper (<anonymous>)
- ERROR  Warning: Error: Incompatible React versions: The "react" and "react-native-renderer" packages must have the exact same version. Instead got:
-  - react:                  19.1.1
-  - react-native-renderer:  19.0.0
-Learn more: https://react.dev/warnings/version-mismatch, js engine: hermes
-
-Call Stack
-  Wrapper (<anonymous>)
- ERROR  Warning: TypeError: Cannot read property 'default' of undefined
-
-This error is located at:
-
-Call Stack
-  RCTImageView (<anonymous>)
-  Wrapper (<anonymous>)
- ERROR  TypeError: An error was thrown when attempting to render log messages via LogBox.
-
-Cannot read property 'default' of undefined
-
-This error is located at:
-
-Call Stack
-  RCTImageView (<anonymous>)
-  Wrapper (<anonymous>)
- ERROR  Warning: TypeError: Cannot read property 'default' of undefined
-
-This error is located at:
-
-Call Stack
-  Wrapper (<anonymous>)
- ERROR  TypeError: An error was thrown when attempting to render log messages via LogBox.
-
-Cannot read property 'default' of undefined
-
-This error is located at:
-
-Call Stack
-  Wrapper (<anonymous>)
+[{
+	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
+	"owner": "typescript",
+	"code": "17008",
+	"severity": 8,
+	"message": "JSX element 'Box' has no corresponding closing tag.",
+	"source": "ts",
+	"startLineNumber": 15,
+	"startColumn": 6,
+	"endLineNumber": 15,
+	"endColumn": 9,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
+	"owner": "eslint2",
+	"severity": 8,
+	"message": "Parsing error: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?",
+	"source": "eslint",
+	"startLineNumber": 48,
+	"startColumn": 1,
+	"endLineNumber": 48,
+	"endColumn": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
+	"owner": "typescript",
+	"code": "1381",
+	"severity": 8,
+	"message": "Unexpected token. Did you mean `{'}'}` or `&rbrace;`?",
+	"source": "ts",
+	"startLineNumber": 48,
+	"startColumn": 1,
+	"endLineNumber": 48,
+	"endColumn": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
+	"owner": "typescript",
+	"code": "1005",
+	"severity": 8,
+	"message": "'</' expected.",
+	"source": "ts",
+	"startLineNumber": 50,
+	"startColumn": 29,
+	"endLineNumber": 50,
+	"endColumn": 29,
+	"origin": "extHost1"
+}]
