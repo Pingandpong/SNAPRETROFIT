@@ -40,7 +40,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   return (
     <Box className="flex-1 bg-backgroundLight dark:bg-backgroundDark justify-center">
       {/* Header */}
-      <HStack className="items-center border-b p-4 pt-8 border-borderLight dark:border-borderDark justify-between">
+      <HStack className="items-center p-4 pt-8 justify-between bg-cardLight dark:bg-cardDark rounded-b-xl shadow-soft-2">
         <Pressable onPress={() => navigation.goBack()} className="mr-4">
           <Feather name="arrow-left" size={24} className="text-textLight dark:text-textDark text-shadow-neumo-icon" />
         </Pressable>

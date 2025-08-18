@@ -1,6 +1,7 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Heading, Text, HStack, Pressable, VStack } from '@gluestack-ui/themed';
+import { Image } from 'react-native';
 import { RootStackParamList } from '../navigation/types';
 import { getMockDataById } from '../data/mockData';
 import { Feather } from '@expo/vector-icons';
@@ -23,6 +24,11 @@ const DetailScreen = ({ route, navigation }: DetailScreenProps) => {
         </Heading>
       </HStack>
 
+      <Image
+        source={require('../../sample_image/sample_IMAGE6.png')}
+        className="w-full h-48"
+        resizeMode="cover"
+      />
       {/* Content */}
       <VStack className="p-6 space-y-4">
         {item ? (
