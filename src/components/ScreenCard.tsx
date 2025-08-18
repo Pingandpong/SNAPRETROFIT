@@ -1,5 +1,6 @@
 import React from 'react';
-import { Pressable, HStack, Box, Text } from '@gluestack-ui/themed';
+import { Pressable, HStack, Box, Text, useToken } from '@gluestack-ui/themed';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -18,19 +19,30 @@ interface ScreenCardProps {
 
 const ScreenCard = ({ icon, title, navigateTo, className = '' }: ScreenCardProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [start, end] = useToken('colors', ['cardGradientStart', 'cardGradientEnd']);
 
   return (
     <Pressable
       onPress={() => navigation.navigate(navigateTo)}
-      className={`px-4 py-3 rounded-xl bg-cardLight dark:bg-cardDark flex-row items-center justify-between shadow-soft-1 dark:shadow-neumo-dark ${className}`}
+      className={`flex-1 rounded-2xl overflow-hidden shadow-soft-2 dark:shadow-neumo-dark ${className}`}
+      style={{ minHeight: 120 }}
     >
-      <HStack className="items-center space-x-4">
-        <Box className="p-3 rounded-full bg-primary500">
-          <Feather name={icon} size={20} color="#fff" />
-        </Box>
-        <Text className="text-textLight dark:text-textDark font-medium">{title}</Text>
-      </HStack>
-      <Feather name="chevron-right" size={20} className="text-textLight dark:text-textDark opacity-60" />
+      <LinearGradient
+        colors={[start, end]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ flex: 1, padding: 16, justifyContent: 'center' }}
+      >
+        <HStack className="items-center justify-between">
+          <HStack className="items-center space-x-3">
+            <Box className="p-3 rounded-full bg-white/20">
+              <Feather name={icon} size={24} color="#fff" />
+            </Box>
+            <Text className="text-white font-medium">{title}</Text>
+          </HStack>
+          <Feather name="chevron-right" size={20} color="#fff" />
+        </HStack>
+      </LinearGradient>
     </Pressable>
   );
 };

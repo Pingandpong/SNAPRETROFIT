@@ -185,6 +185,10 @@ module.exports = {
         borderDark: '#374151',
         cardHoverLight: '#F3F4F6',
         cardHoverDark: '#4B5563',
+        heroStart: '#6366F1',
+        heroEnd: '#EC4899',
+        cardGradientStart: '#4F46E5',
+        cardGradientEnd: '#EC4899',
       },
       fontFamily: {
         heading: undefined,
