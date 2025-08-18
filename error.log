@@ -1,48 +1,5 @@
-[{
-	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
-	"owner": "typescript",
-	"code": "17008",
-	"severity": 8,
-	"message": "JSX element 'Box' has no corresponding closing tag.",
-	"source": "ts",
-	"startLineNumber": 15,
-	"startColumn": 6,
-	"endLineNumber": 15,
-	"endColumn": 9,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
-	"owner": "eslint2",
-	"severity": 8,
-	"message": "Parsing error: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?",
-	"source": "eslint",
-	"startLineNumber": 48,
-	"startColumn": 1,
-	"endLineNumber": 48,
-	"endColumn": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
-	"owner": "typescript",
-	"code": "1381",
-	"severity": 8,
-	"message": "Unexpected token. Did you mean `{'}'}` or `&rbrace;`?",
-	"source": "ts",
-	"startLineNumber": 48,
-	"startColumn": 1,
-	"endLineNumber": 48,
-	"endColumn": 2,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/DetailScreen.tsx",
-	"owner": "typescript",
-	"code": "1005",
-	"severity": 8,
-	"message": "'</' expected.",
-	"source": "ts",
-	"startLineNumber": 50,
-	"startColumn": 29,
-	"endLineNumber": 50,
-	"endColumn": 29,
-	"origin": "extHost1"
-}]
+
+(base) PS C:\Users\jeyoung\projects\app_base> npx expo start
+Starting project at C:\Users\jeyoung\projects\app_base
+ConfigError: Cannot determine the project's Expo SDK version because the module `expo` is not installed. Install it with `npm install expo` and try again.
+(base) PS C:\Users\jeyoung\projects\app_base> 

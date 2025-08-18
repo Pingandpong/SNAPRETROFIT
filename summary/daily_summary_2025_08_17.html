@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일일 작업 요약: 2025년 8월 17일</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2; /* Blue */
+            --secondary-color: #50E3C2; /* Teal */
+            --text-color: #333;
+            --light-text-color: #666;
+            --background-color: #F8F9FA;
+            --card-background: #FFFFFF;
+            --border-color: #E0E0E0;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: var(--background-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.3em;
+            color: var(--text-color);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px var(--shadow-color);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        ul {
+            list-style-type: none; /* Remove default bullet */
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: var(--light-text-color);
+        }
+
+        ul li::before {
+            content: '•'; /* Custom bullet */
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        ul ul {
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+
+        ul ul li::before {
+            content: '—'; /* Custom sub-bullet */
+            color: var(--primary-color);
+            font-size: 1em;
+        }
+
+        ol {
+            padding-left: 20px;
+            color: var(--light-text-color);
+        }
+
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background-color: #F0F0F0;
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #C0392B;
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .note {
+            background-color: #EBF5FB;
+            border-left: 6px solid var(--primary-color);
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 8px;
+            color: var(--light-text-color);
+            font-style: italic;
+        }
+
+        .note p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>일일 작업 요약: 2025년 8월 17일</h1>
+
+    <div class="section">
+        <h2>오늘의 주요 작업</h2>
+        <ul>
+            <li>
+                <strong>네오모피즘(Neumorphism) UI 스타일 적용:</strong>
+                <ul>
+                    <li>앱 전체 UI를 네오모피즘 스타일로 재설계했습니다.</li>
+                    <li>새로운 색상 팔레트(<code>gluestack-ui.theme.ts</code>)와 커스텀 그림자(<code>box-shadow</code>, <code>textShadow</code>)를 정의했습니다.</li>
+                    <li><code>AppCard.tsx</code>를 네오모피즘에 맞춰 재설계하고 아이콘 배경을 추가했습니다.</li>
+                    <li><code>HomeScreen</code>, <code>ListScreen</code>, <code>DetailScreen</code>, <code>SettingsScreen</code>, <code>ProfileScreen</code>, <code>PaymentScreen</code>에 네오모피즘 스타일을 적용했습니다.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>스타일링 방식 통일 및 리팩토링:</strong>
+                <ul>
+                    <li>Gluestack UI 토큰 직접 사용 대신 Tailwind CSS 클래스를 활용하는 방식으로 스타일링 코드를 리팩토링하여 일관성과 유지보수성을 높였습니다.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>환경 설정 및 오류 해결:</strong>
+                <ul>
+                    <li><code>babel.config.js</code>에 <code>nativewind/babel</code> 플러그인을 추가하여 Tailwind CSS 적용 문제를 해결했습니다.</li>
+                    <li><code>global.css</code> 임포트 경로(<code>src/App.tsx</code>)를 수정하여 스타일 적용 오류를 해결했습니다.</li>
+                    <li><code>AppCard.tsx</code> 및 <code>DetailScreen.tsx</code>의 JSX 구조 오류를 해결했습니다.</li>
+                    <li><code>SafeAreaView</code> 적용 시 발생했던 문제를 해결하기 위해 각 화면 헤더에 상단 패딩(<code>pt-8</code>)을 적용했습니다.</li>
+                    <li><code>AppCard</code>의 <code>navigateTo</code> prop 타입 오류를 해결했습니다.</li>
+                    <li><code>AppCard</code>의 테두리 두께를 조정하고 최종적으로 제거하여 디자인을 개선했습니다.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="note">
+        <p>오늘의 작업은 앱의 UI를 최신 네오모피즘 스타일로 전면적으로 재설계하고, 이 과정에서 발생한 다양한 환경 설정 및 코드 오류를 해결하는 데 중점을 두었습니다. 이를 통해 앱의 시각적 완성도와 개발 환경의 안정성이 크게 향상되었습니다.</p>
+    </div>
+</body>
+</html>
