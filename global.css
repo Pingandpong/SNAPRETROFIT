@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply bg-backgroundLight text-textLight font-roboto;
+  @apply bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark font-roboto;
 }

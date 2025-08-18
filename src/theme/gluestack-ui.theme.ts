@@ -1,25 +1,25 @@
 import { config as defaultConfig } from '@gluestack-ui/config';
 import { createConfig } from '@gluestack-ui/themed';
 
-// 새로운 샘플 이미지 스타일에 맞춘 컬러 팔레트
+// 샘플 이미지를 참고하여 재정의한 컬러 팔레트
 const colors = {
   // Primary/Accent Colors
-  primary500: '#00BCD4', // 차분한 민트색
-  secondary500: '#FFC107', // 포인트용 앰버색
+  primary500: '#4F46E5', // 인디고 계열 기본 색
+  secondary500: '#EC4899', // 포인트용 핑크 색
 
   // Light Mode Palette
-  backgroundLight: '#F0F4F8', // 밝은 회색 배경
+  backgroundLight: '#F9FAFB', // 밝은 회색 배경
   cardLight: '#FFFFFF', // 카드 기본색
-  textLight: '#1F2937', // 진한 회색 텍스트
-  borderLight: '#E2E8F0', // 연한 테두리색
-  cardHoverLight: '#E2E8F0', // 호버 시 약간 진한 배경
+  textLight: '#1E293B', // 진한 회색 텍스트
+  borderLight: '#E5E7EB', // 연한 테두리색
+  cardHoverLight: '#F3F4F6', // 호버 시 약간 진한 배경
 
   // Dark Mode Palette
-  backgroundDark: '#0F172A', // 어두운 남색 배경
-  cardDark: '#1E293B', // 다크 모드 카드색
-  textDark: '#F8FAFC', // 연한 텍스트
-  borderDark: '#334155', // 다크 모드 테두리
-  cardHoverDark: '#334155', // 호버 시 배경
+  backgroundDark: '#111827', // 다크 모드 배경
+  cardDark: '#1F2937', // 다크 모드 카드색
+  textDark: '#F9FAFB', // 연한 텍스트
+  borderDark: '#374151', // 다크 모드 테두리
+  cardHoverDark: '#4B5563', // 호버 시 배경
 };
 
 export const appTheme = createConfig({

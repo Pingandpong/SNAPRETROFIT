@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Image } from 'react-native';
+import { FlatList } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Pressable, VStack, Heading, Text, HStack } from '@gluestack-ui/themed';
 import { RootStackParamList } from '../navigation/types';
@@ -12,24 +12,13 @@ type ListScreenProps = NativeStackScreenProps<RootStackParamList, 'List'>;
 const ListScreen = ({ navigation }: ListScreenProps) => {
   const { t } = useTranslation();
 
-  const images = [
-    require('../../sample_image/sample_IMAGE2.png'),
-    require('../../sample_image/sample_IMAGE3.png'),
-    require('../../sample_image/sample_IMAGE4.png'),
-    require('../../sample_image/sample_IMAGE5.png'),
-  ];
-
-  const renderItem = ({ item, index }: { item: (typeof MOCK_DATA)[0]; index: number }) => (
+  const renderItem = ({ item }: { item: (typeof MOCK_DATA)[0] }) => (
     <Pressable
       onPress={() => navigation.navigate('Detail', { itemId: item.id })}
       className="rounded-xl mx-4 my-2 p-5 shadow-soft-2 dark:shadow-neumo-dark bg-cardLight dark:bg-cardDark hover:bg-cardHoverLight dark:hover:bg-cardHoverDark"
     >
       <HStack className="items-center space-x-4">
-        <Image
-          source={images[index % images.length]}
-          className="w-12 h-12 rounded-lg"
-          resizeMode="cover"
-        />
+        <Box className="w-12 h-12 rounded-lg bg-secondary500" />
         <VStack className="flex-1">
           <Heading size="md" className="text-textLight dark:text-textDark font-semibold">
             {item.title}
