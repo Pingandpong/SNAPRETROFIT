@@ -79,3 +79,11 @@ export const appTheme = createConfig({
     bg: 'backgroundColor',
   },
 });
+
+export type AppTheme = typeof appTheme;
+
+// Extended types for custom components or properties if needed
+// For example, if you add custom variants to components
+
+// This ensures that the custom theme types are correctly picked up
+// by the Gluestack UI components.

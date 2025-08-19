@@ -1,0 +1,10 @@
+1. `src/theme/gluestack-ui.theme.ts`에서 `createConfig` 아래에 다음 코드를 추가
+
+   ```ts
+   export type AppTheme = typeof appTheme;
+
+   declare module '@gluestack-ui/themed' {
+     interface ConfigType extends AppTheme {}
+   }
+   ```
+2. 저장 후 에디터/TS 서버를 재시작하면 `useToken`에서 커스텀 토큰을 정상 인식합니다.

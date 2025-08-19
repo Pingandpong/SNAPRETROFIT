@@ -1,5 +1,13 @@
-
-(base) PS C:\Users\jeyoung\projects\app_base> npx expo start
-Starting project at C:\Users\jeyoung\projects\app_base
-ConfigError: Cannot determine the project's Expo SDK version because the module `expo` is not installed. Install it with `npm install expo` and try again.
-(base) PS C:\Users\jeyoung\projects\app_base> 
+[{
+	"resource": "/c:/Users/jeyoung/projects/app_base/src/components/ScreenCard.tsx",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Module '\"../theme/gluestack-ui.theme\"' has no exported member 'config'.",
+	"source": "ts",
+	"startLineNumber": 8,
+	"startColumn": 10,
+	"endLineNumber": 8,
+	"endColumn": 16,
+	"origin": "extHost1"
+}]
