@@ -36,6 +36,12 @@ export const appTheme = createConfig({
       ...defaultConfig.tokens.colors,
       ...colors,
     },
+    fonts: {
+      ...defaultConfig.tokens.fonts,
+      heading: 'Poppins_500Medium',
+      body: 'Poppins_400Regular',
+      mono: 'Roboto_400Regular',
+    },
     space: {
       ...defaultConfig.tokens.space,
       xs: 4,
@@ -79,3 +85,9 @@ export const appTheme = createConfig({
     bg: 'backgroundColor',
   },
 });
+
+export type AppTheme = typeof appTheme;
+
+declare module '@gluestack-ui/themed' {
+  interface ConfigType extends AppTheme {}
+}

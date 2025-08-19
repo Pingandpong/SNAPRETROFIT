@@ -15,10 +15,10 @@ const HeroBanner = () => {
       style={{ borderRadius: 24 }}
     >
       <VStack className="p-6 space-y-2">
-        <Heading size="2xl" className="text-white">
+        <Heading size="2xl" className="text-white font-poppins">
           {t('home_title')}
         </Heading>
-        <Text className="text-white opacity-80">{t('welcome_message')}</Text>
+        <Text className="text-white opacity-80 font-poppins">{t('welcome_message')}</Text>
       </VStack>
     </LinearGradient>
   );

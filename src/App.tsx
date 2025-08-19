@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import { Roboto_100Thin, Roboto_300Light, Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
+import { Poppins_400Regular, Poppins_500Medium } from '@expo-google-fonts/poppins';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { appTheme } from './theme/gluestack-ui.theme'; // Import our custom theme
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -29,6 +30,8 @@ export default function App() {
     Roboto_300Light,
     Roboto_400Regular,
     Roboto_500Medium,
+    Poppins_400Regular,
+    Poppins_500Medium,
   });
 
   const [languageLoaded, setLanguageLoaded] = useState(false);
