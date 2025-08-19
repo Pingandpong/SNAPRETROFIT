@@ -1,13 +1,33 @@
 [{
-	"resource": "/c:/Users/jeyoung/projects/app_base/src/components/ScreenCard.tsx",
-	"owner": "typescript",
-	"code": "2305",
+	"resource": "/C:/Users/jeyoung/projects/app_base/src/App.tsx",
+	"owner": "eslint1",
+	"code": {
+		"value": "import/no-unresolved",
+		"target": {
+			"$mid": 1,
+			"path": "/import-js/eslint-plugin-import/blob/v2.32.0/docs/rules/no-unresolved.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
 	"severity": 8,
-	"message": "Module '\"../theme/gluestack-ui.theme\"' has no exported member 'config'.",
+	"message": "Unable to resolve path to module '@expo-google-fonts/poppins'.",
+	"source": "eslint",
+	"startLineNumber": 10,
+	"startColumn": 55,
+	"endLineNumber": 10,
+	"endColumn": 83,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/jeyoung/projects/app_base/src/App.tsx",
+	"owner": "typescript",
+	"code": "2307",
+	"severity": 8,
+	"message": "Cannot find module '@expo-google-fonts/poppins' or its corresponding type declarations.",
 	"source": "ts",
-	"startLineNumber": 8,
-	"startColumn": 10,
-	"endLineNumber": 8,
-	"endColumn": 16,
+	"startLineNumber": 10,
+	"startColumn": 55,
+	"endLineNumber": 10,
+	"endColumn": 83,
 	"origin": "extHost1"
 }]

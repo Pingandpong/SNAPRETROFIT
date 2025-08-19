@@ -36,6 +36,12 @@ export const appTheme = createConfig({
       ...defaultConfig.tokens.colors,
       ...colors,
     },
+    fonts: {
+      ...defaultConfig.tokens.fonts,
+      heading: 'Poppins_500Medium',
+      body: 'Poppins_400Regular',
+      mono: 'Roboto_400Regular',
+    },
     space: {
       ...defaultConfig.tokens.space,
       xs: 4,
@@ -82,8 +88,7 @@ export const appTheme = createConfig({
 
 export type AppTheme = typeof appTheme;
 
-// Extended types for custom components or properties if needed
-// For example, if you add custom variants to components
+declare module '@gluestack-ui/themed' {
+  interface ConfigType extends AppTheme {}
+}
 
-// This ensures that the custom theme types are correctly picked up
-// by the Gluestack UI components.

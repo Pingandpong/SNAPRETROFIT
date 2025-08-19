@@ -41,9 +41,9 @@ const ScreenCard = ({ icon, title, subtitle, navigateTo, className = '' }: Scree
               <Feather name={icon} size={24} color="#fff" />
             </Box>
             <Box>
-              <Text className="text-white font-medium">{title}</Text>
+              <Text className="text-white font-medium font-poppins">{title}</Text>
               {subtitle && (
-                <Text className="text-white/80 text-xs mt-1">{subtitle}</Text>
+                <Text className="text-white/80 text-xs mt-1 font-poppins">{subtitle}</Text>
               )}
             </Box>
           </HStack>

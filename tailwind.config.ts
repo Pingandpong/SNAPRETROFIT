@@ -197,6 +197,7 @@ module.exports = {
         body: undefined,
         mono: undefined,
         roboto: ['Roboto', 'sans-serif'],
+        poppins: ['Poppins_400Regular', 'sans-serif'],
       },
       fontWeight: {
         extrablack: '950',
