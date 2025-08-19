@@ -15,9 +15,10 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
   const renderItem = ({ item }: { item: (typeof MOCK_DATA)[0] }) => (
     <Pressable
       onPress={() => navigation.navigate('Detail', { itemId: item.id })}
-      className="rounded-xl mx-4 my-2 p-5 shadow-neumo-light dark:shadow-neumo-dark bg-backgroundLight dark:bg-backgroundDark hover:bg-cardHoverLight dark:hover:bg-cardHoverDark"
+      className="rounded-xl mx-4 my-2 p-5 shadow-soft-2 dark:shadow-neumo-dark bg-cardLight dark:bg-cardDark hover:bg-cardHoverLight dark:hover:bg-cardHoverDark"
     >
       <HStack className="items-center space-x-4">
+        <Box className="w-12 h-12 rounded-lg bg-secondary500" />
         <VStack className="flex-1">
           <Heading size="md" className="text-textLight dark:text-textDark font-semibold">
             {item.title}

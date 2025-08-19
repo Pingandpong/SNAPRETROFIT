@@ -23,6 +23,7 @@ const DetailScreen = ({ route, navigation }: DetailScreenProps) => {
         </Heading>
       </HStack>
 
+      <Box className="w-full h-48 bg-primary500" />
       {/* Content */}
       <VStack className="p-6 space-y-4">
         {item ? (

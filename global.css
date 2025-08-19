@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark font-roboto;
+}
