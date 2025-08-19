@@ -10,6 +10,8 @@ const colors = {
   heroEnd: '#EC4899', // 히어로 배너 그라디언트 끝
   cardGradientStart: '#4F46E5', // 카드 그라디언트 시작
   cardGradientEnd: '#EC4899', // 카드 그라디언트 끝
+  homeBgStart: '#EEF2FF', // 홈 화면 배경 그라디언트 시작
+  homeBgEnd: '#FDF2F8', // 홈 화면 배경 그라디언트 끝
 
   // Light Mode Palette
   backgroundLight: '#F9FAFB', // 밝은 회색 배경

@@ -189,6 +189,8 @@ module.exports = {
         heroEnd: '#EC4899',
         cardGradientStart: '#4F46E5',
         cardGradientEnd: '#EC4899',
+        homeBgStart: '#EEF2FF',
+        homeBgEnd: '#FDF2F8',
       },
       fontFamily: {
         heading: undefined,
