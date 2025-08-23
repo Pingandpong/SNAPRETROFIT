@@ -89,6 +89,7 @@ export const appTheme = createConfig({
 export type AppTheme = typeof appTheme;
 
 declare module '@gluestack-ui/themed' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface ConfigType extends AppTheme {}
 }
 

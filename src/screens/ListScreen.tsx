@@ -1,20 +1,19 @@
 import React from 'react';
-import { FlatList } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
-  Box,
-  Pressable,
-  VStack,
-  Heading,
+  View,
   Text,
-  HStack,
-  useToken,
-} from '@gluestack-ui/themed';
-import { LinearGradient } from 'expo-linear-gradient';
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+} from 'react-native';
+import {LinearGradient} from 'expo-linear-gradient';
+import {Feather} from '@expo/vector-icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { MOCK_DATA } from '../data/mockData';
-import { Feather } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { commonStyles } from '../styles/commonStyles';
 
 type ListScreenProps = NativeStackScreenProps<RootStackParamList, 'List'>;
 
@@ -22,54 +21,78 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
   const { t } = useTranslation();
 
   const renderItem = ({ item }: { item: (typeof MOCK_DATA)[0] }) => (
-    <Pressable
+    <TouchableOpacity
       onPress={() => navigation.navigate('Detail', { itemId: item.id })}
-      className="rounded-xl mx-4 my-2 p-5 shadow-soft-2 dark:shadow-neumo-dark bg-cardLight dark:bg-cardDark hover:bg-cardHoverLight dark:hover:bg-cardHoverDark"
+      style={styles.itemContainer}
     >
-      <HStack className="items-center space-x-4">
-        <Box className="w-12 h-12 rounded-lg bg-secondary500" />
-        <VStack className="flex-1">
-          <Heading size="md" className="text-textLight dark:text-textDark font-semibold">
-            {item.title}
-          </Heading>
-          <Text size="sm" className="mt-1 text-textLight dark:text-textDark opacity-80">
-            {item.content.substring(0, 60)}...
-          </Text>
-        </VStack>
-        <Feather name="chevron-right" size={20} className="text-textLight dark:text-textDark opacity-60 text-shadow-neumo-icon" />
-      </HStack>
-    </Pressable>
+      <View style={styles.itemIcon}>
+        <Feather name="list" size={24} color="#fff" />
+      </View>
+      <View style={styles.itemTextContainer}>
+        <Text style={styles.itemTitle}>{item.title}</Text>
+        <Text style={styles.itemContent}>{item.content.substring(0, 60)}...</Text>
+      </View>
+      <Feather name="chevron-right" size={20} color="#fff" />
+    </TouchableOpacity>
   );
-
-  const [bgStart, bgEnd] = useToken('colors', ['homeBgStart', 'homeBgEnd']);
 
   return (
     <LinearGradient
-      colors={[bgStart, bgEnd]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={{ flex: 1 }}
-    >
-      <VStack className="flex-1">
-        {/* Header */}
-        <HStack className="items-center border-b p-4 pt-8 border-borderLight dark:border-borderDark justify-between">
-          <Pressable onPress={() => navigation.goBack()} className="mr-4">
-            <Feather name="arrow-left" size={20} className="text-textLight dark:text-textDark text-shadow-neumo-icon" />
-          </Pressable>
-          <Heading size="lg" className="text-textLight dark:text-textDark">
-            {t('list_card_title')}
-          </Heading>
-        </HStack>
-
+      colors={['#0b0e23', '#151929']}
+      style={commonStyles.container}>
+      <SafeAreaView style={commonStyles.safe}>
+        <View style={commonStyles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={commonStyles.backButton}>
+            <Feather name="arrow-left" size={24} color="#fff" />
+          </TouchableOpacity>
+          <Text style={commonStyles.headerTitle}>{t('list_card_title')}</Text>
+        </View>
         <FlatList
           data={MOCK_DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ flexGrow: 1, padding: 24, justifyContent: 'center' }}
+          contentContainerStyle={styles.listContentContainer}
         />
-      </VStack>
+      </SafeAreaView>
     </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  ...commonStyles,
+  listContentContainer: {
+    paddingHorizontal: 24,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+  },
+  itemIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+    backgroundColor: '#7d5cff',
+  },
+  itemTextContainer: {
+    flex: 1,
+  },
+  itemTitle: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  itemContent: {
+    color: 'rgba(255,255,255,0.7)',
+    fontSize: 12,
+    marginTop: 4,
+  },
+});
 
 export default ListScreen;

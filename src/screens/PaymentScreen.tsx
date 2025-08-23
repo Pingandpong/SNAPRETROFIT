@@ -1,102 +1,152 @@
 import React from 'react';
 import {
-  Box,
-  Heading,
+  View,
   Text,
-  Button,
-  ButtonText,
-  VStack,
-  HStack,
-  Icon,
-  CheckIcon,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
   ScrollView,
-  Pressable,
-  useToken,
-} from '@gluestack-ui/themed';
+} from 'react-native';
+import {LinearGradient} from 'expo-linear-gradient';
+import {Feather} from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/types'; // Import from types.ts
-import { Feather } from '@expo/vector-icons'; // For back arrow icon
-import { LinearGradient } from 'expo-linear-gradient';
+import { RootStackParamList } from '../navigation/types';
+import { commonStyles } from '../styles/commonStyles';
+
+import { useTranslation } from 'react-i18next';
 
 type PaymentScreenProps = NativeStackScreenProps<RootStackParamList, 'Payment'>;
 
 const FeatureItem = ({ children }: { children: React.ReactNode }) => (
-  <HStack className="space-x-2 items-center">
-    <Icon as={CheckIcon} className="text-green500" />
-    <Text>{children}</Text>
-  </HStack>
+  <View style={styles.featureItem}>
+    <Feather name="check" size={16} color="#4ade80" />
+    <Text style={styles.featureText}>{children}</Text>
+  </View>
 );
 
 const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
-  const [bgStart, bgEnd] = useToken('colors', ['homeBgStart', 'homeBgEnd']);
-
+  const { t } = useTranslation();
   return (
     <LinearGradient
-      colors={[bgStart, bgEnd]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={{ flex: 1 }}
-    >
-      <VStack className="flex-1">
-        {/* Header */}
-        <HStack className="items-center border-b p-4 pt-8 border-borderLight dark:border-borderDark justify-between">
-          <Pressable onPress={() => navigation.goBack()} className="mr-4">
-            <Feather name="arrow-left" size={24} className="text-textLight dark:text-textDark text-shadow-neumo-icon" />
-          </Pressable>
-          <Heading size="lg" className="text-textLight dark:text-textDark">
-            요금제
-          </Heading>
-        </HStack>
+      colors={['#0b0e23', '#151929']}
+      style={commonStyles.container}>
+      <SafeAreaView style={commonStyles.safe}>
+        <View style={commonStyles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={commonStyles.backButton}>
+            <Feather name="arrow-left" size={24} color="#fff" />
+          </TouchableOpacity>
+          <Text style={commonStyles.headerTitle}>{t('payment_screen_title')}</Text>
+        </View>
+        <ScrollView contentContainerStyle={styles.content}>
+          <View style={styles.introContainer}>
+            <Text style={styles.introTitle}>{t('payment_intro_title')}</Text>
+            <Text style={styles.introText}>{t('payment_intro_message')}</Text>
+          </View>
 
-        <ScrollView contentContainerStyle={{ padding: 24 }}>
-          <VStack className="space-y-8 items-center">
-            <Box className="items-center py-4">
-              <Heading size="2xl" className="mb-2">
-                요금제를 선택하세요
-              </Heading>
-              <Text className="text-center">
-                언제든지 요금제를 변경하거나 구독을 취소할 수 있습니다.
-              </Text>
-            </Box>
+          <View style={styles.planCard}>
+            <Text style={styles.planTitle}>{t('basic_plan_title')}</Text>
+            <Text style={styles.planPrice}>{t('basic_plan_price')}</Text>
+            <View style={styles.featuresContainer}>
+              <FeatureItem>{t('basic_plan_feature1')}</FeatureItem>
+              <FeatureItem>{t('basic_plan_feature2')}</FeatureItem>
+            </View>
+            <TouchableOpacity style={styles.buttonOutline}>
+              <Text style={styles.buttonTextOutline}>{t('basic_plan_button')}</Text>
+            </TouchableOpacity>
+          </View>
 
-            {/* 가로(HStack)가 아닌 세로(VStack)로 변경하여 카드들을 수직으로 쌓습니다. */}
-            <VStack className="space-y-4 w-full">
-              {/* Basic Plan Card */}
-              <Box className="p-6 border border-borderLight dark:border-borderDark rounded-lg shadow-md">
-                <VStack className="space-y-4">
-                  <Heading size="xl">Basic</Heading>
-                  <Text className="text-2xl font-bold">월 5,000원</Text>
-                  <VStack className="space-y-2 mt-4">
-                    <FeatureItem>기본 기능 사용</FeatureItem>
-                    <FeatureItem>커뮤니티 지원</FeatureItem>
-                  </VStack>
-                  <Button className="mt-6" variant="outline">
-                    <ButtonText>Basic 플랜 선택</ButtonText>
-                  </Button>
-                </VStack>
-              </Box>
-
-              {/* Premium Plan Card */}
-              <Box className="p-6 border-2 border-primary500 rounded-lg shadow-md bg-primary50">
-                <VStack className="space-y-4">
-                  <Heading size="xl">Premium</Heading>
-                  <Text className="text-2xl font-bold">월 10,000원</Text>
-                  <VStack className="space-y-2 mt-4">
-                    <FeatureItem>모든 기능 사용</FeatureItem>
-                    <FeatureItem>광고 없이 사용</FeatureItem>
-                    <FeatureItem>우선 고객 지원</FeatureItem>
-                  </VStack>
-                  <Button className="mt-6">
-                    <ButtonText>Premium 플랜 선택</ButtonText>
-                  </Button>
-                </VStack>
-              </Box>
-            </VStack>
-          </VStack>
+          <View style={[styles.planCard, styles.premiumPlan]}>
+            <Text style={styles.planTitle}>{t('premium_plan_title')}</Text>
+            <Text style={styles.planPrice}>{t('premium_plan_price')}</Text>
+            <View style={styles.featuresContainer}>
+              <FeatureItem>{t('premium_plan_feature1')}</FeatureItem>
+              <FeatureItem>{t('premium_plan_feature2')}</FeatureItem>
+              <FeatureItem>{t('premium_plan_feature3')}</FeatureItem>
+            </View>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>{t('premium_plan_button')}</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
-      </VStack>
+      </SafeAreaView>
     </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  ...commonStyles,
+  content: {
+    padding: 24,
+  },
+  introContainer: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  introTitle: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  introText: {
+    color: 'rgba(255,255,255,0.7)',
+    textAlign: 'center',
+  },
+  planCard: {
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    borderRadius: 16,
+    padding: 24,
+    marginBottom: 24,
+  },
+  premiumPlan: {
+    borderColor: '#7d5cff',
+    borderWidth: 2,
+  },
+  planTitle: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  planPrice: {
+    color: '#fff',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 24,
+  },
+  featuresContainer: {
+    marginBottom: 24,
+  },
+  featureItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  featureText: {
+    color: '#fff',
+    marginLeft: 8,
+  },
+  button: {
+    backgroundColor: '#7d5cff',
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  buttonOutline: {
+    borderColor: '#7d5cff',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  buttonTextOutline: {
+    color: '#7d5cff',
+    fontWeight: 'bold',
+  },
+});
 
 export default PaymentScreen;

@@ -1,65 +1,79 @@
 import React from 'react';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
-  Box,
-  Heading,
+  View,
   Text,
-  HStack,
-  Pressable,
-  VStack,
-  useToken,
-} from '@gluestack-ui/themed';
-import { LinearGradient } from 'expo-linear-gradient';
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import {LinearGradient} from 'expo-linear-gradient';
+import {Feather} from '@expo/vector-icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { getMockDataById } from '../data/mockData';
-import { Feather } from '@expo/vector-icons';
+import { commonStyles } from '../styles/commonStyles';
+
+import { useTranslation } from 'react-i18next';
 
 type DetailScreenProps = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
 const DetailScreen = ({ route, navigation }: DetailScreenProps) => {
   const { itemId } = route.params;
   const item = getMockDataById(itemId);
-
-  const [bgStart, bgEnd] = useToken('colors', ['homeBgStart', 'homeBgEnd']);
+  const { t } = useTranslation();
 
   return (
     <LinearGradient
-      colors={[bgStart, bgEnd]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={{ flex: 1 }}
-    >
-      <VStack className="flex-1">
-        {/* Header */}
-        <HStack className="items-center border-b p-4 pt-8 border-borderLight dark:border-borderDark justify-between">
-          <Pressable onPress={() => navigation.goBack()} className="mr-4">
-            <Feather name="arrow-left" size={24} className="text-textLight dark:text-textDark text-shadow-neumo-icon" />
-          </Pressable>
-          <Heading size="lg" className="text-textLight dark:text-textDark font-semibold" isTruncated>
-            {item ? item.title : 'Detail'}
-          </Heading>
-        </HStack>
-
-        <VStack className="flex-1 p-6 space-y-4">
-          <Box className="w-full h-48 bg-primary500" />
+      colors={['#0b0e23', '#151929']}
+      style={commonStyles.container}>
+      <SafeAreaView style={commonStyles.safe}>
+        <View style={commonStyles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={commonStyles.backButton}>
+            <Feather name="arrow-left" size={24} color="#fff" />
+          </TouchableOpacity>
+          <Text style={commonStyles.headerTitle}>{item ? item.title : t('detail_screen_title')}</Text>
+        </View>
+        <ScrollView style={styles.content}>
           {item ? (
-            <>
-              <Heading size="xl" className="text-textLight dark:text-textDark font-bold">
-                {item.title}
-              </Heading>
-              <Text size="md" className="leading-6 text-textLight dark:text-textDark opacity-80">
-                {item.content}
-              </Text>
-            </>
+            <View>
+              <View style={styles.imagePlaceholder} />
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={commonStyles.contentText}>{item.content}</Text>
+            </View>
           ) : (
-            <Text className="text-textLight dark:text-textDark">
-              Item not found.
-            </Text>
+            <Text style={commonStyles.contentText}>{t('item_not_found_message')}</Text>
           )}
-        </VStack>
-      </VStack>
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  ...commonStyles,
+  content: {
+    ...commonStyles.content,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+  },
+  imagePlaceholder: {
+    width: '100%',
+    height: 200,
+    backgroundColor: '#333',
+    borderRadius: 12,
+    marginBottom: 24,
+  },
+  title: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  contentText: {
+    ...commonStyles.contentText,
+    lineHeight: 24,
+  },
+});
 
 export default DetailScreen;
