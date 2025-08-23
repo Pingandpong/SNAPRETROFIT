@@ -6,6 +6,8 @@ import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
+import { initNotifications, registerForPushNotificationsAsync } from './services/notifications';
 import { Roboto_100Thin, Roboto_300Light, Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
 import { Poppins_400Regular, Poppins_500Medium } from '@expo-google-fonts/poppins';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -59,14 +61,25 @@ export default function App() {
     }
   }, [fontsLoaded, languageLoaded]);
 
+  useEffect(() => {
+    initNotifications();
+    registerForPushNotificationsAsync().then(token => {
+      if (token) {
+        console.log('Expo push token:', token);
+      }
+    });
+  }, []);
+
   if (!fontsLoaded || !languageLoaded) {
     return null;
   }
 
   // Wrap the Root component with our ThemeProvider
   return (
-    <ThemeProvider>
-      <Root />
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <Root />
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }

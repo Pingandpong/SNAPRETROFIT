@@ -23,6 +23,7 @@
   "language_setting_title": "언어 설정",
   "theme_setting_title": "테마 설정",
   "dark_mode_label": "다크 모드",
+  "dark_mode_toggle": "다크 모드 토글",
   "change_to_korean": "한국어",
   "change_to_english": "영어",
   "change_to_japanese": "일본어",
@@ -47,5 +48,7 @@
   "premium_plan_button": "Premium 플랜 선택",
   "profile_screen_title": "프로필 화면",
   "profile_screen_message": "여기는 프로필 화면입니다.",
-  "app_title": "한하이"
+  "back_button": "뒤로 가기",
+  "app_title": "한하이",
+  "error_boundary_message": "문제가 발생했습니다."
 }
