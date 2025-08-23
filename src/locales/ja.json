@@ -20,6 +20,9 @@
   "settings_card_description": "アプリの設定を変更します。",
   "settings_title": "設定画面",
   "language_setting_title": "言語設定",
+  "theme_setting_title": "テーマ設定",
+  "dark_mode_label": "ダークモード",
+  "dark_mode_toggle": "ダークモードを切り替える",
   "change_to_korean": "韓国語",
   "change_to_english": "英語",
   "change_to_japanese": "日本語",
@@ -45,5 +48,6 @@
   "profile_screen_title": "プロフィール画面",
   "profile_screen_message": "ここはプロフィール画面です。",
   "back_button": "戻る",
-  "app_title": "ハンハイ"
+  "app_title": "ハンハイ",
+  "error_boundary_message": "問題が発生しました。"
 }

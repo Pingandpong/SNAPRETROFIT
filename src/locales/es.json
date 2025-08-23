@@ -20,6 +20,9 @@
   "settings_card_description": "Cambiar las preferencias de la aplicación.",
   "settings_title": "Pantalla de configuración",
   "language_setting_title": "Configuración de idioma",
+  "theme_setting_title": "Configuración de tema",
+  "dark_mode_label": "Modo oscuro",
+  "dark_mode_toggle": "Alternar modo oscuro",
   "change_to_korean": "Coreano",
   "change_to_english": "Inglés",
   "change_to_japanese": "Japonés",
@@ -45,5 +48,6 @@
   "profile_screen_title": "Pantalla de Perfil",
   "profile_screen_message": "Esta es la pantalla de Perfil.",
   "back_button": "Atrás",
-  "app_title": "Hanhi"
+  "app_title": "Hanhi",
+  "error_boundary_message": "Ocurrió un problema."
 }

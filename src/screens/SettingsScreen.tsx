@@ -84,6 +84,8 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
                 trackColor={{ false: '#767577', true: '#81b0ff' }}
                 thumbColor={colorMode === 'dark' ? '#f5dd4b' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
+                accessibilityLabel={t('dark_mode_toggle')}
+                accessibilityRole="switch"
               />
             </View>
           </View>
