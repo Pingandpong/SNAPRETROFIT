@@ -1,7 +1,16 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Box, Pressable, VStack, Heading, Text, HStack } from '@gluestack-ui/themed';
+import {
+  Box,
+  Pressable,
+  VStack,
+  Heading,
+  Text,
+  HStack,
+  useToken,
+} from '@gluestack-ui/themed';
+import { LinearGradient } from 'expo-linear-gradient';
 import { RootStackParamList } from '../navigation/types';
 import { MOCK_DATA } from '../data/mockData';
 import { Feather } from '@expo/vector-icons';
@@ -32,25 +41,34 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
     </Pressable>
   );
 
-  return (
-    <Box className="flex-1 bg-backgroundLight dark:bg-backgroundDark">
-      {/* Header */}
-      <HStack className="items-center border-b p-4 pt-8 border-borderLight dark:border-borderDark justify-between bg-backgroundLight dark:bg-backgroundDark">
-        <Pressable onPress={() => navigation.goBack()} className="mr-4">
-          <Feather name="arrow-left" size={20} className="text-textLight dark:text-textDark text-shadow-neumo-icon" />
-        </Pressable>
-        <Heading size="lg" className="text-textLight dark:text-textDark">
-          {t('list_card_title')}
-        </Heading>
-      </HStack>
+  const [bgStart, bgEnd] = useToken('colors', ['homeBgStart', 'homeBgEnd']);
 
-      <FlatList
-        data={MOCK_DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-      />
-    </Box>
+  return (
+    <LinearGradient
+      colors={[bgStart, bgEnd]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{ flex: 1 }}
+    >
+      <VStack className="flex-1">
+        {/* Header */}
+        <HStack className="items-center border-b p-4 pt-8 border-borderLight dark:border-borderDark justify-between">
+          <Pressable onPress={() => navigation.goBack()} className="mr-4">
+            <Feather name="arrow-left" size={20} className="text-textLight dark:text-textDark text-shadow-neumo-icon" />
+          </Pressable>
+          <Heading size="lg" className="text-textLight dark:text-textDark">
+            {t('list_card_title')}
+          </Heading>
+        </HStack>
+
+        <FlatList
+          data={MOCK_DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={{ flexGrow: 1, padding: 24, justifyContent: 'center' }}
+        />
+      </VStack>
+    </LinearGradient>
   );
 };
 
