@@ -37,6 +37,8 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
       <TouchableOpacity
         onPress={() => changeLanguage(lang)}
         style={[styles.button, isActive && styles.activeButton]}
+        accessibilityRole="button"
+        accessibilityLabel={t(langKey)}
       >
         <Text style={[styles.buttonText, isActive && styles.activeButtonText]}>{t(langKey)}</Text>
       </TouchableOpacity>
@@ -49,7 +51,12 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
       style={commonStyles.container}>
       <SafeAreaView style={commonStyles.safe}>
         <View style={commonStyles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={commonStyles.backButton}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={commonStyles.backButton}
+            accessibilityRole="button"
+            accessibilityLabel={t('back_button')}
+          >
             <Feather name="arrow-left" size={24} color="#fff" />
           </TouchableOpacity>
           <Text style={commonStyles.headerTitle}>{t('settings_title')}</Text>
