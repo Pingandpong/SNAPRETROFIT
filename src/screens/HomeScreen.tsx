@@ -58,11 +58,17 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
         {/* 하단 플로팅 + 버튼 */}
         <View style={styles.plusWrap}>
-          <LinearGradient
-            colors={['#7d5cff', '#5d3aff']}
-            style={styles.plusBtn}>
-            <Feather name="plus" size={28} color="#fff" />
-          </LinearGradient>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel={t('add_item_button')}
+            onPress={() => {}}
+          >
+            <LinearGradient
+              colors={['#7d5cff', '#5d3aff']}
+              style={styles.plusBtn}>
+              <Feather name="plus" size={28} color="#fff" />
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </LinearGradient>

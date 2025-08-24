@@ -3,6 +3,7 @@ import i18next from './services/i18n';
 import './config/firebaseConfig';
 import AppNavigator from './navigation/AppNavigator';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
@@ -13,6 +14,8 @@ import { Poppins_400Regular, Poppins_500Medium } from '@expo-google-fonts/poppin
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { appTheme } from './theme/gluestack-ui.theme'; // Import our custom theme
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ToastProvider } from './providers/ToastProvider';
+import OnboardingScreen from './screens/OnboardingScreen';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +24,7 @@ const Root = () => {
   const { colorMode } = useTheme();
   return (
     <GluestackUIProvider config={appTheme} colorMode={colorMode}>
+      <StatusBar style={colorMode === 'dark' ? 'light' : 'dark'} backgroundColor="transparent" />
       <AppNavigator />
     </GluestackUIProvider>
   );
@@ -37,6 +41,7 @@ export default function App() {
   });
 
   const [languageLoaded, setLanguageLoaded] = useState(false);
+  const [hasOnboarded, setHasOnboarded] = useState<boolean | null>(null);
 
   useEffect(() => {
     const loadLanguage = async () => {
@@ -53,6 +58,9 @@ export default function App() {
     };
 
     loadLanguage();
+    AsyncStorage.getItem('onboarded').then(value => {
+      setHasOnboarded(value === 'true');
+    });
   }, []);
 
   useEffect(() => {
@@ -70,15 +78,32 @@ export default function App() {
     });
   }, []);
 
-  if (!fontsLoaded || !languageLoaded) {
+  if (!fontsLoaded || !languageLoaded || hasOnboarded === null) {
     return null;
+  }
+
+  if (!hasOnboarded) {
+    return (
+      <ThemeProvider>
+        <ToastProvider>
+          <OnboardingScreen
+            onFinish={() => {
+              AsyncStorage.setItem('onboarded', 'true');
+              setHasOnboarded(true);
+            }}
+          />
+        </ToastProvider>
+      </ThemeProvider>
+    );
   }
 
   // Wrap the Root component with our ThemeProvider
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <Root />
+        <ToastProvider>
+          <Root />
+        </ToastProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

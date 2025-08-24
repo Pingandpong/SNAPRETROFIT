@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  Switch,
-} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Switch, TouchableOpacity } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import {Feather} from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -15,17 +8,21 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { commonStyles } from '../styles/commonStyles';
+import AppButton from '../components/AppButton';
+import { useAppToast } from '../providers/ToastProvider';
 
 type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { t, i18n } = useTranslation();
   const { colorMode, toggleColorMode } = useTheme();
+  const showToast = useAppToast();
 
   const changeLanguage = async (lng: string) => {
     try {
       await i18n.changeLanguage(lng);
       await AsyncStorage.setItem('language', lng);
+      showToast({ title: t('language_changed') });
     } catch (error) {
       console.error("Failed to save language to storage", error);
     }
@@ -34,14 +31,14 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const LanguageButton = ({ lang, langKey }: { lang: string; langKey: string }) => {
     const isActive = i18n.language.startsWith(lang);
     return (
-      <TouchableOpacity
+      <AppButton
+        title={t(langKey)}
+        variant={isActive ? 'primary' : 'outline'}
         onPress={() => changeLanguage(lang)}
-        style={[styles.button, isActive && styles.activeButton]}
-        accessibilityRole="button"
         accessibilityLabel={t(langKey)}
-      >
-        <Text style={[styles.buttonText, isActive && styles.activeButtonText]}>{t(langKey)}</Text>
-      </TouchableOpacity>
+        accessibilityRole="button"
+        className="flex-1 mx-2"
+      />
     );
   };
 
@@ -114,25 +111,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
-  },
-  button: {
-    flex: 1,
-    borderColor: '#7d5cff',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingVertical: 12,
-    alignItems: 'center',
-    marginHorizontal: 8,
-  },
-  activeButton: {
-    backgroundColor: '#7d5cff',
-  },
-  buttonText: {
-    color: '#7d5cff',
-    fontWeight: 'bold',
-  },
-  activeButtonText: {
-    color: '#fff',
   },
   themeSwitchContainer: {
     flexDirection: 'row',
