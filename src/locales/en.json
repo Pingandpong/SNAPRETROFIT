@@ -48,6 +48,7 @@
   "profile_screen_title": "Profile Screen",
   "profile_screen_message": "This is the Profile screen.",
   "back_button": "Back",
+  "add_item_button": "Add item",
   "app_title": "Hanhi",
   "error_boundary_message": "Something went wrong."
 }

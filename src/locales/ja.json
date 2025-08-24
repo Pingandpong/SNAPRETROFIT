@@ -48,6 +48,7 @@
   "profile_screen_title": "プロフィール画面",
   "profile_screen_message": "ここはプロフィール画面です。",
   "back_button": "戻る",
+  "add_item_button": "アイテムを追加",
   "app_title": "ハンハイ",
   "error_boundary_message": "問題が発生しました。"
 }

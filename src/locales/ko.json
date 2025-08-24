@@ -49,6 +49,7 @@
   "profile_screen_title": "프로필 화면",
   "profile_screen_message": "여기는 프로필 화면입니다.",
   "back_button": "뒤로 가기",
+  "add_item_button": "새 항목 추가",
   "app_title": "한하이",
   "error_boundary_message": "문제가 발생했습니다."
 }
