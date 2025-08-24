@@ -2,8 +2,8 @@ import React from 'react';
 import { Skeleton, SkeletonText } from '@gluestack-ui/themed';
 
 const LoadingSkeleton = () => (
-  <Skeleton className="w-full h-20 rounded-lg mb-4">
-    <SkeletonText className="text-lg" />
+  <Skeleton width="100%" height={80} borderRadius="$lg" marginBottom="$4">
+    <SkeletonText fontSize="$lg" />
   </Skeleton>
 );
 

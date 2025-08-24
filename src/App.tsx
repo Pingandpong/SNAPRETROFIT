@@ -16,17 +16,23 @@ import { appTheme } from './theme/gluestack-ui.theme'; // Import our custom them
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ToastProvider } from './providers/ToastProvider';
 import OnboardingScreen from './screens/OnboardingScreen';
+import { SafeAreaView } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
 // Root component to access theme context and pass it to the provider
 const Root = () => {
   const { colorMode } = useTheme();
+  const isDarkMode = colorMode === 'dark';
+  const backgroundColor = isDarkMode ? '#000000' : '#FFFFFF'; // Example: Black for dark, White for light
+
   return (
-    <GluestackUIProvider config={appTheme} colorMode={colorMode}>
-      <StatusBar style={colorMode === 'dark' ? 'light' : 'dark'} backgroundColor="transparent" />
-      <AppNavigator />
-    </GluestackUIProvider>
+    <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor }}>
+      <GluestackUIProvider config={appTheme} colorMode={colorMode}>
+        <StatusBar style={isDarkMode ? 'light' : 'dark'} />
+        <AppNavigator />
+      </GluestackUIProvider>
+    </SafeAreaView>
   );
 };
 
