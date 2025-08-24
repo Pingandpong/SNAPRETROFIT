@@ -50,5 +50,16 @@
   "back_button": "戻る",
   "add_item_button": "アイテムを追加",
   "app_title": "ハンハイ",
-  "error_boundary_message": "問題が発生しました。"
+  "error_boundary_message": "問題が発生しました。",
+  "language_changed": "言語が変更されました",
+  "save": "保存",
+  "saved": "保存しました",
+  "empty_list": "項目がありません",
+  "next": "次へ",
+  "skip": "スキップ",
+  "start_app": "開始",
+  "onboarding_title1": "ようこそ",
+  "onboarding_desc1": "このアプリベースで素早く開始できます。",
+  "onboarding_title2": "準備完了",
+  "onboarding_desc2": "簡単に機能を追加できます。"
 }

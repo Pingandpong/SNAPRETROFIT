@@ -50,5 +50,16 @@
   "back_button": "Back",
   "add_item_button": "Add item",
   "app_title": "Hanhi",
-  "error_boundary_message": "Something went wrong."
+  "error_boundary_message": "Something went wrong.",
+  "language_changed": "Language changed",
+  "save": "Save",
+  "saved": "Saved",
+  "empty_list": "No items found.",
+  "next": "Next",
+  "skip": "Skip",
+  "start_app": "Start",
+  "onboarding_title1": "Welcome",
+  "onboarding_desc1": "This app base helps you start fast.",
+  "onboarding_title2": "Ready to build",
+  "onboarding_desc2": "Add your features easily."
 }

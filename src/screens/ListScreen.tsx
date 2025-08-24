@@ -1,12 +1,5 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  FlatList,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import {Feather} from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -14,26 +7,37 @@ import { RootStackParamList } from '../navigation/types';
 import { MOCK_DATA } from '../data/mockData';
 import { useTranslation } from 'react-i18next';
 import { commonStyles } from '../styles/commonStyles';
+import LoadingSkeleton from '../components/LoadingSkeleton';
+import EmptyState from '../components/EmptyState';
+import AnimatedCard from '../components/AnimatedCard';
 
 type ListScreenProps = NativeStackScreenProps<RootStackParamList, 'List'>;
 
 const ListScreen = ({ navigation }: ListScreenProps) => {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const renderItem = ({ item }: { item: (typeof MOCK_DATA)[0] }) => (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Detail', { itemId: item.id })}
-      style={styles.itemContainer}
-    >
-      <View style={styles.itemIcon}>
-        <Feather name="list" size={24} color="#fff" />
-      </View>
-      <View style={styles.itemTextContainer}>
-        <Text style={styles.itemTitle}>{item.title}</Text>
-        <Text style={styles.itemContent}>{item.content.substring(0, 60)}...</Text>
-      </View>
-      <Feather name="chevron-right" size={20} color="#fff" />
-    </TouchableOpacity>
+    <AnimatedCard>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Detail', { itemId: item.id })}
+        style={styles.itemContainer}
+      >
+        <View style={styles.itemIcon}>
+          <Feather name="list" size={24} color="#fff" />
+        </View>
+        <View style={styles.itemTextContainer}>
+          <Text style={styles.itemTitle}>{item.title}</Text>
+          <Text style={styles.itemContent}>{item.content.substring(0, 60)}...</Text>
+        </View>
+        <Feather name="chevron-right" size={20} color="#fff" />
+      </TouchableOpacity>
+    </AnimatedCard>
   );
 
   return (
@@ -47,12 +51,24 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
           </TouchableOpacity>
           <Text style={commonStyles.headerTitle}>{t('list_card_title')}</Text>
         </View>
-        <FlatList
-          data={MOCK_DATA}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.listContentContainer}
-        />
+        {loading && (
+          <View className="px-6">
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </View>
+        )}
+        {!loading && MOCK_DATA.length === 0 && (
+          <EmptyState message={t('empty_list')} />
+        )}
+        {!loading && MOCK_DATA.length > 0 && (
+          <FlatList
+            data={MOCK_DATA}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.listContentContainer}
+          />
+        )}
       </SafeAreaView>
     </LinearGradient>
   );
