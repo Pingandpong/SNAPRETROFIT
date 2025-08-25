@@ -1,0 +1,25 @@
+[{
+	"resource": "/c:/Users/jeyoung/projects/app_base/src/screens/ListScreen.tsx",
+	"owner": "typescript",
+	"code": "2344",
+	"severity": 8,
+	"message": "Type '\"List\"' does not satisfy the constraint 'keyof RootStackParamList'.",
+	"source": "ts",
+	"startLineNumber": 18,
+	"startColumn": 67,
+	"endLineNumber": 18,
+	"endColumn": 73,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/jeyoung/projects/app_base/src/screens/SettingsScreen.tsx",
+	"owner": "typescript",
+	"code": "2344",
+	"severity": 8,
+	"message": "Type '\"Settings\"' does not satisfy the constraint 'keyof RootStackParamList'.",
+	"source": "ts",
+	"startLineNumber": 16,
+	"startColumn": 71,
+	"endLineNumber": 16,
+	"endColumn": 81,
+	"origin": "extHost1"
+}]

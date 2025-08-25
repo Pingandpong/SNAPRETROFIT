@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList, RootTabParamList } from '../navigation/types';
+import { RootStackParamList } from '../navigation/types';
 import { MOCK_DATA } from '../data/mockData';
 import { useTranslation } from 'react-i18next';
 import { commonStyles } from '../styles/commonStyles';
@@ -15,10 +15,7 @@ import AnimatedCard from '../components/AnimatedCard';
 import AppHeader from '../components/AppHeader';
 import SearchBar from '../components/SearchBar';
 
-type ListScreenProps = CompositeScreenProps<
-  BottomTabScreenProps<RootTabParamList, 'List'>,
-  NativeStackScreenProps<RootStackParamList>
->;
+type ListScreenProps = NativeStackScreenProps<RootStackParamList, 'List'>;
 
 const ListScreen = ({ navigation }: ListScreenProps) => {
   const { t } = useTranslation();

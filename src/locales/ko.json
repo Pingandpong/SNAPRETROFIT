@@ -2,6 +2,7 @@
   "welcome": "환영합니다!",
   "home_title": "홈 화면",
   "welcome_message": "이 앱은 React Native와 Expo로 만들어진 샘플 앱입니다.",
+  "home_subtitle": "앱의 다양한 기능을 탐색해보세요.",
   "card1_title": "첫 번째 카드",
   "card1_description": "이것은 React Native Paper의 카드 컴포넌트입니다.",
   "card1_button": "상세 화면으로",

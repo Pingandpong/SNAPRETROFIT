@@ -2,8 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
-import ListScreen from '../screens/ListScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import Screen2 from '../screens/Screen2';
+import Screen3 from '../screens/Screen3';
 import { RootTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -27,20 +27,20 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="List"
-        component={ListScreen}
+        name="Screen2"
+        component={Screen2}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Feather name="list" size={size} color={color} />
+            <Feather name="square" size={size} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name="Screen3"
+        component={Screen3}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Feather name="settings" size={size} color={color} />
+            <Feather name="circle" size={size} color={color} />
           ),
         }}
       />

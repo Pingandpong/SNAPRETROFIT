@@ -2,6 +2,7 @@
   "welcome": "Welcome!",
   "home_title": "Home Screen",
   "welcome_message": "This is a sample app built with React Native and Expo.",
+  "home_subtitle": "Explore the various features of the app.",
   "card1_title": "First Card",
   "card1_description": "This is a card component from React Native Paper.",
   "card1_button": "To Detail Screen",

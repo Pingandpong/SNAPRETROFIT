@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Switch } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList, RootTabParamList } from '../navigation/types';
+import { RootStackParamList } from '../navigation/types';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,10 +13,7 @@ import AppButton from '../components/AppButton';
 import { useAppToast } from '../providers/ToastProvider';
 import AppHeader from '../components/AppHeader';
 
-type SettingsScreenProps = CompositeScreenProps<
-  BottomTabScreenProps<RootTabParamList, 'Settings'>,
-  NativeStackScreenProps<RootStackParamList>
->;
+type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { t, i18n } = useTranslation();
