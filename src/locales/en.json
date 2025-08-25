@@ -49,6 +49,8 @@
   "profile_screen_message": "This is the Profile screen.",
   "back_button": "Back",
   "add_item_button": "Add item",
+  "screen_selection_title": "Select screen",
+  "close": "Close",
   "app_title": "Hanhi",
   "error_boundary_message": "Something went wrong.",
   "language_changed": "Language changed",
