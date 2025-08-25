@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList, RootTabParamList } from '../navigation/types';
 import { commonStyles } from '../styles/commonStyles';
-import FloatingActionButton from '../components/FloatingActionButton';
+import ScreenSelectionModal from '../components/ScreenSelectionModal';
 
 import { useTranslation } from 'react-i18next';
 
@@ -24,13 +24,7 @@ type HomeScreenProps = CompositeScreenProps<
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { t } = useTranslation();
-  const menu = [
-    {icon: 'credit-card', title: t('payment_card_title'), desc: t('payment_card_description'), navigateTo: 'Payment' as const},
-    {icon: 'settings', title: t('settings_title'), desc: t('settings_card_description'), navigateTo: 'Settings' as const},
-    {icon: 'list', title: t('list_card_title'), desc: t('list_card_description'), navigateTo: 'List' as const},
-    {icon: 'edit', title: t('create_edit_card_title'), desc: t('create_edit_card_description'), navigateTo: 'CreateEdit' as const},
-    {icon: 'user', title: t('profile_card_title'), desc: t('profile_card_description'), navigateTo: 'Profile' as const},
-  ] as const;
+  const [isModalVisible, setModalVisible] = useState(false);
 
   return (
     <LinearGradient
@@ -40,36 +34,26 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         {/* 카드 영역 */}
         <View style={styles.card}>
           <Text style={styles.cardTitle}>{t('app_title')}</Text>
-
-          {menu.map(item => (
-            <TouchableOpacity
-              key={item.title}
-              style={styles.row}
-              onPress={() => navigation.navigate(item.navigateTo as never)}
-            >
-              {/* 아이콘 박스 */}
-              <LinearGradient
-                colors={['#7d5cff', '#5d3aff']}
-                style={styles.iconBox}>
-                <Feather name={item.icon} size={24} color="#fff" />
-              </LinearGradient>
-
-              {/* 텍스트 */}
-              <View style={styles.textWrap}>
-                <Text style={styles.rowTitle}>{item.title}</Text>
-                <Text style={styles.rowDesc}>{item.desc}</Text>
-              </View>
-
-              {/* 오른쪽 화살표 */}
-              <Feather name="chevron-right" size={20} color="#fff" />
-            </TouchableOpacity>
-          ))}
         </View>
 
         {/* 하단 플로팅 + 버튼 */}
-        <FloatingActionButton
-          icon="plus"
-          onPress={() => {}}
+        <View style={styles.plusWrap}>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel={t('add_item_button')}
+            onPress={() => setModalVisible(true)}
+          >
+            <LinearGradient
+              colors={['#7d5cff', '#5d3aff']}
+              style={styles.plusBtn}>
+              <Feather name="plus" size={28} color="#fff" />
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+        <ScreenSelectionModal
+          visible={isModalVisible}
+          onClose={() => setModalVisible(false)}
+          navigation={navigation}
         />
       </SafeAreaView>
     </LinearGradient>
@@ -98,22 +82,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 16,
   },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  iconBox: {
-    width: 48,
-    height: 48,
-    borderRadius: 12,
+  plusWrap: {position: 'absolute', bottom: 24, left: 0, right: 0, alignItems: 'center'},
+  plusBtn: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
+    shadowColor: '#7d5cff',
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
   },
-  textWrap: {flex: 1},
-  rowTitle: {color: '#fff', fontSize: 16, fontWeight: '500'},
-  rowDesc: {color: 'rgba(255,255,255,0.7)', fontSize: 12, marginTop: 4},
 });
 
 export default HomeScreen;

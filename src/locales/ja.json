@@ -48,5 +48,7 @@
   "profile_screen_title": "プロフィール画面",
   "profile_screen_message": "ここはプロフィール画面です。",
   "app_title": "ハンハイ",
-  "search_placeholder": "検索..."
+  "search_placeholder": "検索...",
+  "screen_selection_title": "画面選択",
+  "close": "閉じる"
 }
