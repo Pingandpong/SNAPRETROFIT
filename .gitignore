@@ -3,3 +3,4 @@ gemini_deploy_key.pub
 node_modules
 node_modules
 .env
+error.log
