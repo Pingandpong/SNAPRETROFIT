@@ -1,17 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Switch, TouchableOpacity } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-import {Feather} from '@expo/vector-icons';
+import { View, Text, StyleSheet, SafeAreaView, Switch } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/types';
+import { RootStackParamList, RootTabParamList } from '../navigation/types';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { commonStyles } from '../styles/commonStyles';
 import AppButton from '../components/AppButton';
 import { useAppToast } from '../providers/ToastProvider';
+import AppHeader from '../components/AppHeader';
 
-type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
+type SettingsScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<RootTabParamList, 'Settings'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { t, i18n } = useTranslation();
@@ -47,17 +52,11 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
       colors={['#0b0e23', '#151929']}
       style={commonStyles.container}>
       <SafeAreaView style={commonStyles.safe}>
-        <View style={commonStyles.header}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={commonStyles.backButton}
-            accessibilityRole="button"
-            accessibilityLabel={t('back_button')}
-          >
-            <Feather name="arrow-left" size={24} color="#fff" />
-          </TouchableOpacity>
-          <Text style={commonStyles.headerTitle}>{t('settings_title')}</Text>
-        </View>
+        <AppHeader
+          title={t('settings_title')}
+          showBackButton
+          onBackPress={() => navigation.goBack()}
+        />
         <View style={styles.content}>
           <View style={styles.settingGroup}>
             <Text style={styles.settingTitle}>{t('language_setting_title')}</Text>

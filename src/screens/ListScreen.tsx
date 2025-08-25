@@ -1,26 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-import {Feather} from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/types';
+import { RootStackParamList, RootTabParamList } from '../navigation/types';
 import { MOCK_DATA } from '../data/mockData';
 import { useTranslation } from 'react-i18next';
 import { commonStyles } from '../styles/commonStyles';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import EmptyState from '../components/EmptyState';
 import AnimatedCard from '../components/AnimatedCard';
+import AppHeader from '../components/AppHeader';
+import SearchBar from '../components/SearchBar';
 
-type ListScreenProps = NativeStackScreenProps<RootStackParamList, 'List'>;
+type ListScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<RootTabParamList, 'List'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 const ListScreen = ({ navigation }: ListScreenProps) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  const filteredData = MOCK_DATA.filter(item =>
+    item.title.toLowerCase().includes(query.toLowerCase())
+  );
 
   const renderItem = ({ item }: { item: (typeof MOCK_DATA)[0] }) => (
     <AnimatedCard>
@@ -45,12 +57,16 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
       colors={['#0b0e23', '#151929']}
       style={commonStyles.container}>
       <SafeAreaView style={commonStyles.safe}>
-        <View style={commonStyles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={commonStyles.backButton}>
-            <Feather name="arrow-left" size={24} color="#fff" />
-          </TouchableOpacity>
-          <Text style={commonStyles.headerTitle}>{t('list_card_title')}</Text>
-        </View>
+        <AppHeader
+          title={t('list_card_title')}
+          showBackButton
+          onBackPress={() => navigation.goBack()}
+        />
+        <SearchBar
+          value={query}
+          onChangeText={setQuery}
+          placeholder={t('search_placeholder')}
+        />
         {loading && (
           <View className="px-6">
             <LoadingSkeleton />
@@ -58,12 +74,12 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
             <LoadingSkeleton />
           </View>
         )}
-        {!loading && MOCK_DATA.length === 0 && (
+        {!loading && filteredData.length === 0 && (
           <EmptyState message={t('empty_list')} />
         )}
-        {!loading && MOCK_DATA.length > 0 && (
+        {!loading && filteredData.length > 0 && (
           <FlatList
-            data={MOCK_DATA}
+            data={filteredData}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={styles.listContentContainer}

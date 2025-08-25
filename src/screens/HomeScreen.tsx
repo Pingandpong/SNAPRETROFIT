@@ -6,15 +6,21 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-import {Feather} from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/types';
+import { RootStackParamList, RootTabParamList } from '../navigation/types';
 import { commonStyles } from '../styles/commonStyles';
+import FloatingActionButton from '../components/FloatingActionButton';
 
 import { useTranslation } from 'react-i18next';
 
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type HomeScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<RootTabParamList, 'Home'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { t } = useTranslation();
@@ -36,7 +42,11 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           <Text style={styles.cardTitle}>{t('app_title')}</Text>
 
           {menu.map(item => (
-            <TouchableOpacity key={item.title} style={styles.row} onPress={() => navigation.navigate(item.navigateTo)}>
+            <TouchableOpacity
+              key={item.title}
+              style={styles.row}
+              onPress={() => navigation.navigate(item.navigateTo as never)}
+            >
               {/* 아이콘 박스 */}
               <LinearGradient
                 colors={['#7d5cff', '#5d3aff']}
@@ -57,19 +67,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         </View>
 
         {/* 하단 플로팅 + 버튼 */}
-        <View style={styles.plusWrap}>
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel={t('add_item_button')}
-            onPress={() => {}}
-          >
-            <LinearGradient
-              colors={['#7d5cff', '#5d3aff']}
-              style={styles.plusBtn}>
-              <Feather name="plus" size={28} color="#fff" />
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
+        <FloatingActionButton
+          icon="plus"
+          onPress={() => {}}
+        />
       </SafeAreaView>
     </LinearGradient>
   );
@@ -113,17 +114,6 @@ const styles = StyleSheet.create({
   textWrap: {flex: 1},
   rowTitle: {color: '#fff', fontSize: 16, fontWeight: '500'},
   rowDesc: {color: 'rgba(255,255,255,0.7)', fontSize: 12, marginTop: 4},
-  plusWrap: {position: 'absolute', bottom: 24, left: 0, right: 0, alignItems: 'center'},
-  plusBtn: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#7d5cff',
-    shadowOpacity: 0.6,
-    shadowRadius: 8,
-  },
 });
 
 export default HomeScreen;

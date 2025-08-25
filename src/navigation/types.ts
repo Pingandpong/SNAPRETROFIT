@@ -1,9 +1,13 @@
-export type RootStackParamList = {
+export type RootTabParamList = {
   Home: undefined;
-  Detail: { itemId: number; otherParam?: string };
-  Settings: undefined;
-  Profile: undefined;
   List: undefined;
+  Settings: undefined;
+};
+
+export type RootStackParamList = {
+  RootTab: undefined;
+  Detail: { itemId: number; otherParam?: string };
   CreateEdit: { itemId?: number };
   Payment: undefined;
+  Profile: undefined;
 };
