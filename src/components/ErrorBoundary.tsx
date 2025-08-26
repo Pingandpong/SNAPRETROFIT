@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import i18next from '../services/i18n';
 
 type Props = { children: React.ReactNode };
@@ -24,6 +24,12 @@ export default class ErrorBoundary extends React.Component<Props, State> {
       return (
         <View style={styles.container}>
           <Text style={styles.text}>{i18next.t('error_boundary_message')}</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.setState({ hasError: false })}
+          >
+            <Text style={styles.buttonText}>{i18next.t('retry')}</Text>
+          </TouchableOpacity>
         </View>
       );
     }
@@ -41,5 +47,16 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 16,
+  },
+  button: {
+    marginTop: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: '#7d5cff',
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '500',
   },
 });

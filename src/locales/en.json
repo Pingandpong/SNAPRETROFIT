@@ -65,5 +65,7 @@
   "onboarding_title1": "Welcome",
   "onboarding_desc1": "This app base helps you start fast.",
   "onboarding_title2": "Ready to build",
-  "onboarding_desc2": "Add your features easily."
+  "onboarding_desc2": "Add your features easily.",
+  "retry": "Retry",
+  "required_field": "This field is required."
 }

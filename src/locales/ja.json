@@ -50,5 +50,7 @@
   "app_title": "ハンハイ",
   "search_placeholder": "検索...",
   "screen_selection_title": "画面選択",
-  "close": "閉じる"
+  "close": "閉じる",
+  "retry": "再試行",
+  "required_field": "必須項目です。"
 }
