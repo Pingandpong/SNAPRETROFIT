@@ -19,14 +19,11 @@ type HomeScreenProps = CompositeScreenProps<
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { t } = useTranslation();
   const [isModalVisible, setModalVisible] = useState(false);
-  const start = appTheme.tokens.colors.homeBgStart;
-  const end = appTheme.tokens.colors.homeBgEnd;
-
   return (
-    <LinearGradient colors={[start, end]} style={{flex: 1}}>
+    <LinearGradient colors={['#0b0e23', '#151929']} style={{flex: 1}}>
       <SafeAreaView style={{flex: 1}}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <Box style={{flex: 1, padding: 24}}>
+          <Box style={{flex: 1, padding: 24, paddingTop: 120}}>
             <View style={{ marginBottom: 24 }}>
               <Heading size="xl" style={{color: 'white', textAlign: 'left'}}>
                 {t('welcome_message') || 'Welcome!'}
@@ -44,7 +41,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
           </Box>
         </ScrollView>
-        <Box style={{position: 'absolute', bottom: 24, left: 0, right: 0, alignItems: 'center'}}>
+        <Box style={{position: 'absolute', bottom: 50, left: 0, right: 0, alignItems: 'center'}}>
           <FloatingActionButton
             onPress={() => setModalVisible(true)}
             label={t('add_item_button')}
