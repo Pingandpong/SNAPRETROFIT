@@ -14,7 +14,6 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList, RootTabParamList } from '../navigation/types';
 import { useTranslation } from 'react-i18next';
-import { commonStyles } from '../styles/commonStyles';
 import { appTheme } from '../theme/gluestack-ui.theme';
 import Animated, {
   useSharedValue,
@@ -48,46 +47,37 @@ const ScreenSelectionModal: React.FC<Props> = ({ visible, onClose, navigation })
     onClose();
   };
 
-  const homeBgStart = appTheme.tokens.colors.homeBgStart;
-  const homeBgEnd = appTheme.tokens.colors.homeBgEnd;
   const cardDark = appTheme.tokens.colors.cardDark;
   const textDark = appTheme.tokens.colors.textDark;
   const textMuted = 'rgba(255,255,255,0.7)';
 
   const scale = useSharedValue(0);
-  const opacity = useSharedValue(0);
 
   useEffect(() => {
     if (visible) {
-      scale.value = withTiming(1, { duration: 500, easing: Easing.out(Easing.ease) });
-      opacity.value = withTiming(1, { duration: 500, easing: Easing.out(Easing.ease) });
+      scale.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
     } else {
-      scale.value = withTiming(0, { duration: 400, easing: Easing.in(Easing.ease) });
-      opacity.value = withTiming(0, { duration: 400, easing: Easing.in(Easing.ease) });
+      scale.value = withTiming(0, { duration: 200, easing: Easing.in(Easing.ease) });
     }
   }, [visible]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ scale: scale.value }],
-      opacity: opacity.value,
     };
   });
 
   return (
     <Modal
-      animationType="none"
-      transparent={false}
+      animationType="fade"
+      transparent={true}
       visible={visible}
       onRequestClose={onClose}
     >
-      <Animated.View style={[StyleSheet.absoluteFill, animatedStyle]}>
-        <LinearGradient
-          colors={[homeBgStart, homeBgEnd]}
-          style={styles.container}>
-          <SafeAreaView style={styles.safe}>
-            <View style={[styles.card, { backgroundColor: cardDark }]}>
-              <Text style={[styles.cardTitle, { color: textDark }]}>{t('app_title')}</Text>
+      <View style={styles.backdrop}>
+        <SafeAreaView style={styles.safe}>
+          <Animated.View style={[styles.card, { backgroundColor: cardDark }, animatedStyle]}>
+              <Text style={[styles.cardTitle, { color: textDark }]}>{t('screen_selection_title')}</Text>
 
               {menu.map(item => (
                 <TouchableOpacity key={item.title} style={styles.row} onPress={() => handleNavigate(item.navigateTo)}>
@@ -105,39 +95,36 @@ const ScreenSelectionModal: React.FC<Props> = ({ visible, onClose, navigation })
                   <Feather name="chevron-right" size={20} color={textDark} />
                 </TouchableOpacity>
               ))}
-            </View>
+            </Animated.View>
 
-            <View style={styles.plusWrap}>
-              <TouchableOpacity
-                accessibilityRole="button"
-                accessibilityLabel={t('close')}
-                onPress={onClose}
-              >
-                <LinearGradient
-                  colors={['#7d5cff', '#5d3aff']}
-                  style={styles.plusBtn}>
-                  <Feather name="x" size={28} color="#fff" />
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-          </SafeAreaView>
-        </LinearGradient>
-      </Animated.View>
+            <TouchableOpacity
+              style={styles.closeButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('close')}
+              onPress={onClose}
+            >
+              <Feather name="x" size={28} color="#fff" />
+            </TouchableOpacity>
+        </SafeAreaView>
+      </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  ...commonStyles,
-  container: {
+  backdrop: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   safe: {
-    ...commonStyles.safe,
+    width: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
   },
   card: {
+    width: '90%',
     borderRadius: 24,
     padding: 24,
     shadowColor: '#000',
@@ -149,6 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     marginBottom: 16,
+    textAlign: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -172,16 +160,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 4
   },
-  plusWrap: {position: 'absolute', bottom: 24, left: 0, right: 0, alignItems: 'center'},
-  plusBtn: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#7d5cff',
-    shadowOpacity: 0.6,
-    shadowRadius: 8,
+  closeButton: {
+    position: 'absolute',
+    bottom: 48, // Positioned a bit higher
   },
 });
 

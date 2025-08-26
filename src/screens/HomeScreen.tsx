@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, DevSettings } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Box, Heading } from '@gluestack-ui/themed';
-import { appTheme } from '../theme/gluestack-ui.theme';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -10,6 +9,8 @@ import { RootStackParamList, RootTabParamList } from '../navigation/types';
 import ScreenSelectionModal from '../components/ScreenSelectionModal';
 import FloatingActionButton from '../components/FloatingActionButton';
 import { useTranslation } from 'react-i18next';
+import AppButton from '../components/AppButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type HomeScreenProps = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, 'Home'>,
@@ -19,6 +20,12 @@ type HomeScreenProps = CompositeScreenProps<
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { t } = useTranslation();
   const [isModalVisible, setModalVisible] = useState(false);
+
+  const handleResetOnboarding = async () => {
+    await AsyncStorage.removeItem('onboarded');
+    DevSettings.reload();
+  };
+
   return (
     <LinearGradient colors={['#0b0e23', '#151929']} style={{flex: 1}}>
       <SafeAreaView style={{flex: 1}}>
@@ -37,6 +44,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
               <Heading size="lg" style={{color: 'white', textAlign: 'center', marginBottom: 16}}>
                 {t('app_title')}
               </Heading>
+              <AppButton title="Reset Onboarding" onPress={handleResetOnboarding} />
             </Box>
 
           </Box>

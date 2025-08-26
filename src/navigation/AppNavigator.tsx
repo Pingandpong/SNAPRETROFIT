@@ -36,7 +36,12 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer theme={colorMode === 'dark' ? MyDarkTheme : MyLightTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator 
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: '#0b0e23' }
+        }}
+      >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="List" component={ListScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />

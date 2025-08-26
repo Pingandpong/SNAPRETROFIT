@@ -15,9 +15,9 @@ const variantClass: Record<AppButtonVariant, string> = {
   outline: 'border border-primary-500 bg-transparent',
 };
 
-const AppButton: React.FC<Props> = ({ title, variant = 'primary', ...props }) => {
+const AppButton: React.FC<Props> = ({ title, variant = 'primary', className, ...props }) => {
   return (
-    <Button className={variantClass[variant]} {...props}>
+    <Button className={`${variantClass[variant]} rounded-full ${className || ''}`} {...props}>
       <ButtonText>{title}</ButtonText>
     </Button>
   );
