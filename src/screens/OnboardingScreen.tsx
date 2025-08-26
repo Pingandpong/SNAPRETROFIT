@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, FlatList, Dimensions } from 'react-native';
+import LottieView from 'lottie-react-native';
 import AppButton from '../components/AppButton';
 import { useTranslation } from 'react-i18next';
 
@@ -19,11 +20,13 @@ const OnboardingScreen: React.FC<Props> = ({ onFinish }) => {
       key: '1',
       title: t('onboarding_title1'),
       desc: t('onboarding_desc1'),
+      animation: require('../../assets/animations/onboarding1.json'),
     },
     {
       key: '2',
       title: t('onboarding_title2'),
       desc: t('onboarding_desc2'),
+      animation: require('../../assets/animations/onboarding2.json'),
     },
   ];
 
@@ -46,6 +49,12 @@ const OnboardingScreen: React.FC<Props> = ({ onFinish }) => {
         onMomentumScrollEnd={e => setIndex(Math.round(e.nativeEvent.contentOffset.x / width))}
         renderItem={({ item }) => (
           <View style={{ width }} className="items-center justify-center">
+            <LottieView
+              source={item.animation}
+              autoPlay
+              loop
+              style={{ width: 200, height: 200 }}
+            />
             <Text className="text-2xl font-bold text-center mb-4">{item.title}</Text>
             <Text className="text-center">{item.desc}</Text>
           </View>

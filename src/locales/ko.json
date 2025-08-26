@@ -66,5 +66,7 @@
   "onboarding_title1": "환영합니다",
   "onboarding_desc1": "이 앱 베이스는 빠른 시작을 도와줍니다.",
   "onboarding_title2": "준비 완료",
-  "onboarding_desc2": "쉽게 기능을 추가하세요."
+  "onboarding_desc2": "쉽게 기능을 추가하세요.",
+  "retry": "재시도",
+  "required_field": "필수 항목입니다."
 }

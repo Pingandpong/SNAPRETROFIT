@@ -64,5 +64,7 @@
   "onboarding_title1": "Bienvenido",
   "onboarding_desc1": "Esta base de aplicación te ayuda a comenzar rápido.",
   "onboarding_title2": "Listo para construir",
-  "onboarding_desc2": "Agrega tus funciones fácilmente."
+  "onboarding_desc2": "Agrega tus funciones fácilmente.",
+  "retry": "Reintentar",
+  "required_field": "Campo obligatorio."
 }

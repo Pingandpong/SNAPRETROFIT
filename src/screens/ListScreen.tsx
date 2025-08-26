@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
-import { MOCK_DATA } from '../data/mockData';
+import { getMockDataPage, MOCK_DATA } from '../data/mockData';
 import { useTranslation } from 'react-i18next';
 import { commonStyles } from '../styles/commonStyles';
 import LoadingSkeleton from '../components/LoadingSkeleton';
@@ -19,17 +27,49 @@ type ListScreenProps = NativeStackScreenProps<RootStackParamList, 'List'>;
 
 const ListScreen = ({ navigation }: ListScreenProps) => {
   const { t } = useTranslation();
+  const [data, setData] = useState<(typeof MOCK_DATA)[0][]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
 
+  const loadData = (pageNumber: number, refresh = false) => {
+    if (refresh) {
+      setRefreshing(true);
+    } else if (pageNumber === 1) {
+      setLoading(true);
+    } else {
+      setLoadingMore(true);
+    }
+
+    setTimeout(() => {
+      const newData = getMockDataPage(pageNumber);
+      setData(prev => (pageNumber === 1 ? newData : [...prev, ...newData]));
+      setLoading(false);
+      setRefreshing(false);
+      setLoadingMore(false);
+      setPage(pageNumber);
+    }, 500);
+  };
+
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(timer);
+    loadData(1);
   }, []);
 
-  const filteredData = MOCK_DATA.filter(item =>
+  const filteredData = data.filter(item =>
     item.title.toLowerCase().includes(query.toLowerCase())
   );
+
+  const handleRefresh = () => {
+    loadData(1, true);
+  };
+
+  const handleLoadMore = () => {
+    if (!loadingMore && data.length < MOCK_DATA.length) {
+      loadData(page + 1);
+    }
+  };
 
   const renderItem = ({ item }: { item: (typeof MOCK_DATA)[0] }) => (
     <AnimatedCard>
@@ -80,6 +120,17 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={styles.listContentContainer}
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            onEndReached={handleLoadMore}
+            onEndReachedThreshold={0.2}
+            ListFooterComponent={
+              loadingMore ? (
+                <View style={styles.footer}>
+                  <ActivityIndicator color="#fff" />
+                </View>
+              ) : null
+            }
           />
         )}
       </SafeAreaView>
@@ -91,6 +142,9 @@ const styles = StyleSheet.create({
   ...commonStyles,
   listContentContainer: {
     paddingHorizontal: 24,
+  },
+  footer: {
+    paddingVertical: 16,
   },
   itemContainer: {
     flexDirection: 'row',
