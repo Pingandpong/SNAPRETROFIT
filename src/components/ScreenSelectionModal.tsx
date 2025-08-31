@@ -1,12 +1,5 @@
-import React, { useEffect } from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
+import React from 'react';
+import { Modal, View, Text, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { CompositeNavigationProp } from '@react-navigation/native';
@@ -15,12 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList, RootTabParamList } from '../navigation/types';
 import { useTranslation } from 'react-i18next';
 import { appTheme } from '../theme/gluestack-ui.theme';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  Easing,
-} from 'react-native-reanimated';
+// NOTE: animations removed for stability
 
 interface Props {
   visible: boolean;
@@ -38,6 +26,7 @@ const ScreenSelectionModal: React.FC<Props> = ({ visible, onClose, navigation })
     {icon: 'credit-card', title: t('payment_card_title'), desc: t('payment_card_description'), navigateTo: 'Payment' as const},
     {icon: 'settings', title: t('settings_title'), desc: t('settings_card_description'), navigateTo: 'Settings' as const},
     {icon: 'list', title: t('list_card_title'), desc: t('list_card_description'), navigateTo: 'List' as const},
+    {icon: 'wifi-off', title: t('status_examples_title'), desc: t('status_examples_description'), navigateTo: 'Status' as const},
     {icon: 'edit', title: t('create_edit_card_title'), desc: t('create_edit_card_description'), navigateTo: 'CreateEdit' as const},
     {icon: 'user', title: t('profile_card_title'), desc: t('profile_card_description'), navigateTo: 'Profile' as const},
   ] as const;
@@ -48,36 +37,22 @@ const ScreenSelectionModal: React.FC<Props> = ({ visible, onClose, navigation })
   };
 
   const cardDark = appTheme.tokens.colors.cardDark;
-  const textDark = appTheme.tokens.colors.textDark;
-  const textMuted = 'rgba(255,255,255,0.7)';
+  const textMuted = 'rgba(255,255,255,0.75)';
 
-  const scale = useSharedValue(0);
-
-  useEffect(() => {
-    if (visible) {
-      scale.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
-    } else {
-      scale.value = withTiming(0, { duration: 200, easing: Easing.in(Easing.ease) });
-    }
-  }, [visible]);
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scale.value }],
-    };
-  });
+  // no animation state
 
   return (
     <Modal
-      animationType="fade"
-      transparent={true}
+      animationType="none"
+      transparent={false}
+      presentationStyle="fullScreen"
       visible={visible}
       onRequestClose={onClose}
     >
       <View style={styles.backdrop}>
         <SafeAreaView style={styles.safe}>
-          <Animated.View style={[styles.card, { backgroundColor: cardDark }, animatedStyle]}>
-              <Text style={[styles.cardTitle, { color: textDark }]}>{t('screen_selection_title')}</Text>
+          <View style={[styles.card, { backgroundColor: cardDark }]}>
+              <Text style={[styles.cardTitle, { color: '#ffffff' }]}>{t('screen_selection_title')}</Text>
 
               {menu.map(item => (
                 <TouchableOpacity key={item.title} style={styles.row} onPress={() => handleNavigate(item.navigateTo)}>
@@ -88,23 +63,23 @@ const ScreenSelectionModal: React.FC<Props> = ({ visible, onClose, navigation })
                   </LinearGradient>
 
                   <View style={styles.textWrap}>
-                    <Text style={[styles.rowTitle, { color: textDark }]}>{item.title}</Text>
+                    <Text style={[styles.rowTitle, { color: '#ffffff' }]}>{item.title}</Text>
                     <Text style={[styles.rowDesc, { color: textMuted }]}>{item.desc}</Text>
                   </View>
 
-                  <Feather name="chevron-right" size={20} color={textDark} />
+                  <Feather name="chevron-right" size={20} color="#ffffff" />
                 </TouchableOpacity>
               ))}
-            </Animated.View>
 
-            <TouchableOpacity
-              style={styles.closeButton}
-              accessibilityRole="button"
-              accessibilityLabel={t('close')}
-              onPress={onClose}
-            >
-              <Feather name="x" size={28} color="#fff" />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.closeButton}
+                accessibilityRole="button"
+                accessibilityLabel={t('close')}
+                onPress={onClose}
+              >
+                <Feather name="x" size={28} color="#ffffff" />
+              </TouchableOpacity>
+            </View>
         </SafeAreaView>
       </View>
     </Modal>
@@ -125,12 +100,15 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '90%',
+    maxWidth: 420,
     borderRadius: 24,
     padding: 24,
     shadowColor: '#000',
     shadowOpacity: 0.4,
     shadowOffset: {width: 0, height: 8},
     shadowRadius: 16,
+    elevation: 8,
+    zIndex: 1,
   },
   cardTitle: {
     fontSize: 20,
@@ -161,8 +139,8 @@ const styles = StyleSheet.create({
     marginTop: 4
   },
   closeButton: {
-    position: 'absolute',
-    bottom: 48, // Positioned a bit higher
+    alignSelf: 'center',
+    marginTop: 12,
   },
 });
 

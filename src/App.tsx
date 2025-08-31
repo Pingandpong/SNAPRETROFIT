@@ -36,6 +36,22 @@ const Root = () => {
   );
 };
 
+// 온보딩 전용: 테마 컨텍스트를 받아 Gluestack 프로바이더를 적용
+const OnboardingRoot = ({ onFinish }: { onFinish: () => void }) => {
+  const { colorMode } = useTheme();
+  const isDarkMode = colorMode === 'dark';
+  const backgroundColor = isDarkMode ? '#000000' : '#FFFFFF';
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor }}>
+      <GluestackUIProvider config={appTheme} colorMode={colorMode}>
+        <StatusBar style={isDarkMode ? 'light' : 'dark'} />
+        <OnboardingScreen onFinish={onFinish} />
+      </GluestackUIProvider>
+    </SafeAreaView>
+  );
+};
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Roboto_100Thin,
@@ -92,7 +108,7 @@ export default function App() {
     return (
       <ThemeProvider>
         <ToastProvider>
-          <OnboardingScreen
+          <OnboardingRoot
             onFinish={() => {
               AsyncStorage.setItem('onboarded', 'true');
               setHasOnboarded(true);

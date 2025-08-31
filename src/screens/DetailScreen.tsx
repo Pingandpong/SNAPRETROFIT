@@ -34,7 +34,7 @@ const DetailScreen = ({ route, navigation }: DetailScreenProps) => {
           </TouchableOpacity>
           <Text style={commonStyles.headerTitle}>{item ? item.title : t('detail_screen_title')}</Text>
         </View>
-        <ScrollView style={styles.content}>
+        <ScrollView style={styles.scroll} contentContainerStyle={styles.contentContainer}>
           {item ? (
             <View>
               <View style={styles.imagePlaceholder} />
@@ -52,8 +52,11 @@ const DetailScreen = ({ route, navigation }: DetailScreenProps) => {
 
 const styles = StyleSheet.create({
   ...commonStyles,
-  content: {
-    ...commonStyles.content,
+  scroll: {
+    flex: 1,
+  },
+  contentContainer: {
+    padding: 24,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
   },

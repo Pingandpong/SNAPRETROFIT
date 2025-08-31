@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Switch } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, StyleSheet, Switch } from 'react-native';
 
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -8,10 +7,13 @@ import { RootStackParamList } from '../navigation/types';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { commonStyles } from '../styles/commonStyles';
 import AppButton from '../components/AppButton';
 import { useAppToast } from '../providers/ToastProvider';
 import AppHeader from '../components/AppHeader';
+import AppScreen from '../components/AppScreen';
+import SectionHeader from '../components/SectionHeader';
+import FormField from '../components/FormField';
+import { appTheme } from '../theme/gluestack-ui.theme';
 
 type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
@@ -44,65 +46,49 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
     );
   };
 
-  return (
-    <LinearGradient
-      colors={['#0b0e23', '#151929']}
-      style={commonStyles.container}>
-      <SafeAreaView style={commonStyles.safe}>
-        <AppHeader
-          title={t('settings_title')}
-          showBackButton
-          onBackPress={() => navigation.goBack()}
-        />
-        <View style={styles.content}>
-          <View style={styles.settingGroup}>
-            <Text style={styles.settingTitle}>{t('language_setting_title')}</Text>
-            <View style={styles.languageButtonsContainer}>
-              <LanguageButton lang="ko" langKey="change_to_korean" />
-              <LanguageButton lang="en" langKey="change_to_english" />
-            </View>
-            <View style={styles.languageButtonsContainer}>
-              <LanguageButton lang="ja" langKey="change_to_japanese" />
-              <LanguageButton lang="es" langKey="change_to_spanish" />
-            </View>
-          </View>
+  const textColor =
+    colorMode === 'dark'
+      ? appTheme.tokens.colors.textDark
+      : appTheme.tokens.colors.textLight;
 
-          <View style={styles.settingGroup}>
-            <Text style={styles.settingTitle}>{t('theme_setting_title')}</Text>
-            <View style={styles.themeSwitchContainer}>
-              <Text style={styles.themeSwitchLabel}>{t('dark_mode_label')}</Text>
-              <Switch
-                value={colorMode === 'dark'}
-                onValueChange={toggleColorMode}
-                trackColor={{ false: '#767577', true: '#81b0ff' }}
-                thumbColor={colorMode === 'dark' ? '#f5dd4b' : '#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
-                accessibilityLabel={t('dark_mode_toggle')}
-                accessibilityRole="switch"
-              />
-            </View>
-          </View>
+  return (
+    <AppScreen>
+      <AppHeader
+        title={t('settings_title')}
+        showBackButton
+        onBackPress={() => navigation.goBack()}
+      />
+
+      <SectionHeader title={t('language_setting_title')} />
+      <View style={styles.languageButtonsContainer}>
+        <LanguageButton lang="ko" langKey="change_to_korean" />
+        <LanguageButton lang="en" langKey="change_to_english" />
+      </View>
+      <View style={styles.languageButtonsContainer}>
+        <LanguageButton lang="ja" langKey="change_to_japanese" />
+        <LanguageButton lang="es" langKey="change_to_spanish" />
+      </View>
+
+      <SectionHeader title={t('theme_setting_title')} />
+      <FormField>
+        <View style={styles.themeSwitchContainer}>
+          <Text style={[styles.themeSwitchLabel, { color: textColor }]}>{t('dark_mode_label')}</Text>
+          <Switch
+            value={colorMode === 'dark'}
+            onValueChange={toggleColorMode}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            thumbColor={colorMode === 'dark' ? '#f5dd4b' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            accessibilityLabel={t('dark_mode_toggle')}
+            accessibilityRole="switch"
+          />
         </View>
-      </SafeAreaView>
-    </LinearGradient>
+      </FormField>
+    </AppScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  ...commonStyles,
-  content: {
-    flex: 1,
-    padding: 24,
-  },
-  settingGroup: {
-    marginBottom: 32,
-  },
-  settingTitle: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
   languageButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -112,12 +98,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.04)',
-    borderRadius: 12,
-    padding: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
   themeSwitchLabel: {
-    color: '#fff',
     fontSize: 16,
   },
 });

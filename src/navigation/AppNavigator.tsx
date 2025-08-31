@@ -8,6 +8,8 @@ import DetailScreen from '../screens/DetailScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CreateEditScreen from '../screens/CreateEditScreen';
 import PaymentScreen from '../screens/PaymentScreen';
+import ScreenPickerScreen from '../screens/ScreenPickerScreen';
+import StatusScreen from '../screens/StatusScreen';
 import { RootStackParamList } from './types';
 import { useTheme } from '../context/ThemeContext';
 import { appTheme } from '../theme/gluestack-ui.theme';
@@ -45,6 +47,16 @@ const AppNavigator = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="List" component={ListScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen
+          name="ScreenPicker"
+          component={ScreenPickerScreen}
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            contentStyle: { backgroundColor: 'transparent' },
+          }}
+        />
+        <Stack.Screen name="Status" component={StatusScreen} />
         <Stack.Screen name="Detail" component={DetailScreen} />
         <Stack.Screen name="CreateEdit" component={CreateEditScreen} />
         <Stack.Screen name="Payment" component={PaymentScreen} />

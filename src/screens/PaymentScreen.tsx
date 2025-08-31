@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import { RootStackParamList } from '../navigation/types';
 import { commonStyles } from '../styles/commonStyles';
 
 import { useTranslation } from 'react-i18next';
+import { useAppToast } from '../providers/ToastProvider';
 
 type PaymentScreenProps = NativeStackScreenProps<RootStackParamList, 'Payment'>;
 
@@ -24,8 +25,54 @@ const FeatureItem = ({ children }: { children: React.ReactNode }) => (
   </View>
 );
 
+const useCountUp = (value: number, duration = 500) => {
+  const [display, setDisplay] = useState(value);
+  const fromRef = useRef(value);
+  const startTs = useRef<number | null>(null);
+
+  useEffect(() => {
+    const from = fromRef.current;
+    const to = value;
+    let raf = 0;
+    startTs.current = null;
+    const step = (ts: number) => {
+      if (startTs.current == null) startTs.current = ts;
+      const p = Math.min(1, (ts - startTs.current) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const current = Math.round(from + (to - from) * eased);
+      setDisplay(current);
+      if (p < 1) raf = requestAnimationFrame(step);
+      else fromRef.current = to;
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [value, duration]);
+
+  return display;
+};
+
 const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
   const { t } = useTranslation();
+  const toast = useAppToast();
+  const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
+  const [selectedPlan, setSelectedPlan] = useState<null | 'basic' | 'premium'>(null);
+
+  const prices = useMemo(() => ({
+    monthly: { basic: 5000, premium: 10000 },
+    yearly: { basic: Math.round(5000 * 12 * 0.9), premium: Math.round(10000 * 12 * 0.85) },
+  }), []);
+
+  const basicTarget = prices[billing].basic;
+  const premiumTarget = prices[billing].premium;
+  const basicDisplay = useCountUp(basicTarget);
+  const premiumDisplay = useCountUp(premiumTarget);
+
+  const handleSelect = (plan: 'basic' | 'premium') => {
+    setSelectedPlan(plan);
+    const planName = plan === 'basic' ? t('basic_plan_title') : t('premium_plan_title');
+    const cycle = billing === 'monthly' ? t('per_month') : t('per_year');
+    toast({ title: `${planName} ${t('selected')}` , description: cycle });
+  };
   return (
     <LinearGradient
       colors={['#0b0e23', '#151929']}
@@ -38,35 +85,64 @@ const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
           <Text style={commonStyles.headerTitle}>{t('payment_screen_title')}</Text>
         </View>
         <ScrollView contentContainerStyle={styles.content}>
+          {/* Billing cycle toggle */}
+          <View style={styles.toggleWrap}>
+            <TouchableOpacity
+              onPress={() => setBilling('monthly')}
+              style={[styles.toggleBtn, billing === 'monthly' ? styles.toggleBtnActive : styles.toggleBtnInactive]}
+            >
+              <Text style={[styles.toggleText, billing === 'monthly' ? styles.toggleTextActive : styles.toggleTextInactive]}>
+                {t('billing_monthly')}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setBilling('yearly')}
+              style={[styles.toggleBtn, billing === 'yearly' ? styles.toggleBtnActive : styles.toggleBtnInactive]}
+            >
+              <Text style={[styles.toggleText, billing === 'yearly' ? styles.toggleTextActive : styles.toggleTextInactive]}>
+                {t('billing_yearly')}
+              </Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.introContainer}>
             <Text style={styles.introTitle}>{t('payment_intro_title')}</Text>
             <Text style={styles.introText}>{t('payment_intro_message')}</Text>
           </View>
 
-          <View style={styles.planCard}>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => handleSelect('basic')} style={[styles.planCard, selectedPlan === 'basic' && styles.planCardSelected]} accessibilityState={{ selected: selectedPlan === 'basic' }}>
             <Text style={styles.planTitle}>{t('basic_plan_title')}</Text>
-            <Text style={styles.planPrice}>{t('basic_plan_price')}</Text>
+            <Text style={styles.planPrice}>
+              {`$${basicDisplay.toLocaleString()}${billing === 'monthly' ? ` ${t('per_month')}` : ` ${t('per_year')}`}`}
+            </Text>
             <View style={styles.featuresContainer}>
               <FeatureItem>{t('basic_plan_feature1')}</FeatureItem>
               <FeatureItem>{t('basic_plan_feature2')}</FeatureItem>
             </View>
-            <TouchableOpacity style={styles.buttonOutline}>
-              <Text style={styles.buttonTextOutline}>{t('basic_plan_button')}</Text>
+            <TouchableOpacity style={[styles.buttonOutline, selectedPlan === 'basic' && styles.buttonOutlineDisabled]} disabled={selectedPlan === 'basic'} onPress={() => handleSelect('basic')}>
+              <Text style={[styles.buttonTextOutline, selectedPlan === 'basic' && styles.buttonTextMuted]}>{selectedPlan === 'basic' ? t('selected') : t('basic_plan_button')}</Text>
             </TouchableOpacity>
-          </View>
+            {selectedPlan === 'basic' ? (
+              <View style={styles.checkBadge}><Feather name="check" size={14} color="#fff" /></View>
+            ) : null}
+          </TouchableOpacity>
 
-          <View style={[styles.planCard, styles.premiumPlan]}>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => handleSelect('premium')} style={[styles.planCard, styles.premiumPlan, selectedPlan === 'premium' && styles.planCardSelected]} accessibilityState={{ selected: selectedPlan === 'premium' }}>
             <Text style={styles.planTitle}>{t('premium_plan_title')}</Text>
-            <Text style={styles.planPrice}>{t('premium_plan_price')}</Text>
+            <Text style={styles.planPrice}>
+              {`$${premiumDisplay.toLocaleString()}${billing === 'monthly' ? ` ${t('per_month')}` : ` ${t('per_year')}`}`}
+            </Text>
             <View style={styles.featuresContainer}>
               <FeatureItem>{t('premium_plan_feature1')}</FeatureItem>
               <FeatureItem>{t('premium_plan_feature2')}</FeatureItem>
               <FeatureItem>{t('premium_plan_feature3')}</FeatureItem>
             </View>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>{t('premium_plan_button')}</Text>
+            <TouchableOpacity style={[styles.button, selectedPlan === 'premium' && styles.buttonDisabled]} disabled={selectedPlan === 'premium'} onPress={() => handleSelect('premium')}>
+              <Text style={[styles.buttonText, selectedPlan === 'premium' && styles.buttonTextMuted]}>{selectedPlan === 'premium' ? t('selected') : t('premium_plan_button')}</Text>
             </TouchableOpacity>
-          </View>
+            {selectedPlan === 'premium' ? (
+              <View style={styles.checkBadge}><Feather name="check" size={14} color="#fff" /></View>
+            ) : null}
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     </LinearGradient>
@@ -82,6 +158,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 32,
   },
+  toggleWrap: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderRadius: 999,
+    padding: 4,
+    marginBottom: 16,
+  },
+  toggleBtn: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+    minWidth: 110,
+    alignItems: 'center',
+  },
+  toggleBtnActive: { backgroundColor: '#7d5cff' },
+  toggleBtnInactive: { backgroundColor: 'transparent' },
+  toggleText: { fontWeight: '600' },
+  toggleTextActive: { color: '#ffffff' },
+  toggleTextInactive: { color: 'rgba(255,255,255,0.8)' },
   introTitle: {
     color: '#fff',
     fontSize: 24,
@@ -93,10 +189,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   planCard: {
+    position: 'relative',
     backgroundColor: 'rgba(255,255,255,0.04)',
     borderRadius: 16,
     padding: 24,
     marginBottom: 24,
+  },
+  planCardSelected: {
+    borderWidth: 2,
+    borderColor: '#22c55e',
+    shadowColor: '#22c55e',
+    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 16,
   },
   premiumPlan: {
     borderColor: '#7d5cff',
@@ -132,10 +237,14 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
+  buttonDisabled: {
+    backgroundColor: 'rgba(125,92,255,0.6)',
+  },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
   },
+  buttonTextMuted: { color: 'rgba(255,255,255,0.8)' },
   buttonOutline: {
     borderColor: '#7d5cff',
     borderWidth: 1,
@@ -143,9 +252,24 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
+  buttonOutlineDisabled: {
+    borderColor: 'rgba(125,92,255,0.6)'
+  },
   buttonTextOutline: {
     color: '#7d5cff',
     fontWeight: 'bold',
+  },
+  checkBadge: {
+    position: 'absolute',
+    right: -6,
+    top: -6,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: '#22c55e',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 6,
   },
 });
 

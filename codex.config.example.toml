@@ -1,0 +1,20 @@
+# Codex CLI configuration (example)
+# Copy this file to your user home as:
+#   Windows: %USERPROFILE%\.codex\config.toml
+#   macOS/Linux: ~/.codex/config.toml
+
+# Enable verbose logs if needed
+# RUST_LOG can also be set in your shell env
+# e.g., setx RUST_LOG "codex_core=info,codex_tui=info" (Windows)
+
+[mcp_servers.screenshot]
+command = "python"
+args = ["-m", "screenshot_mcp_server.server.stdio"]
+# Optional extra environment variables
+# env = { "EXAMPLE" = "value" }
+
+# Notes:
+# 1) Ensure the server package is installed into your Python env:
+#    pip install -e mcp_servers/screenshot_mcp_server
+# 2) After saving config.toml, restart Codex CLI/extension to pick it up.
+
