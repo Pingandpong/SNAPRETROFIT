@@ -12,15 +12,15 @@
 - **Language**: TypeScript
 - **Navigation**: React Navigation
 - **Backend**: Firebase
-- **UI Framework**: Gluestack UI
-- **Fonts**: @expo-google-fonts/roboto
+- **UI Framework**: React Native's built-in components and StyleSheet (with Gluestack UI for specific elements)
+- **Fonts**: @expo-google-fonts/roboto, @expo-google-fonts/poppins
 
 ## 3. Project Structure
 
 - `index.ts`: The entry point of the application.
 - `src/`: Contains the main source code.
   - `App.tsx`: The root component of the application, which initializes Firebase, i18n and the main navigator.
-  - `components/`: Directory for reusable UI components (e.g., `AppCard.tsx`).
+  - `components/`: Directory for reusable UI components (e.g., `ScreenCard.tsx`).
   - `config/`: Configuration files, including Firebase setup (`firebaseConfig.ts`).
   - `context/`: Contains React context providers (e.g., `ThemeContext.tsx`).
   - `locales/`: Contains translation files for i18n (e.g., `ko.json`, `en.json`).
@@ -35,7 +35,7 @@
     - `ListScreen.tsx`: A generic list screen.
     - `CreateEditScreen.tsx`: A screen for creating or editing items.
     - `PaymentScreen.tsx`: A screen for handling payments.
-  - `services/`: Contains services like i18n setup (`i18n.ts`).
+  - `services/`: Contains services like i18n setup (`i18n.ts`, `notifications.ts`).
 - `package.json`: Lists project dependencies and scripts.
 - `tsconfig.json`: TypeScript compiler configuration.
 - `app.json`: Expo configuration file.
@@ -47,7 +47,7 @@
 - **UI Framework**: The UI is built upon **React Native's built-in components** and **StyleSheet** for a consistent and efficient development experience, moving away from Gluestack UI for core screen layouts. The application's overall UI has been redesigned to incorporate a **Neumorphism (Soft UI) style** with a consistent dark theme using `LinearGradient` backgrounds across all main screens.
 - **Layout & Responsiveness**: All screens now feature top padding (considering `SafeAreaView`) and global padding, ensuring UI elements are not obscured and have appropriate spacing. Content alignment (vertical/horizontal) has been adjusted for visual balance.
 - **Code Refactoring**: Styling code has been refactored to use `StyleSheet.create` and common styles have been extracted into `src/styles/commonStyles.ts` for improved consistency and maintainability.
-- **Development Environment Stability**: Resolved development environment configuration errors, including the missing `nativewind/babel` plugin in `babel.config.js`, `global.css` import path issues in `src/App.tsx`, and JSX structure errors in `AppCard.tsx` and `DetailScreen.tsx`. This ensures UI changes are applied stably.
+- **Development Environment Stability**: The development environment is configured for stability, with common setup issues resolved. This ensures UI changes are applied stably and the project is ready for immediate development.
 - **Internationalization (i18n)**: The app supports multiple languages (Korean, English, Japanese, Spanish) using `i18next`, ready for any project. **Expanded translation coverage** to include hardcoded strings in `CreateEditScreen.tsx`, `DetailScreen.tsx`, `PaymentScreen.tsx`, `ProfileScreen.tsx`, and `HomeScreen.tsx`, ensuring a fully localized experience.
 - **Theme Switching (Light/Dark Mode)**: A theme context (`ThemeContext.tsx`) and a UI toggle in the settings screen have been implemented. This allows users to switch between light and dark modes across the entire app.
 - **Ready-to-Use Firebase**: Firebase is fully configured (`firebaseConfig.ts`). While `app_base` itself does not implement features like Auth or Firestore, any project using this base can immediately start using Firebase services without initial setup.
@@ -68,7 +68,7 @@ This `GEMINI.md` file provides a clear and concise overview of the project, maki
 
 ## 한국어 요약
 
-이 프로젝트는 TypeScript 기반의 React Native 모바일 앱의 **재사용 가능한 베이스**입니다. Expo, Gluestack UI, 다국어(i18n), **라이트/다크 모드 테마 전환**, React Navigation, Firebase 설정 등 앱 개발에 필요한 핵심 기반이 미리 구축되어 있습니다. 또한, 목업 데이터를 활용한 **목록-상세 화면(List-Detail) 구현 예시**를 포함하여, 새로운 프로젝트에서 데이터 흐름과 내비게이션을 어떻게 구성할지에 대한 명확한 가이드를 제공합니다. **로그인이나 데이터 관리 등 특정 앱에 종속적인 기능은 의도적으로 제외**하여, 어떤 프로젝트든 이 베이스 위에서 빠르게 핵심 기능 개발을 시작할 수 있도록 하는 데 중점을 둡니다.
+이 프로젝트는 TypeScript 기반의 React Native 모바일 앱의 **재사용 가능한 베이스**입니다. Expo, React Native 내장 컴포넌트 및 StyleSheet (Gluestack UI는 특정 요소에 활용), 다국어(i18n), **라이트/다크 모드 테마 전환**, React Navigation, Firebase 설정, Roboto 및 Poppins 폰트 등 앱 개발에 필요한 핵심 기반이 미리 구축되어 있습니다. 또한, 목업 데이터를 활용한 **목록-상세 화면(List-Detail) 구현 예시**를 포함하여, 새로운 프로젝트에서 데이터 흐름과 내비게이션을 어떻게 구성할지에 대한 명확한 가이드를 제공합니다. 개발 환경은 안정적으로 구성되어 있으며, `i18n.ts`와 `notifications.ts`와 같은 핵심 서비스가 포함되어 있습니다. **로그인이나 데이터 관리 등 특정 앱에 종속적인 기능은 의도적으로 제외**하여, 어떤 프로젝트든 이 베이스 위에서 빠르게 핵심 기능 개발을 시작할 수 있도록 하는 데 중점을 둡니다.
 
 ## Gemini 지침
 

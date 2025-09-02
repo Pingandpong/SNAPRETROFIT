@@ -4,3 +4,4 @@ node_modules
 node_modules
 .env
 error.log
+.expo/web/cache/production/images/favicon/
