@@ -7,14 +7,15 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-import {Feather} from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { commonStyles } from '../styles/commonStyles';
 
 import { useTranslation } from 'react-i18next';
 import { useAppToast } from '../providers/ToastProvider';
+import { useSubscription } from '../context/SubscriptionContext';
 
 type PaymentScreenProps = NativeStackScreenProps<RootStackParamList, 'Payment'>;
 
@@ -54,6 +55,7 @@ const useCountUp = (value: number, duration = 500) => {
 const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
   const { t } = useTranslation();
   const toast = useAppToast();
+  const { buySubscription, restore, loading } = useSubscription();
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
   const [selectedPlan, setSelectedPlan] = useState<null | 'basic' | 'premium'>(null);
 
@@ -67,12 +69,23 @@ const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
   const basicDisplay = useCountUp(basicTarget);
   const premiumDisplay = useCountUp(premiumTarget);
 
-  const handleSelect = (plan: 'basic' | 'premium') => {
+  const handleSelect = async (plan: 'basic' | 'premium') => {
     setSelectedPlan(plan);
-    const planName = plan === 'basic' ? t('basic_plan_title') : t('premium_plan_title');
-    const cycle = billing === 'monthly' ? t('per_month') : t('per_year');
-    toast({ title: `${planName} ${t('selected')}` , description: cycle });
+    const result = await buySubscription(plan);
+    if (result.valid) {
+      toast({ title: t('success'), description: t('purchase_completed') });
+      navigation.goBack();
+    }
   };
+
+  const handleRestore = async () => {
+    const result = await restore();
+    if (result.valid) {
+      toast({ title: t('success'), description: t('restore_completed') });
+      navigation.goBack();
+    }
+  };
+
   return (
     <LinearGradient
       colors={['#0b0e23', '#151929']}
@@ -83,6 +96,9 @@ const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
             <Feather name="arrow-left" size={24} color="#fff" />
           </TouchableOpacity>
           <Text style={commonStyles.headerTitle}>{t('payment_screen_title')}</Text>
+          <TouchableOpacity onPress={handleRestore} disabled={loading}>
+            <Text style={{ color: '#7d5cff', fontWeight: 'bold' }}>{t('restore')}</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView contentContainerStyle={styles.content}>
           {/* Billing cycle toggle */}
@@ -109,7 +125,7 @@ const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
             <Text style={styles.introText}>{t('payment_intro_message')}</Text>
           </View>
 
-          <TouchableOpacity activeOpacity={0.9} onPress={() => handleSelect('basic')} style={[styles.planCard, selectedPlan === 'basic' && styles.planCardSelected]} accessibilityState={{ selected: selectedPlan === 'basic' }}>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => handleSelect('basic')} style={[styles.planCard, selectedPlan === 'basic' && styles.planCardSelected]} accessibilityState={{ selected: selectedPlan === 'basic' }} disabled={loading}>
             <Text style={styles.planTitle}>{t('basic_plan_title')}</Text>
             <Text style={styles.planPrice}>
               {`$${basicDisplay.toLocaleString()}${billing === 'monthly' ? ` ${t('per_month')}` : ` ${t('per_year')}`}`}
@@ -118,15 +134,15 @@ const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
               <FeatureItem>{t('basic_plan_feature1')}</FeatureItem>
               <FeatureItem>{t('basic_plan_feature2')}</FeatureItem>
             </View>
-            <TouchableOpacity style={[styles.buttonOutline, selectedPlan === 'basic' && styles.buttonOutlineDisabled]} disabled={selectedPlan === 'basic'} onPress={() => handleSelect('basic')}>
-              <Text style={[styles.buttonTextOutline, selectedPlan === 'basic' && styles.buttonTextMuted]}>{selectedPlan === 'basic' ? t('selected') : t('basic_plan_button')}</Text>
+            <TouchableOpacity style={[styles.buttonOutline, selectedPlan === 'basic' && styles.buttonOutlineDisabled]} disabled={loading} onPress={() => handleSelect('basic')}>
+              <Text style={[styles.buttonTextOutline, selectedPlan === 'basic' && styles.buttonTextMuted]}>{loading && selectedPlan === 'basic' ? 'Processing...' : t('basic_plan_button')}</Text>
             </TouchableOpacity>
             {selectedPlan === 'basic' ? (
               <View style={styles.checkBadge}><Feather name="check" size={14} color="#fff" /></View>
             ) : null}
           </TouchableOpacity>
 
-          <TouchableOpacity activeOpacity={0.9} onPress={() => handleSelect('premium')} style={[styles.planCard, styles.premiumPlan, selectedPlan === 'premium' && styles.planCardSelected]} accessibilityState={{ selected: selectedPlan === 'premium' }}>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => handleSelect('premium')} style={[styles.planCard, styles.premiumPlan, selectedPlan === 'premium' && styles.planCardSelected]} accessibilityState={{ selected: selectedPlan === 'premium' }} disabled={loading}>
             <Text style={styles.planTitle}>{t('premium_plan_title')}</Text>
             <Text style={styles.planPrice}>
               {`$${premiumDisplay.toLocaleString()}${billing === 'monthly' ? ` ${t('per_month')}` : ` ${t('per_year')}`}`}
@@ -136,8 +152,8 @@ const PaymentScreen = ({ navigation }: PaymentScreenProps) => {
               <FeatureItem>{t('premium_plan_feature2')}</FeatureItem>
               <FeatureItem>{t('premium_plan_feature3')}</FeatureItem>
             </View>
-            <TouchableOpacity style={[styles.button, selectedPlan === 'premium' && styles.buttonDisabled]} disabled={selectedPlan === 'premium'} onPress={() => handleSelect('premium')}>
-              <Text style={[styles.buttonText, selectedPlan === 'premium' && styles.buttonTextMuted]}>{selectedPlan === 'premium' ? t('selected') : t('premium_plan_button')}</Text>
+            <TouchableOpacity style={[styles.button, selectedPlan === 'premium' && styles.buttonDisabled]} disabled={loading} onPress={() => handleSelect('premium')}>
+              <Text style={[styles.buttonText, selectedPlan === 'premium' && styles.buttonTextMuted]}>{loading && selectedPlan === 'premium' ? 'Processing...' : t('premium_plan_button')}</Text>
             </TouchableOpacity>
             {selectedPlan === 'premium' ? (
               <View style={styles.checkBadge}><Feather name="check" size={14} color="#fff" /></View>

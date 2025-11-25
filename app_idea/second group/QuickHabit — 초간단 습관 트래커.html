@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QuickHabit — 초간단 습관 트래커</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>QuickHabit — 초간단 습관 트래커</h1>
+      <p>RN/Expo + Firebase · KR/EN 동시 타겟 · 1인 개발 즉시 출시용 MVP</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <ul>
+          <li><strong>핵심 JTBD:</strong> “매일 1분 이내로 <strong>습관을 체크</strong>하고, 성취감을 <strong>시각적 피드백</strong>으로 얻고 싶다.”</li>
+          <li><strong>최소 기능:</strong>
+            <ol>
+              <li>습관 생성(텍스트 + 아이콘/색상).</li>
+              <li>1탭 체크/해제(오늘의 목록).</li>
+              <li>일간·주간 달성률 <strong>미니 차트</strong>(스파크라인/도넛).</li>
+              <li>로컬 알림(<code>expo-notifications</code>), 조용한 시간 설정.</li>
+              <li>KR/EN 인터페이스 전환.</li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>Expo/RN</strong>: <code>expo-notifications</code> (알림), <code>expo-device</code>, <code>react-native-svg</code> (간단 차트), <code>react-hook-form</code></li>
+          <li><strong>Firebase</strong>: Auth(익명), Firestore(습관/체크 기록), Analytics, Remote Config(A/B)</li>
+          <li><strong>UI (Gluestack UI)</strong>: <code>Card</code> 리스트, <code>Button</code>/<code>Checkbox</code> 체크, <code>Progress</code>/<code>Badge</code> 달성률</li>
+          <li><strong>MCP 활용</strong>: 습관명/루틴 <strong>자동 제안</strong>(KR/EN), 동기부여 문구 생성, 스토어 ASO 카피 다국어화</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li><strong>무료+광고:</strong> 히스토리 화면 하단 배너, 습관 최대 5개.</li>
+          <li><strong>구독(월 ₩2,900):</strong> 광고 제거, 무제한 습관, 테마/아이콘, 위젯(후속).</li>
+          <li><strong>IAP:</strong> 테마/아이콘 팩 일회성 구매.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li><strong>한국:</strong> 자기계발·다이어트·스터디 등 라이트 유저용 “빠른 체크” 니즈 증가.</li>
+          <li><strong>글로벌:</strong> 무거운 기능 대신 <strong>1탭 체크</strong> 선호 트렌드 → 경량 앱 기회.</li>
+          <li><strong>실행 용이:</strong> 단순 CRUD + 로컬 알림 중심으로 1주 내 MVP 가능.</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <ul>
+          <li><strong>Habitica</strong> — 게임화 강하지만 무겁고 영어 비중 큼 → <strong>KR/EN 초경량·1탭 체크</strong> 특화</li>
+          <li><strong>Productive</strong> — 고급 기능·구독 압박 → <strong>무료 기본 충분</strong>, 광고는 히스토리에만</li>
+          <li><strong>Everyday / Streaks</strong> — iOS 중심·유료 위주 → <strong>Expo 기반 iOS/Android 동시</strong>, 저가 구독</li>
+          <li><strong>Loop Habit Tracker(Android)</strong> — 기능 풍부하나 UI 복잡 → <strong>미니 차트·간결 UI</strong>에 집중</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

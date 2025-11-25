@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Android 실시간 오버레이 번역 MVP 설계서</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Android 실시간 오버레이 번역 MVP 설계서</h1>
+      <p>다른 앱 화면의 텍스트를 인식→번역→원문 위 오버레이로 표시하는 1인 개발자용 MVP 설계</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <ul>
+          <li><strong>목표 & 비전:</strong> 앱 전환 없이 보이는 텍스트를 즉시 이해. 1차 타겟: 카톡/WhatsApp/인스타 DM/웹뷰 기반 채팅 사용자(한국+글로벌).</li>
+          <li><strong>사용자 스토리 & JTBD:</strong> 외국어 메시지를 즉시 이해하고 싶고, 번역문이 원문 위치에 맞춰 겹쳐보이길 원함. 배터리/프라이버시 우려 해소.</li>
+          <li><strong>기능 범위(MVP):</strong> 실시간 화면 캡처, 텍스트 인식(OCR), 번역(OpenAI GPT API), 오버레이 UI, 알림 번역(옵션), 설정, 히스토리.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>React Native + Expo</strong> (EAS 빌드로 네이티브 모듈 포함)</li>
+          <li><strong>UI:</strong> Gluestack UI</li>
+          <li><strong>OCR:</strong> ML Kit Text Recognition v2</li>
+          <li><strong>번역:</strong> OpenAI API (<code>gpt-4o-mini</code> 추천)</li>
+          <li><strong>상태:</strong> Zustand/Recoil, <strong>분석:</strong> Firebase Analytics + Crashlytics</li>
+          <li><strong>원격 구성:</strong> Firebase Remote Config, <strong>광고:</strong> Google Mobile Ads</li>
+          <li><strong>아키텍처 개요:</strong> RN은 제어·설정 UI와 상태표시 담당, 네이티브 Service는 프레임 파이프라인/오버레이/성능 튜닝 담당.</li>
+          <li><strong>네이티브 인터페이스:</strong> TypeScript (RN Bridge) 및 Kotlin (Android) 코드 스니펫 제공.</li>
+          <li><strong>Firebase 스키마:</strong> 사용자, 이벤트, 실험 데이터 구조 예시.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li><strong>무료+광고:</strong> 히스토리/설정 화면 배너(오버레이엔 미표시).</li>
+          <li><strong>구독:</strong> 광고 제거, 고속 번역, 히스토리 무제한, 사용자 사전.</li>
+          <li><strong>가격:</strong> 월 $3–5 (현지화).</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li><strong>성공지표:</strong> 평균 지연 ≤ 2초, 세션당 번역 ≥ 10회, D1 유지 ≥ 20%.</li>
+          <li><strong>7일 검증 플랜:</strong> 내부 테스트 후 커뮤니티 소프트런칭 (DAU≥20%, 세션당 번역≥10, 평균 지연≤2초 목표).</li>
+          <li><strong>ASO/마케팅:</strong>
+            <ul>
+              <li><strong>KR 키워드:</strong> 번역 오버레이, 카톡 번역, 화면 번역.</li>
+              <li><strong>EN 키워드:</strong> screen translator, chat overlay translate.</li>
+              <li><strong>크리에이티브 메시지:</strong> “다른 앱 위에 바로 번역”, “터치 없이 자동 번역”, “Instant translation on top of any app”.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <p>정보 없음</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

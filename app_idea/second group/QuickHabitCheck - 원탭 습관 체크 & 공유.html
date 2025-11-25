@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QuickHabitCheck - 원탭 습관 체크 & 공유</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>QuickHabitCheck - 원탭 습관 체크 & 공유</h1>
+      <p>KR/EN · RN/Expo · 1인 개발 적합</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <p>하루 목표를 <strong>원탭 체크</strong>하고 <strong>스트릭 배지</strong>·<strong>공유 카드</strong>로 성취감을 빠르게 공유.</p>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>RN/Expo:</strong> expo-notifications, expo-sharing, expo-localization, react-native-svg</li>
+          <li><strong>Firebase:</strong> Auth(익명), Firestore(체크 기록), Analytics, Remote Config</li>
+          <li><strong>UI:</strong> Gluestack UI(Card/Checkbox/Button/Badge)</li>
+          <li><strong>MCP:</strong> 동기 문구·KR↔EN 카드 카피 생성</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li>무료+배너 광고(체크 리스트)</li>
+          <li>구독(월 ₩2,900): 광고 제거·습관 무제한·프리미엄 테마</li>
+          <li>IAP: 테마 팩</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <p>습관앱 레드오션이지만 <strong>초간단 체크+공유</strong> 특화 수요 뚜렷</p>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <p>정보 없음</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

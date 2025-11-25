@@ -17,6 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ToastProvider } from './providers/ToastProvider';
 import OnboardingScreen from './screens/OnboardingScreen';
 import { SafeAreaView } from 'react-native';
+import { AuthProvider } from './context/AuthContext';
+import { SubscriptionProvider } from './context/SubscriptionContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -107,14 +109,18 @@ export default function App() {
   if (!hasOnboarded) {
     return (
       <ThemeProvider>
-        <ToastProvider>
-          <OnboardingRoot
-            onFinish={() => {
-              AsyncStorage.setItem('onboarded', 'true');
-              setHasOnboarded(true);
-            }}
-          />
-        </ToastProvider>
+        <AuthProvider>
+          <SubscriptionProvider>
+            <ToastProvider>
+              <OnboardingRoot
+                onFinish={() => {
+                  AsyncStorage.setItem('onboarded', 'true');
+                  setHasOnboarded(true);
+                }}
+              />
+            </ToastProvider>
+          </SubscriptionProvider>
+        </AuthProvider>
       </ThemeProvider>
     );
   }
@@ -123,10 +129,16 @@ export default function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <ToastProvider>
-          <Root />
-        </ToastProvider>
+        <AuthProvider>
+          <SubscriptionProvider>
+            <ToastProvider>
+              <Root />
+            </ToastProvider>
+          </SubscriptionProvider>
+        </AuthProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
 }
+
+

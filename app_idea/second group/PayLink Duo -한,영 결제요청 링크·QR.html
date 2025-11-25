@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PayLink Duo -한,영 결제요청 링크·QR</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>PayLink Duo -한,영 결제요청 링크·QR</h1>
+      <p>GEMINI.md 베이스 · RN/Expo + Firebase + Gluestack UI · 한/영 동시 타겟</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <ul>
+          <li><strong>핵심 JTBD:</strong> “품목/금액/통화만 넣으면 <strong>한글·영문 결제요청 페이지</strong>(링크/QR)가 즉시 생성되어 메신저·메일로 공유해 <strong>입금 안내</strong>를 깔끔하게 보내고 싶다.”</li>
+          <li><strong>최소 기능:</strong>
+            <ol>
+              <li><strong>요청 생성 폼</strong>: 품목명, 금액, 통화(KRW/USD), 수량, 마감일, 메모(선택).</li>
+              <li><strong>한/영 자동 페이지</strong>: 금액·마감일·계좌/결제수단 안내를 <strong>KR/EN 병기</strong>로 렌더.</li>
+              <li><strong>공유 수단</strong>: 앱 링크/짧은 URL(Firebase Dynamic Links) + <strong>QR 코드</strong>(이미지 저장/공유).</li>
+              <li><strong>결제수단 프리셋</strong>: 국내 계좌/토스/카카오페이 링크, 해외용 PayPal.me 등 <strong>외부 링크 연결</strong>.</li>
+              <li>(옵션) <strong>상태 표시</strong>: “요청 발송/입금 확인” 수동 토글, 간단 메모.</li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>Expo/RN</strong>: 빠른 배포(EAS), 권한 최소.</li>
+          <li><strong>라이브러리</strong>: <code>react-native-qrcode-svg</code>(QR), <code>i18next</code>(다국어), <code>dayjs</code>(날짜/타임존), <code>expo-sharing</code>, <code>expo-clipboard</code>.</li>
+          <li><strong>Firebase</strong>: Auth(익명/Google), Firestore(요청 메타), Storage(QR 이미지 선택), <strong>Dynamic Links</strong>(짧은 URL), Analytics/Remote Config, Functions(서버렌더/클릭 로깅).</li>
+          <li><strong>UI — Gluestack UI</strong>: <code>Card</code>(미리보기), <code>Input/Select</code>(폼), <code>Badge</code>(통화/상태), <code>Button</code>(공유/복사), <code>Sheet</code>(결제수단).</li>
+          <li><strong>MCP 활용</strong>: 입력값→<strong>KR/EN 안내문 자동 생성</strong>(정중/캐주얼), 통화/날짜 <strong>지역 규칙 변환</strong>, 스토어 <strong>ASO 카피 다국어</strong> 생성.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li><strong>무료+광고</strong>: 요청 페이지 하단 배너, 월 20건 생성 제한.</li>
+          <li><strong>구독(월 $2.49)</strong>: 광고 제거, <strong>브랜딩/로고</strong>, 커스텀 도메인 프리픽스, 템플릿 저장, 다국 통화.</li>
+          <li><strong>IAP</strong>: 1회 <strong>브랜딩 제거</strong>(요청 10건 팩), <strong>맞춤 문구 템플릿</strong> 팩.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li><strong>한국:</strong> 인스타/중고거래/DM 판매 확산 → 견적·입금 안내를 빠르고 깔끔하게 보내려는 니즈.</li>
+          <li><strong>글로벌:</strong> 한국 판매자 ↔ 해외 구매자(또는 반대) 간 <strong>양방향 KR/EN 안내</strong> 필요.</li>
+          <li><strong>실행 용이:</strong> 실제 결제 처리 없이도 <strong>링크·QR + 안내 문구</strong>만으로 가치 제공 → 1인 개발에 적합.</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <p>정보 없음</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

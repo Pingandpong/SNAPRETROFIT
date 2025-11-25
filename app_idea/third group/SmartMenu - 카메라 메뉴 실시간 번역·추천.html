@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SmartMenu - 카메라 메뉴 실시간 번역·추천</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>SmartMenu - 카메라 메뉴 실시간 번역·추천</h1>
+      <p>4–6주 내 MVP 출시를 목표로 한 1인 개발자 맞춤 설계</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <ul>
+          <li><strong>핵심 JTBD:</strong> “메뉴 사진을 찍으면 바로 번역·추천 받아서 주문을 쉽게 하고 싶다.”</li>
+          <li><strong>최소 기능:</strong>
+            <ul>
+              <li>카메라 실시간 메뉴 텍스트 인식(OCR)</li>
+              <li>즉시 번역 (다국어 → 한국어/영어)</li>
+              <li>대표 이미지/추천 메뉴 표시</li>
+              <li>즐겨찾기/최근 번역 내역 저장</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li>React Native + Expo (EAS 빌드, 네이티브 OCR 모듈 포함)</li>
+          <li>UI: Gluestack UI</li>
+          <li>OCR: Google ML Kit</li>
+          <li>번역: OpenAI GPT-4o-mini API</li>
+          <li>Firebase: Auth, Firestore, Analytics</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li>광고: 무료 번역 시 전면/배너 광고</li>
+          <li>구독: 광고 제거, 번역 속도 향상, 무제한 번역</li>
+          <li>IAP: 특정 언어팩 구매</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li>관광 회복 및 외식 트렌드 확산 → 외국인·외국어 메뉴 노출 증가</li>
+          <li>영어·중국어·일본어 메뉴 이해 어려움 → 즉시 번역 수요 상승</li>
+          <li>한국 외식업체의 외국인 고객 유치 증가</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <p>정보 없음</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

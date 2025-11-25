@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Half&Meet — 두 사람이 만날 ‘중간지점’ 추천</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Half&Meet — 두 사람이 만날 ‘중간지점’ 추천</h1>
+      <p>RN/Expo + Firebase · KR/EN 동시 타겟 · 1인 개발 즉시 출시용 MVP</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <ul>
+          <li><strong>핵심 JTBD:</strong> “두 위치를 넣으면 <strong>공평한 중간 후보</strong>를 <strong>카드 형태</strong>로 보여주고, <strong>메신저로 바로 공유</strong>하고 싶다.”</li>
+          <li><strong>최소 기능:</strong>
+            <ol>
+              <li><strong>두 위치 입력</strong>(현위치 + 주소 붙여넣기) & 카테고리 선택(카페/식사/디저트/조용한).</li>
+              <li><strong>후보 10개 카드</strong>: 양측 평균 이동시간, 평점, 가격대 아이콘, 영업중 여부.</li>
+              <li><strong>1탭 공유</strong>: 카톡/왓츠앱용 <strong>이미지/텍스트 카드</strong>(KR/EN).</li>
+              <li><strong>즐겨찾기·최근 기록</strong> 저장.</li>
+              <li><strong>길찾기 딥링크</strong>: Google · Naver · Kakao 지도 열기.</li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>Expo/RN:</strong> <code>expo-location</code> (현위치), <code>react-native-maps</code> (지도/마커), <code>@tanstack/react-query</code> (API 캐싱), <code>react-hook-form</code> (폼), <code>expo-linking</code> (지도 딥링크), <code>expo-sharing</code> (카드 공유), <code>react-native-svg</code> (미니 배지/아이콘)</li>
+          <li><strong>Firebase:</strong> Anonymous Auth, Firestore(즐겨찾기/최근), Analytics, Remote Config(A/B), (선택) Functions(API 키 프록시)</li>
+          <li><strong>Gluestack UI:</strong> <code>Card</code>, <code>Button</code>, <code>Select</code>, <code>Badge</code>, <code>Tabs</code>, <code>Skeleton</code>, <code>Toast</code></li>
+          <li><strong>MCP 활용:</strong> 시간대/날씨/카테고리로 <strong>추천 문구</strong> 생성, 상위 후보 <strong>장단점 요약</strong>, 스토어 <strong>ASO 카피</strong> 자동화</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li><strong>무료+광고:</strong> 결과 리스트 하단 배너, 1세션 2회 이하 제한.</li>
+          <li><strong>Pro 구독(월 ₩2,900):</strong> 광고 제거, 무제한 추천/즐겨찾기, 고급 필터(영업중/프랜차이즈 제외/가격대), 데이트 카드 테마.</li>
+          <li><strong>IAP:</strong> 프리미엄 카드 테마 팩(계절/미니멀/러블리).</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li><strong>한국:</strong> 데이트·스터디·점심 미팅에서 “중간에서 보자” 니즈 고정. 기존 지도앱은 <strong>두 출발지 기준 중간 후보</strong>를 원탭으로 추천하지 않음.</li>
+          <li><strong>글로벌:</strong> 리모트 근무·외곽 거주 증가로 <strong>공평 이동</strong> 수요 확대. 웹 도구는 있으나 한국어/모바일 네이티브 경험 약함.</li>
+          <li><strong>실행 용이:</strong> Google Places/Directions 기반 랭킹(거리 편차·평점·영업중)으로 <strong>1–2주 MVP</strong> 가능.</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <ul>
+          <li><strong>Google Maps</strong> — 길찾기 강점이나 <strong>두 출발지 중간 후보 자동 추천</strong> 부재 → <strong>중간지점 전용</strong> 과업 특화.</li>
+          <li><strong>KakaoMap / Naver Map</strong> — 로컬 강점이나 <strong>공평 추천·공유 카드</strong> 경험 약함 → <strong>1탭 공유·KR/EN 동시</strong>.</li>
+          <li><strong>Whatshalfway(웹)</strong> — 간단 웹 도구, 모바일 네이티브/카톡 공유 최적화 부족 → <strong>네이티브 공유·딥링크</strong> 강점.</li>
+          <li><strong>Between</strong> — 커플 커뮤니케이션 중심 → <strong>만남 장소 결정</strong> 문제에 집중.</li>
+          <li><strong>Meet Halfway류(스토어 다수)</strong> — 지역화/업데이트 미흡 사례 → <strong>한국어 우선·데이트 카드 테마</strong>로 차별화.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

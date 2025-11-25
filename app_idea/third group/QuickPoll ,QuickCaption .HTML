@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>모바일 앱 MVP 아이디어 (2개) - 간결 템플릿</title>
+<style>
+:root{--bg:#0e1117;--card:#151a23;--text:#e6edf3;--muted:#9aa7b5;--border:#232938;--accent:#7aa2f7}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR}
+.wrap{max-width:920px;margin:0 auto;padding:20px 14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:10px 0}
+.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 8px;font-size:12px;color:#cfe0ff}
+.h1{margin:0 0 6px;font-size:20px}
+.h2{margin:0 0 6px;font-size:16px;color:#cfe0ff}
+ul{margin:6px 0 0 18px;padding:0}
+li{margin:4px 0}
+.muted{color:var(--muted);font-size:12px;margin-top:6px}
+.hr{height:1px;background:linear-gradient(90deg,transparent, #2a3342, transparent);margin:18px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- IDEA 1 -->
+  <div class="card">
+    <div class="h1">① QuickPoll Card — 원탭 투표 & 결과 공유</div>
+    <div class="muted">KR/EN 동시 타겟 · RN/Expo · Firebase · 2–3화면 · 광고 우선</div>
+  </div>
+
+  <div class="card">
+    <div class="h2">왜-지금 (한국/글로벌)</div>
+    <ul>
+      <li>단톡방 의사결정(약속 시간/메뉴/여행코스) 수요↑, 외부 폼은 무겁고 로그인/긴 링크 부담 → 초경량 <b>한 문장 투표</b> 필요.</li>
+      <li>짧은 주기 바이럴(공유 카드/링크)로 유입 자체가 마케팅이 되는 구조, <b>빠른 수익 검증</b>에 유리.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">타겟 페르소나 & JTBD</div>
+    <ul>
+      <li><b>페르소나:</b> 18–34세 단톡방 사용자(친구/동아리/소모임), 영어는 소통 보조 수준.</li>
+      <li><b>JTBD:</b> “지금 당장 투표 하나 만들고 결과를 보기 좋게 공유해서 결정을 빠르게 끝내고 싶다.”</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">최소 기능 (3–5)</div>
+    <ul>
+      <li>① 질문 1개 + 보기 최대 4개 생성(예/아니오 프리셋 포함)</li>
+      <li>② <b>KR↔EN 자동 이중언어</b> 질문/보기 보정 (토글)</li>
+      <li>③ 링크/카드 공유(뷰 캡처) · 결과 실시간 카운트</li>
+      <li>④ 기기당 1표(익명 인증) · 만료시간(24시간) 프리셋</li>
+      <li>⑤ 최근 투표 3개 보기(로컬/Firestore)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">RN/Expo/Firebase 적합성</div>
+    <ul>
+      <li><b>Expo:</b> <code>expo-localization</code>, <code>expo-haptics</code>, <code>expo-sharing</code>, <code>react-native-view-shot</code></li>
+      <li><b>Firebase:</b> Auth(익명) · Firestore(투표/표) · Analytics · Dynamic Links(선택)</li>
+      <li><b>UI(Gluestack):</b> <code>@/components/ui/</code>의 <em>Input, RadioGroup, Button, Card, Badge, Progress, Toast</em></li>
+      <li><b>MCP 활용:</b> 질문/보기 <em>간결·이중언어</em> 리라이트, 공유 카피 생성, NSFW 필터링</li>
+      <li><b>구조:</b> 1) 만들기 → 2) 결과(공유) → 3) 최근 · 화면 2~3개로 끝</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">수익 모델</div>
+    <ul>
+      <li><b>광고:</b> 결과 화면 배너(+선택: 공유 직후 인터스티셜) </li>
+      <li><b>구독(₩2,900/월):</b> 광고 제거, 동시 활성 투표 5개, 프리미엄 테마</li>
+      <li><b>IAP:</b> 카드 테마 팩(모던/레트로/파스텔)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">7일 검증 플랜</div>
+    <ul>
+      <li><b>핵심 가설:</b> “설치자의 ≥40%가 첫 투표를 만들고, ≥30%가 공유하며, 투표당 평균 ≥6표가 모인다.”</li>
+      <li><b>실험:</b> KR/EN 스토어 2개 타이틀/아이콘 A/B, 온보딩(팁/건너뛰기) A/B</li>
+      <li><b>메트릭:</b> CPI ≤ ₩1,800, Create Rate ≥ 40%, Share Rate ≥ 30%, Avg Votes ≥ 6, D1 ≥ 20%</li>
+      <li><b>트래픽:</b> Google Ads UAC(한국/글로벌 혼합), 예산 소액 분산</li>
+      <li><b>중단 기준:</b> 150 installs 후 <em>Create &lt; 25%</em> 또는 <em>Avg Votes &lt; 3</em>이면 피벗/중단</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">초기 마케팅(ASO/크리에이티브)</div>
+    <ul>
+      <li><b>ASO(EN 기본):</b> Title “QuickPoll Card: One‑Tap Group Vote” · KR 부제 “단톡방 투표 끝.”</li>
+      <li><b>키워드:</b> poll, vote, group, decision, 투표, 단톡, 약속</li>
+      <li><b>영상 가설:</b> 6초 쇼츠 — 질문 입력 → 보기 선택 → 결과 카드 공유(한/영 토글)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">리스크 & 중단 기준</div>
+    <ul>
+      <li>어뷰징/부적절 질문 → <b>MCP 필터+키워드 블럭</b>, 신고 버튼</li>
+      <li>표 수집 저조 → 링크 대신 <b>카드 공유</b> 기본값으로 전환</li>
+      <li>수익 저조 → 인터스티셜 빈도 상향 A/B (불편도 모니터)</li>
+    </ul>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- IDEA 2 -->
+  <div class="card">
+    <div class="h1">② QuickCaption Duo — 한/영 캡션·해시태그 생성</div>
+    <div class="muted">KR/EN 동시 타겟 · RN/Expo · 2화면 · 광고→구독 전환</div>
+  </div>
+
+  <div class="card">
+    <div class="h2">왜-지금 (한국/글로벌)</div>
+    <ul>
+      <li>숏폼 제작 증가, “글감 빈곤”/영어 캡션 부담 지속 → <b>한/영 짝 캡션</b> 수요 명확.</li>
+      <li>짧은 세션 체류 + 재생성 반복 구조 → <b>광고 노출 효율</b> 우수.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">타겟 페르소나 & JTBD</div>
+    <ul>
+      <li><b>페르소나:</b> 16–29 크리에이터/자영업 소셜 운영자(영어 미숙, 업로드 잦음)</li>
+      <li><b>JTBD:</b> “사진·키워드만 주면 당장 써먹을 <b>바로 복사</b> 캡션(한/영)과 해시태그가 필요하다.”</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">최소 기능 (3–5)</div>
+    <ul>
+      <li>① 키워드 2–3개 입력 → 톤(귀여움/재치/깔끔) 선택</li>
+      <li>② <b>KR/EN 10개 캡션</b> + 관련 해시태그 세트 3개</li>
+      <li>③ 한 탭 복사 · 카드 공유(뷰 캡처)</li>
+      <li>④ 즐겨찾기 보관(로컬/Firestore)</li>
+      <li>⑤ 히스토리 10개 저장</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">RN/Expo/Firebase 적합성</div>
+    <ul>
+      <li><b>Expo:</b> <code>expo-clipboard</code>, <code>expo-haptics</code>, <code>expo-sharing</code>, <code>expo-localization</code>, <code>react-native-view-shot</code></li>
+      <li><b>Firebase:</b> Firestore(즐겨찾기) · Analytics · Remote Config(A/B)</li>
+      <li><b>UI(Gluestack):</b> <em>Input, Select, Button, Card, Tabs, Toast, Badge</em></li>
+      <li><b>MCP 활용:</b> 톤별 캡션 생성, <b>KR↔EN 동시 출력</b>, 금지어/상표 필터, 해시태그 제안</li>
+      <li><b>구조:</b> 홈(입력) ↔ 결과(리스트/공유) · 2화면</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">수익 모델</div>
+    <ul>
+      <li><b>광고:</b> 결과 리스트 배너 + 스크롤 중 네이티브</li>
+      <li><b>구독(₩3,500/월):</b> 광고 제거, 무제한 생성, 고급 톤(브랜디드/스토리텔링)</li>
+      <li><b>IAP:</b> 카드 템플릿 팩(비즈/카페/뷰티)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">7일 검증 플랜</div>
+    <ul>
+      <li><b>가설:</b> “설치자의 ≥60%가 첫 캡션을 생성하고 ≥40%가 복사/공유한다.”</li>
+      <li><b>메트릭:</b> CPI ≤ ₩1,500, Generate ≥ 60%, Copy/Share ≥ 40%, D1 ≥ 15%, 구독 트라이얼 ≥ 2%</li>
+      <li><b>실험:</b> 톤 프리셋 3종 vs 1종, 캡션 길이 짧/중 A/B</li>
+      <li><b>중단 기준:</b> 150 installs 후 <em>Generate &lt; 30%</em> 또는 <em>Copy &lt; 20%</em>면 피벗</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">초기 마케팅(ASO/크리에이티브)</div>
+    <ul>
+      <li><b>ASO(EN 기본):</b> Title “QuickCaption Duo: KR‑EN Captions” · KR 부제 “한/영 캡션 한 번에”</li>
+      <li><b>키워드:</b> caption, hashtag, instagram, tiktok, 캡션, 해시태그</li>
+      <li><b>영상 가설:</b> “카페 데이트 → 10초 안에 10개 캡션 생성 → 한 탭 복사” 흐름</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="h2">리스크 & 중단 기준</div>
+    <ul>
+      <li>출력 품질 변동 → 톤·길이 프롬프트 튜닝, 금지어 리스트 강화</li>
+      <li>남용/스팸 → 생성 쿨다운, 신고/블럭 키워드</li>
+      <li>수익 저조 → 구독 혜택 재구성(해시태그 분석, 저장 슬롯 확대)</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

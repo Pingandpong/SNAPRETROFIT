@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SnapFocus — 25/5 초간단 포커스 타이머</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>SnapFocus — 25/5 초간단 포커스 타이머</h1>
+      <p>RN/Expo + Firebase · KR/EN 동시 타겟 · 1인 개발 즉시 출시용 MVP</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <ul>
+          <li><strong>핵심 JTBD:</strong> “앱을 열면 <strong>원탭으로 집중 시작</strong>하고, 끝나면 <strong>짧은 보상/통계</strong>로 성취감을 느끼고 싶다.”</li>
+          <li><strong>최소 기능:</strong>
+            <ol>
+              <li><strong>원탭 25/5 타이머</strong>(25분 집중/5분 휴식) + 진동/알림 전환.</li>
+              <li><strong>세션 로그 & 미니 통계</strong>(오늘 집중 시간, 스트릭 배지).</li>
+              <li><strong>사운드/햅틱 피드백</strong> 및 <strong>화면 항상 켜짐</strong>.</li>
+              <li><strong>KR/EN 전환</strong> 원클릭.</li>
+              <li>(선택) 프리셋 3종(25/5, 50/10, 90/15).</li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>Expo/RN:</strong> <code>expo-notifications</code> (로컬 알림), <code>expo-keep-awake</code> (화면 유지), <code>expo-haptics</code> (전환 피드백), <code>expo-localization</code>, <code>@react-native-async-storage/async-storage</code> (로컬 로그), <code>react-native-reanimated</code>, <code>react-native-svg</code> (스파크라인)</li>
+          <li><strong>Firebase:</strong> Auth(익명), Firestore(세션 요약/백업), Analytics(이탈 구간), Remote Config(A/B)</li>
+          <li><strong>Gluestack UI:</strong> <code>Button</code>, <code>Card</code>, <code>Progress</code>, <code>Badge</code>, <code>Tabs</code>, <code>Toast</code></li>
+          <li><strong>MCP 활용:</strong> 온보딩에서 <strong>하루 목표(분) 추천</strong>, 세션 종료 <strong>짧은 동기 문구</strong> KR/EN 생성, 스토어 <strong>ASO 카피</strong> 자동화</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li><strong>무료+광고:</strong> 세션 <strong>종료</strong> 화면 하단 배너(집중 중 무광고).</li>
+          <li><strong>구독(월 ₩2,900):</strong> 광고 제거, 커스텀 길이/사운드, 주간 리포트, (후속) 홈 위젯.</li>
+          <li><strong>IAP:</strong> 사운드/배지 테마 팩.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li><strong>한국:</strong> 공시/자격증·부트캠프 등 학습 수요 지속, “Study with me” 문화 → <strong>원탭 포커스</strong> 니즈 큼.</li>
+          <li><strong>글로벌:</strong> 무거운 생산성 앱 포화. <strong>초경량 타이머 + 스트릭 보상</strong> 수요 존재.</li>
+          <li><strong>실행 용이:</strong> 타이머·알림·간단 통계 중심이라 <strong>1주 내 MVP</strong> 가능.</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <ul>
+          <li><strong>Forest</strong> — 나무 키우기 게임화는 강점이나 비교적 무거움 → <strong>원탭/초경량</strong> 실행성.</li>
+          <li><strong>Focus To-Do</strong> — 작업관리+포모도로 결합으로 복잡 → <strong>타이머 단일 과업</strong>에 집중.</li>
+          <li><strong>Tide</strong> — 사운드/명상 중심 → <strong>측정 가능한 세션/스트릭</strong>에 포커스.</li>
+          <li><strong>Goodtime</strong> — 미니멀 강점, 영어 중심 → <strong>KR/EN 동시</strong> + <strong>종료 화면 광고</strong>로 즉시 수익화.</li>
+          <li><strong>멜론/유튜브 타이머 활용</strong> — 우회 사용 사례 → <strong>집중 전용 UX</strong>와 <strong>보상 피드백</strong> 제공.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

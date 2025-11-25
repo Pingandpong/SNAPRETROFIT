@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MoodSnap - 한 줄 감정 카드 공유 앱</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>MoodSnap - 한 줄 감정 카드 공유 앱</h1>
+      <p>KR/EN 타겟 · RN/Expo · 1인 개발 적합</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <p>오늘 기분을 <strong>한 줄로 입력</strong>하면 AI가 <strong>감정(긍/부/중립)</strong>을 분류하고 <strong>한·영 카드</strong>로 만들어 <strong>메신저/SNS</strong>에 원탭 공유.</p>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>RN/Expo:</strong> expo-sharing, expo-localization, expo-haptics, react-native-svg</li>
+          <li><strong>Firebase:</strong> Auth(익명), Firestore(기록), Analytics, Remote Config(A/B)</li>
+          <li><strong>UI:</strong> Gluestack UI(Card/Badge/Button/Tabs/Toast)</li>
+          <li><strong>MCP:</strong> 감정 라벨링·요약 문구, KR↔EN 번역, ASO 카피</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li><strong>무료+광고:</strong> 최근 기록 리스트 하단 배너</li>
+          <li><strong>구독(월 ₩3,500):</strong> 광고 제거, 무제한 기록, 고급 감정 분석, CSV</li>
+          <li><strong>IAP:</strong> 카드 테마 팩(미니멀/컬러/레트로)</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li><strong>한국:</strong> 감정 기록/셀프케어 트렌드 지속, 일기앱 작성 피로 → <strong>초경량 한 줄 기록</strong> 수요</li>
+          <li><strong>글로벌:</strong> Daylio/Reflectly는 무거움·영어 중심 → <strong>경량 UX + 양방향 카드</strong>로 틈새 공략</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <p>정보 없음</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

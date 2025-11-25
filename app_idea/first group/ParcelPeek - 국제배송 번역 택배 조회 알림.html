@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ParcelPeek - 국제배송 번역 택배 조회 알림</title>
+<style>
+  :root { --bg:#0b0c10; --panel:#111318; --card:#151821; --text:#e8ecf1; --muted:#9aa4b2; --primary:#4f9cff; --primary-weak:rgba(79,156,255,.1); --success:#46d38e; --warn:#f6c350; --danger:#ff6b6b; --border:#222636; }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0f1117 40%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans KR,Apple SD Gothic Neo,Arial,sans-serif}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+  header{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px; margin-bottom: 16px;}
+  header h1{margin:0 0 4px;font-size:24px}
+  header p{margin:0;color:var(--muted); font-size: 14px;}
+  section.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  h2{margin-top:0;font-size:20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 12px;}
+  ul{list-style:none;padding-left:0}
+  li{position:relative;padding-left:24px;margin-bottom:8px; color: #d9e1ec}
+  li:before{content:"✓";position:absolute;left:0;top:2px;color:var(--primary);}
+  p{color:#d9e1ec}
+  strong{color: var(--success);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>ParcelPeek - 국제배송 번역 택배 조회 알림</h1>
+      <p>GEMINI.md 베이스 · RN/Expo + Firebase + Gluestack UI · 한/영 동시 타겟</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>앱 개요 및 핵심 기능</h2>
+        <ul>
+          <li><strong>핵심 JTBD:</strong> “운송장 번호(또는 상태 스샷)를 넣으면, 택배사가 달라도 진행 상황을 <strong>표준 타임라인</strong>으로 보여주고 어려운 상태 메시지를 <strong>한·영 생활어</strong>로 설명해 주며 단계별 <strong>푸시 알림</strong>을 받고 싶다.”</li>
+          <li><strong>최소 기능:</strong>
+            <ol>
+              <li><strong>입력</strong>: 운송장 붙여넣기 / 스크린샷 OCR / 바코드 스캔(<code>expo-barcode-scanner</code>).</li>
+              <li><strong>상태 수집·표준화</strong>: CJ/롯데/한진/우체국/DHL/UPS/FedEx 등 선택 → <strong>도착/통관/배송중/완료</strong> 스키마 매핑.</li>
+              <li><strong>한·영 쉬운 설명</strong>: 약어/전문용어를 <strong>생활어</strong>로 재해석(예: In transit → 이동 중, 다음 허브로 이동).</li>
+              <li><strong>푸시 알림</strong>: 통관 시작/지연, 배송 출발/완료 트리거.</li>
+              <li>(옵션) <strong>타임라인·ETA</strong>: 허브 경로와 간단 ETA(룰/회귀).</li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><strong>Expo</strong>: <code>expo-barcode-scanner</code>, <code>expo-image-picker</code>, <code>expo-notifications</code>, <code>expo-clipboard</code>.</li>
+          <li><strong>상태 조회</strong>: 1차는 <strong>사용자 택배사 선택 + 운송장</strong> → Cloud Functions에서 <strong>공식 페이지 HTML 파싱</strong> 또는 서드파티 트래킹 API 어댑터.</li>
+          <li><strong>OCR 폴백</strong>: 실패 시 스샷 OCR → 텍스트 파싱.</li>
+          <li><strong>LLM/룰 하이브리드</strong>: 로컬 JSON 룰로 코드→표준상태 매핑 + <code>gpt-4o-mini</code>로 <strong>KR/EN 쉬운 문장</strong> 재작성.</li>
+          <li><strong>Firebase</strong>: Auth(익명/Google), Firestore(트래킹/타임라인), Functions(크론·조회·번역), Storage(스샷), Analytics/Remote Config(A/B).</li>
+          <li><strong>UI (Gluestack UI)</strong>: <code>Card</code>(현재 상태), <code>Badge</code>(표준 상태), 커스텀 <code>Timeline</code>, <code>Button</code>(알림 토글), <code>Sheet</code>(택배사 선택).</li>
+          <li><strong>MCP</strong>: 상태 텍스트→<strong>표준 JSON</strong> 변환 템플릿, <strong>KR/EN 설명</strong> 자동 생성, 다국어 ASO 카피 생성.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>수익 모델</h2>
+        <ul>
+          <li><strong>무료+광고</strong>: 최대 3개 트래킹 저장, 상태 화면 하단 배너.</li>
+          <li><strong>구독(월 $1.99~2.99)</strong>: 광고 제거, <strong>무제한 트래킹</strong>, 우선 조회(짧은 폴링), 통관 지연 특수 알림.</li>
+          <li><strong>IAP</strong>: <strong>해외 특급 모니터링</strong> 24시간 패스(고빈도 체크).</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>시장성 (왜 지금?)</h2>
+        <ul>
+          <li><strong>한국:</strong> 해외직구·역직구·중고거래 증가 → 택배사/용어 제각각, 상태 이해 어려움.</li>
+          <li><strong>글로벌:</strong> 한국↔해외 배송 모두 다루는 <strong>양방향 KR/EN 상태 설명</strong> 니즈 상시.</li>
+          <li><strong>틈새:</strong> 기존 트래킹 앱은 영문 약어/직역 중심 → <strong>생활어로 풀어주는 ‘설명형’</strong> 수요.</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>주요 경쟁 앱 및 차별점</h2>
+        <p>정보 없음</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
