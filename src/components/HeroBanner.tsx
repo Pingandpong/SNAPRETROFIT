@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 const HeroBanner = () => {
   const { t } = useTranslation();
-  const [start, end] = useToken('colors', ['heroStart', 'heroEnd']);
+  const [start, end] = useToken('colors', ['heroStart', 'heroEnd'] as any);
 
   return (
     <LinearGradient

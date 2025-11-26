@@ -8,7 +8,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-na
 export type AppButtonVariant = 'primary' | 'secondary' | 'outline' | 'link';
 export type AppButtonSize = 'sm' | 'md' | 'lg';
 
-interface Props extends ComponentProps<typeof Button> {
+interface Props extends Omit<ComponentProps<typeof Button>, 'variant'> {
   title: string;
   variant?: AppButtonVariant;
   size?: AppButtonSize;

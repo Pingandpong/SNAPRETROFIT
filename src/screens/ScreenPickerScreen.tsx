@@ -14,12 +14,12 @@ const ScreenPickerScreen = ({ navigation }: Props) => {
   const { t } = useTranslation();
 
   const menu = [
-    {icon: 'credit-card', title: t('payment_card_title'), desc: t('payment_card_description'), navigateTo: 'Payment' as const},
-    {icon: 'settings', title: t('settings_title'), desc: t('settings_card_description'), navigateTo: 'Settings' as const},
-    {icon: 'list', title: t('list_card_title'), desc: t('list_card_description'), navigateTo: 'List' as const},
-    {icon: 'wifi-off', title: t('status_examples_title'), desc: t('status_examples_description'), navigateTo: 'Status' as const},
-    {icon: 'edit', title: t('create_edit_card_title'), desc: t('create_edit_card_description'), navigateTo: 'CreateEdit' as const},
-    {icon: 'user', title: t('profile_card_title'), desc: t('profile_card_description'), navigateTo: 'Profile' as const},
+    { icon: 'credit-card', title: t('payment_card_title'), desc: t('payment_card_description'), navigateTo: 'Payment' as const },
+    { icon: 'settings', title: t('settings_title'), desc: t('settings_card_description'), navigateTo: 'Settings' as const },
+    { icon: 'list', title: t('list_card_title'), desc: t('list_card_description'), navigateTo: 'List' as const },
+    { icon: 'wifi-off', title: t('status_examples_title'), desc: t('status_examples_description'), navigateTo: 'Status' as const },
+    { icon: 'edit', title: t('create_edit_card_title'), desc: t('create_edit_card_description'), navigateTo: 'CreateEdit' as const },
+    { icon: 'user', title: t('profile_card_title'), desc: t('profile_card_description'), navigateTo: 'Profile' as const },
   ] as const;
 
   const cardDark = appTheme.tokens.colors.cardDark;
@@ -40,7 +40,7 @@ const ScreenPickerScreen = ({ navigation }: Props) => {
       <Pressable style={StyleSheet.absoluteFill} onPress={() => navigation.goBack()} />
       <Animated.View style={[styles.card, { backgroundColor: cardDark }, cardStyle]}>
         {menu.map(item => (
-          <TouchableOpacity key={item.title as string} style={styles.row} onPress={() => navigation.navigate(item.navigateTo)}>
+          <TouchableOpacity key={item.title as string} style={styles.row} onPress={() => navigation.navigate(item.navigateTo as any)}>
             <LinearGradient colors={['#7d5cff', '#5d3aff']} style={styles.iconBox}>
               <Feather name={item.icon} size={24} color="#fff" />
             </LinearGradient>

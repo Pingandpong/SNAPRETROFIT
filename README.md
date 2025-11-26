@@ -1,102 +1,138 @@
-# app_base: React Native & Expo Boilerplate
+# SnapRetrofit 개발 가이드
 
-`app_base` is a robust and reusable boilerplate for building mobile applications with React Native and Expo. It's designed to provide a solid foundation, allowing developers to quickly kickstart new projects by focusing on core features rather than initial setup.
+## 현재 완료된 작업 ✅
 
-## ✨ Features
+### Phase 1: 환경 설정 (완료)
+-  프로젝트 구조 생성 
+-  TypeScript 타입 정의
+-  Supabase 클라이언트 서비스
+-  OpenAI 서비스 (Vision API + GPT-4o)
+-  RAG 서비스 (벡터 검색)
+-  SQL 스키마 작성
 
--   **Framework**: React Native with Expo
--   **Language**: TypeScript
--   **Navigation**: React Navigation (with centralized type definitions)
--   **Backend**: Firebase (fully configured, ready for integration)
--   **UI/Styling**: React Native's built-in components and StyleSheet, incorporating a Neumorphism (Soft UI) style with a consistent dark theme. Gluestack UI is used for specific elements.
--   **Internationalization (i18n)**: Multi-language support (Korean, English, Japanese, Spanish) using `i18next`.
--   **Theme Switching**: Light/Dark mode toggle via `ThemeContext`.
--   **Example Flow**: Mock data-driven List-Detail navigation flow.
--   **Development Environment**: Stable and pre-configured for immediate development.
+## 다음 단계 (사용자 작업 필요)
 
-## 🚀 Getting Started
+### 1. Supabase 프로젝트 생성 🔧
 
-To get a copy of the project up and running on your local machine for development and testing purposes.
+1. https://supabase.com 접속
+2. "New Project" 클릭
+3. 프로젝트 이름: `snapretrofit`
+4. Database Password 설정 (안전하게 보관!)
+5. Region: `Northeast Asia (Seoul)` 선택
+6. "Create new project" 클릭
 
-### Prerequisites
+### 2. SQL 스키마 실행 📊
 
-Make sure you have Node.js, npm (or Yarn), and Expo CLI installed.
+1. Supabase Dashboard → SQL Editor
+2. `src/supabase_schema.sql` 파일 내용 복사
+3. SQL Editor에 붙여넣기
+4. "Run" 클릭
+5. 성공 메시지 확인
+
+### 3. Storage 버킷 생성 📁
+
+1. Supabase Dashboard → Storage
+2. "Create a new bucket" 클릭
+3. Name: `scan-images`
+4. Public: `OFF` (비공개)
+5. "Create bucket" 클릭
+
+### 4. 환경 변수 설정 🔑
+
+프로젝트 루트에 `.env` 파일 생성:
 
 ```bash
-npm install -g expo-cli
+# OpenAI API (https://platform.openai.com/api-keys)
+OPENAI_API_KEY=sk-...
+
+# Supabase (Dashboard → Settings → API)
+SUPABASE_URL=https://xxxxx.supabase.co
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
-### Installation
+### 5. 샘플 리베이트 데이터 삽입 (선택사항) 💾
 
-1.  Clone the repository:
-    ```bash
-    git clone [YOUR_REPOSITORY_URL]
-    cd app_base
-    ```
-2.  Install dependencies:
-    ```bash
-    npm install
-    ```
-
-### Running the App
-
--   **Start Development Server**:
-    ```bash
-    npm start
-    ```
--   **Run on Android**:
-    ```bash
-    npm run android
-    ```
--   **Run on iOS**:
-    ```bash
-    npm run ios
-    ```
--   **Run on Web**:
-    ```bash
-    npm run web
-    ```
-
-## 📂 Project Structure
-
-```
-.
-├── src/
-│   ├── App.tsx                 # Root component, initializes Firebase, i18n, navigator
-│   ├── components/             # Reusable UI components (e.g., ScreenCard.tsx)
-│   ├── config/                 # Configuration files (e.g., firebaseConfig.ts)
-│   ├── context/                # React context providers (e.g., ThemeContext.tsx)
-│   ├── data/                   # Mock data
-│   ├── locales/                # Translation files (ko.json, en.json, ja.json, es.json)
-│   ├── navigation/             # React Navigation setup (AppNavigator.tsx, types.ts)
-│   ├── providers/              # React context providers (e.g., ToastProvider.tsx)
-│   ├── screens/                # Application screens (HomeScreen.tsx, SettingsScreen.tsx, etc.)
-│   ├── services/               # Services (i18n.ts, notifications.ts)
-│   ├── styles/                 # Common styles (commonStyles.ts)
-│   └── theme/                  # UI theme configuration
-├── app.json                    # Expo configuration
-├── package.json                # Project dependencies and scripts
-├── tsconfig.json               # TypeScript configuration
-└── ...                         # Other configuration files and assets
+```typescript
+// 터미널에서 실행
+npm run seed-rebates
 ```
 
-## 💡 Usage as a Base
+또는 수동으로:
+1. `src/services/rag.ts` 파일의 `sampleRebates` 참고
+2. 각 리베이트를 `ragService.embedAndStoreRebate()` 함수로 저장
 
-This `app_base` is intentionally kept free of specific business logic. To build your application:
+## 테스트 방법 🧪
 
--   **Add New Screens/Features**: Create new files in `src/screens/` and integrate them into `src/navigation/AppNavigator.tsx`.
--   **Manage State**: Utilize React Context for global state or local component state. For complex state management, consider integrating libraries like Redux, Zustand, or Jotai.
--   **Extend i18n**: Add new keys to `src/locales/*.json` files and use the `useTranslation` hook.
--   **Firebase Integration**: Start using Firebase services (Auth, Firestore, etc.) directly, as it's already configured.
+### 1. Supabase 연결 테스트
 
-## 🤝 Contributing
+```typescript
+import { supabase } from './src/services/supabase';
 
-Contributions are welcome! If you have suggestions for improving this base, please open an issue or submit a pull request.
+// 연결 테스트
+const { data, error } = await supabase.from('scans').select('count');
+console.log('Supabase connected:', !error);
+```
 
-## 📄 License
+### 2. OpenAI API 테스트
 
-[Specify your license here, e.g., MIT License]
+```typescript
+import { openaiService } from './src/services/openai';
 
-## 🇰🇷 한국어 요약
+// 임베딩 테스트
+const embedding = await openaiService.createEmbedding('테스트');
+console.log('OpenAI connected:', embedding.length === 1536);
+```
 
-이 프로젝트는 React Native와 Expo 기반의 모바일 앱 개발을 위한 **재사용 가능한 기본 템플릿**입니다. TypeScript, React Navigation, Firebase 설정, 다국어(i18n), 라이트/다크 모드 테마 전환 등 핵심 기능이 미리 구축되어 있습니다. 특정 비즈니스 로직은 제외되어 있어, 새로운 앱 개발 시 이 베이스 위에서 빠르게 시작할 수 있습니다.
+## 프로젝트 구조 📂
+
+```
+src/
+├── screens/              # (다음 단계) 화면 컴포넌트
+│   ├── CameraScreen.tsx
+│   ├── ReportScreen.tsx
+│   └── PaywallScreen.tsx
+├── services/             # 완료
+│   ├── supabase.ts      # Supabase 클라이언트
+│   ├── openai.ts        # OpenAI API
+│   └── rag.ts           # RAG 검색
+├── types/                # 완료
+│   └── index.ts         # TypeScript 타입
+├── utils/                # (다음 단계) 유틸리티
+│   ├── imageAnalysis.ts
+│   └── reportGenerator.ts
+├── components/           # (다음 단계) 재사용 컴포넌트
+├── supabase_schema.sql   #  완료
+└── ENV_SETUP.md          #  완료
+```
+
+## 다음 개발 단계 (Day 3-4)
+
+### Phase 4: 카메라 UX
+- [ ] CameraScreen 구현
+- [ ] 촬영 가이드 UI
+- [ ] 품질 체크 로직
+- [ ] Supabase Storage 업로드
+
+### Phase 5: RAG 및 리포트
+- [ ] 이미지 분석 통합
+- [ ] RAG 검색 통합
+- [ ] 리포트 생성 UI
+- [ ] PDF 생성
+
+## 문제 해결 🔧
+
+### "Supabase URL is required" 에러
+→ `.env` 파일에 `SUPABASE_URL` 추가 확인
+
+### "OpenAI API Key is required" 에러
+→ `.env` 파일에 `OPENAI_API_KEY` 추가 확인
+
+### Vector 검색이 작동하지 않음
+→ Supabase에서 `vector` 확장이 활성화되었는지 확인
+
+## 참고 문서 📚
+
+- [Supabase 공식 문서](https://supabase.com/docs)
+- [OpenAI API 문서](https://platform.openai.com/docs)
+- [Expo Camera 문서](https://docs.expo.dev/versions/latest/sdk/camera/)
+- [README_SNAPRETROFIT.md](../README_SNAPRETROFIT.md) - 전체 프로젝트 개요

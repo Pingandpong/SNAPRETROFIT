@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app_base",
-    "slug": "app_base",
+    "name": "SnapRetrofit",
+    "slug": "snapretrofit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.chouj.snapretrofit"
     },
     "android": {
       "adaptiveIcon": {
@@ -21,11 +22,13 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.chouj.app_base"
+      "package": "com.chouj.snapretrofit"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-notifications"]
+    "plugins": [
+      "expo-notifications"
+    ]
   }
 }

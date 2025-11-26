@@ -1,6 +1,5 @@
 import '../global.css';
 import i18next from './services/i18n';
-import './config/firebaseConfig';
 import AppNavigator from './navigation/AppNavigator';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { StatusBar } from 'expo-status-bar';
